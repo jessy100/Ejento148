@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MAINMENU_HPP
+#define _MAINMENU_HPP
+
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include <list>
@@ -17,3 +19,5 @@ private:
 	MenuResult HandleClick(int x, int y);
 	std::list<MenuItem> _menuItems;
 };
+
+#endif
