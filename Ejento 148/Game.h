@@ -15,6 +15,7 @@ private:
 	static void ShowSplashScreen();
 	static void ShowMenu();
 	static void ExitGame();
+	static void PlayLevel();
 
 	enum GameState {
 		Uninitialized, ShowingSplash, Paused,

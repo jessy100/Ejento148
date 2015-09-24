@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "MainMenu.h"
 #include "SplashScreen.h"
+#include "Player.h"
+#include "Level.h"
 
 void Game::Start(void) {
 	if (_gameState != Uninitialized)
@@ -28,19 +30,16 @@ void Game::ShowMenu() {
 	MainMenu::MenuResult result = mainMenu.Show(_mainWindow);
 
 	switch (result) {
-	case MainMenu::Exit:
-		_gameState = Game::Exiting;
-		break;
-
-	case MainMenu::Play:
-		_gameState = Game::Playing;
-		break;
+		case MainMenu::Exit:
+			_gameState = Game::Exiting;
+			break;
+		case MainMenu::Play:
+			_gameState = Game::Playing;
+			break;
 	}
 }
 
-void Game::ExitGame() {
-	exit(0);
-}
+void Game::ExitGame() { exit(0); }
 
 bool Game::IsExiting() {
 	if (_gameState == Game::Exiting)
@@ -49,42 +48,34 @@ bool Game::IsExiting() {
 		return false;
 }
 
+void Game::PlayLevel() {
+	Level level;
+	level.Show(_mainWindow);
+}
+
 void Game::GameLoop() {
 	sf::Event currentEvent;
 	while (_mainWindow.waitEvent(currentEvent)) {
 		switch (_gameState) {
-		case Game::ShowingMenu: {
-			ShowMenu();
-			break;
-		}
-		case Game::ShowingSplash: {
-			ShowSplashScreen();
-			break;
-		}
-		case Game::Exiting: {
-			ExitGame();
-			break;
-		}
-		case Game::Playing: {
-			sf::Event currentEvent;
-			while (_mainWindow.waitEvent(currentEvent)) {
-				_mainWindow.clear(sf::Color(0, 0, 0));
-				_mainWindow.display();
-
-				if (currentEvent.type == sf::Event::Closed) {
-					_gameState = Game::Exiting;
-				}
-
-				if (currentEvent.type == sf::Event::KeyPressed) {
-					if (currentEvent.key.code == sf::Keyboard::Escape) ShowMenu();
-				}
+			case Game::ShowingMenu: {
+				ShowMenu();
+				break;
 			}
-			break;
-		}
+			case Game::ShowingSplash: {
+				ShowSplashScreen();
+				break;
+			}
+			case Game::Exiting: {
+				ExitGame();
+				break;
+			}
+			case Game::Playing: {
+				PlayLevel();
+				break;
+			}
 		}
 	}
 }
-
 
 Game::GameState Game::_gameState = Uninitialized;
 sf::RenderWindow Game::_mainWindow;

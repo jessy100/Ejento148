@@ -5,7 +5,7 @@
 
 class Player {
 public:
-	Player(std::string n, float s, int l);
+	Player(sf::Vector2f, std::string n, float s, int l);
 
 	std::string getName();
 	void setName(std::string);
@@ -14,8 +14,11 @@ public:
 	int getLives();
 	void setLives(int);
 
-	void draw(sf::RenderWindow);
+	void draw(sf::RenderWindow &window);
 private:
+	sf::Texture texture;
+	sf::Sprite sprite;
+	sf::Vector2f position;
 	std::string name;
 	float speed;
 	int lives;
