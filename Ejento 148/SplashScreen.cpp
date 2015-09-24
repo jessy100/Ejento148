@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SplashScreen.h"
 
-void SplashScreen::Show(sf::RenderWindow &renderWindow) {
+void SplashScreen::Show(sf::RenderWindow &window) {
 	sf::Texture texture;
 	if (!(texture.loadFromFile("resources/images/SplashScreen.png"))) { return; }
 
@@ -9,12 +9,12 @@ void SplashScreen::Show(sf::RenderWindow &renderWindow) {
 	sprite.setTexture(texture);
 	sprite.setScale(0.5, 0.5);
 
-	renderWindow.draw(sprite);
-	renderWindow.display();
+	window.draw(sprite);
+	window.display();
 
 	sf::Event event;
 	while (true) {
-		while (renderWindow.waitEvent(event)) {
+		while (window.waitEvent(event)) {
 			if (event.type == sf::Event::EventType::KeyPressed || event.type == sf::Event::EventType::MouseButtonPressed || event.type == sf::Event::EventType::Closed) {
 				return;
 			}

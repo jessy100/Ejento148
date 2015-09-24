@@ -6,8 +6,8 @@ void Level::Show(sf::RenderWindow &window) {
 	Player player(sf::Vector2f(0, 0), "Steve",
 		80.0, 3); // Only for test, remove this
 
-	sf::Event currentEvent;
-	while (window.waitEvent(currentEvent)) {
+	//sf::Event currentEvent;
+	while (playingLevel) {
 		window.clear();
 		player.update(window);
 		window.display();
@@ -22,3 +22,5 @@ void Level::Show(sf::RenderWindow &window) {
 		}*/
 	}
 }
+
+void Level::setPlayingLevel(bool p) { playingLevel = p; }

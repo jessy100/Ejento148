@@ -90,9 +90,7 @@ void Player::update(sf::RenderWindow &window) {
 	animation.move(movement * frameTime.asSeconds());
 
 	// if no key was pressed stop the animation
-	if (noKeyWasPressed) {
-		animation.stop();
-	}
+	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true; 
 	
 	// Update the animation and draw it

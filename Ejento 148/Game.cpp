@@ -6,35 +6,35 @@
 #include "Level.h"
 
 void Game::Start(void) {
-	if (_gameState != Uninitialized)
+	if (gameState != Uninitialized)
 		return;
 
-	_mainWindow.create(sf::VideoMode(1024, 768, 32), "Ejento 148");
-	_gameState = Game::ShowingSplash;
+	window.create(sf::VideoMode(1024, 768, 32), "Ejento 148");
+	gameState = Game::ShowingSplash;
 
 	while (!IsExiting()) {
 		GameLoop();
 	}
 
-	_mainWindow.close();
+	window.close();
 }
 
 void Game::ShowSplashScreen() {
 	SplashScreen splashScreen;
-	splashScreen.Show(_mainWindow);
-	_gameState = Game::ShowingMenu;
+	splashScreen.Show(window);
+	gameState = Game::ShowingMenu;
 }
 
 void Game::ShowMenu() {
 	MainMenu mainMenu;
-	MainMenu::MenuResult result = mainMenu.Show(_mainWindow);
+	MainMenu::MenuResult result = mainMenu.Show(window);
 
 	switch (result) {
 		case MainMenu::Exit:
-			_gameState = Game::Exiting;
+			gameState = Game::Exiting;
 			break;
 		case MainMenu::Play:
-			_gameState = Game::Playing;
+			gameState = Game::Playing;
 			break;
 	}
 }
@@ -42,7 +42,7 @@ void Game::ShowMenu() {
 void Game::ExitGame() { exit(0); }
 
 bool Game::IsExiting() {
-	if (_gameState == Game::Exiting)
+	if (gameState == Game::Exiting)
 		return true;
 	else
 		return false;
@@ -50,13 +50,13 @@ bool Game::IsExiting() {
 
 void Game::PlayLevel() {
 	Level level;
-	level.Show(_mainWindow);
+	level.Show(window);
 }
 
 void Game::GameLoop() {
 	sf::Event currentEvent;
-	while (_mainWindow.waitEvent(currentEvent)) {
-		switch (_gameState) {
+	while (window.waitEvent(currentEvent)) {
+		switch (gameState) {
 			case Game::ShowingMenu: {
 				ShowMenu();
 				break;
@@ -77,5 +77,5 @@ void Game::GameLoop() {
 	}
 }
 
-Game::GameState Game::_gameState = Uninitialized;
-sf::RenderWindow Game::_mainWindow;
+Game::GameState Game::gameState = Uninitialized;
+sf::RenderWindow Game::window;

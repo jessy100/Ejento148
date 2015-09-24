@@ -7,7 +7,10 @@
 class Level {
 public:
 	void Show(sf::RenderWindow& window);
+
+	void setPlayingLevel(bool);
 private:
+	bool playingLevel = true;
 };
 
 #endif
