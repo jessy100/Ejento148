@@ -1,5 +1,3 @@
-
-
 #include "stdafx.h"
 #include "Level.h"
 #include "Player.h"
@@ -57,11 +55,14 @@ void Level::Show(sf::RenderWindow &window) {
 			for (int j = 0; j < loadCounter.y; j++) {
 				if (map[i][j].x != -1 && map[i][j].y != -1) {
 					
-				//	std::cout << "i: " << i << "j: " << j << "\n";
 					tiles.setPosition(i * 32, j * 32);
-
-
 					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));
+					
+			
+
+					if (player.CheckCollision(tiles.getGlobalBounds())) {
+						std::cout << "I (s)hit a brick";
+					}
 
 					window.draw(tiles);
 				}
@@ -70,16 +71,6 @@ void Level::Show(sf::RenderWindow &window) {
 		
 		window.display();
 
-		
-
-		/*if (currentEvent.type == sf::Event::Closed) {
-			_gameState = Game::Exiting;
-		}
-		if (currentEvent.type == sf::Event::KeyPressed) {
-			if (currentEvent.key.code == sf::Keyboard::Escape) {
-				ShowMenu();
-			}
-		}*/
 	}
 }
 

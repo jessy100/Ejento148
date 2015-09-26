@@ -9,6 +9,8 @@
 Player::Player(sf::Vector2f pos, std::string n, float s, int l) : 
 	position(pos), name(n), speed(s), lives(l)
 {
+
+
 	if (!texture.loadFromFile("resources/images/player.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
@@ -88,7 +90,6 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 	animation.move(movement * frameTime.asSeconds());
-
 	// if no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true; 
@@ -97,3 +98,14 @@ void Player::update(sf::RenderWindow &window) {
 	animation.update(frameTime);
 	draw(window);
 }
+
+bool Player::CheckCollision(sf::FloatRect collider) {
+	
+
+	if (collider.contains(animation.getPosition().x, animation.getPosition().y)) {
+		return true;
+	}
+	
+
+}
+

@@ -16,6 +16,8 @@ public:
 	int getLives();
 	void setLives(int);
 	void Player::setAnimation(Animation &);
+	void Player::gravity();
+	bool CheckCollision(sf::FloatRect collider);
 
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
