@@ -43,7 +43,7 @@ void Level::Load() {
 
 
 void Level::Show(sf::RenderWindow &window) {
-	Player player(sf::Vector2f(0, 0), "Steve",
+	Player player(sf::Vector2f(100, 100), "Steve",
 		80.0, 3); // Only for test, remove this
 
 	//sf::Event currentEvent;
@@ -56,18 +56,19 @@ void Level::Show(sf::RenderWindow &window) {
 				if (map[i][j].x != -1 && map[i][j].y != -1) {
 					
 					tiles.setPosition(i * 32, j * 32);
-					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));
-					
-			
+					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));				
 
-					if (player.CheckCollision(tiles.getGlobalBounds())) {
-						std::cout << "I (s)hit a brick";
+					
+					//sf::sleep(sf::milliseconds(30));
+					if (player.CheckCollision(sf::IntRect(i * 32, j * 32, 32, 32))) {
+						std::cout << i * 32 << " " << j * 32 << "\n";		
 					}
 
 					window.draw(tiles);
 				}
 			}
 		}
+		
 		
 		window.display();
 

@@ -9,7 +9,7 @@
 Player::Player(sf::Vector2f pos, std::string n, float s, int l) : 
 	position(pos), name(n), speed(s), lives(l)
 {
-
+	speed = 200;
 
 	if (!texture.loadFromFile("resources/images/player.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
@@ -56,13 +56,13 @@ void Player::setLives(int l) { lives = l; }
 void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
 void Player::draw(sf::RenderWindow &window) {
-	// Draw a circle
+
 	window.draw(animation);
 }
 
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
-
+	playerRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 32, 32);
 	// If a key was pressed set the correct animation and move correctly
 	// Move this to a proper inputhandler
 	// Choppy movement atm
@@ -90,6 +90,8 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 	animation.move(movement * frameTime.asSeconds());
+	
+	
 	// if no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true; 
@@ -99,13 +101,18 @@ void Player::update(sf::RenderWindow &window) {
 	draw(window);
 }
 
-bool Player::CheckCollision(sf::FloatRect collider) {
+bool Player::CheckCollision(sf::IntRect collider) {
 	
-
-	if (collider.contains(animation.getPosition().x, animation.getPosition().y)) {
+	if (collider.intersects(playerRect)) {
+		animation.setPosition(animation.getPosition().x, collider.top - 32) ;
 		return true;
 	}
 	
-
 }
+
+void Player::gravity() {
+	
+}
+	
+
 

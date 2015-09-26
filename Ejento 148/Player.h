@@ -17,7 +17,8 @@ public:
 	void setLives(int);
 	void Player::setAnimation(Animation &);
 	void Player::gravity();
-	bool CheckCollision(sf::FloatRect collider);
+	bool CheckCollision(sf::IntRect collider);
+
 
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
@@ -25,6 +26,7 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Vector2f position;
+	sf::IntRect playerRect;
 	std::string name;
 	float speed;
 	int lives;
