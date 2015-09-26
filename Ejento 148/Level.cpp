@@ -19,21 +19,21 @@ void Level::Load() {
 			std::string str;
 			openFile >> str;
 
-			//x is character before comma, 2 is character after comma
+			// x is character before comma, 2 is character after comma
 			char x = str[0], y = str[2];
 
-			//Check if found characters are digits. If not, set to -1 -1 to ignore when drawing.
-			//Use x - '0' to prevent conversion to ascii
+			// Check if found characters are digits. If not, set to -1 -1 to ignore when drawing.
+			// Use x - '0' to prevent conversion to ascii
 			if (!isdigit(x) || !isdigit(y))
 				map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1, -1);
 			else
 				map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0', y - '0');
 
-			//check if next character is new line if true, increment y counter, if not increment x counter.
+			// Check if next character is new line if true, increment y counter, if not increment x counter.
 			if (openFile.peek() == '\n') {
 				loadCounter.x = 0;
 				loadCounter.y++;
-			}else {
+			} else {
 				loadCounter.x++;
 			}
 		}
@@ -49,7 +49,6 @@ void Level::Show(sf::RenderWindow &window) {
 	//sf::Event currentEvent;
 	while (playingLevel) {
 		window.clear();
-		player.update(window);
 		
 		for (int i = 0; i < loadCounter.x; i++) {
 			for (int j = 0; j < loadCounter.y; j++) {
@@ -58,8 +57,6 @@ void Level::Show(sf::RenderWindow &window) {
 					tiles.setPosition(i * 32, j * 32);
 					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));
 					
-			
-
 					if (player.CheckCollision(tiles.getGlobalBounds())) {
 						std::cout << "I (s)hit a brick";
 					}
@@ -68,7 +65,8 @@ void Level::Show(sf::RenderWindow &window) {
 				}
 			}
 		}
-		
+
+		player.update(window);
 		window.display();
 
 	}

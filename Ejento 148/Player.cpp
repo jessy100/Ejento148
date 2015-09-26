@@ -90,7 +90,7 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 	animation.move(movement * frameTime.asSeconds());
-	// if no key was pressed stop the animation
+	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true; 
 	
@@ -100,12 +100,8 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 bool Player::CheckCollision(sf::FloatRect collider) {
-	
-
 	if (collider.contains(animation.getPosition().x, animation.getPosition().y)) {
 		return true;
 	}
-	
-
 }
 

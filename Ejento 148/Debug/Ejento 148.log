@@ -1,16 +1,11 @@
-﻿Build started 9/26/2015 2:51:36 PM.
-     1>Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" on node 2 (Build target(s)).
+﻿Build started 26/09/2015 15:14:14.
+     1>Project "C:\Users\Aydin\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Level.cpp Player.cpp
-         Player.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
          Level.cpp
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\level.cpp(58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\player.cpp(110): warning C4715: 'Player::CheckCollision': not all control paths return a value
-         Skipping... (no relevant changes detected)
-         Game.cpp
+     1>c:\users\aydin\desktop\ejento148\ejento148\ejento 148\level.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:/SFML-2.1/lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Aydin\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:/SFML-2.1/lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Aydin\Desktop\ejento148\Ejento148\Debug\Ejento 148.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Aydin\Desktop\ejento148\Ejento148\Debug\Ejento 148.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
          "Debug\Ejento 148.obj"
          Debug\Game.obj
@@ -19,9 +14,9 @@
          Debug\Player.obj
          Debug\SplashScreen.obj
          Debug\stdafx.obj
-         Ejento 148.vcxproj -> C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe
-     1>Done Building Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" (Build target(s)).
+         Ejento 148.vcxproj -> C:\Users\Aydin\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe
+     1>Done Building Project "C:\Users\Aydin\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.77
+Time Elapsed 00:00:02.93
