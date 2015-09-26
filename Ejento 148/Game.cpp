@@ -50,6 +50,7 @@ bool Game::IsExiting() {
 
 void Game::PlayLevel() {
 	Level level;
+	level.Load();
 	level.Show(window);
 }
 
@@ -59,6 +60,7 @@ void Game::GameLoop() {
 		switch (gameState) {
 			case Game::ShowingMenu: {
 				ShowMenu();
+				
 				break;
 			}
 			case Game::ShowingSplash: {
