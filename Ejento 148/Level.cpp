@@ -57,12 +57,7 @@ void Level::Show(sf::RenderWindow &window) {
 					
 					tiles.setPosition(i * 32, j * 32);
 					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));				
-
-					
-					//sf::sleep(sf::milliseconds(30));
-					if (player.CheckCollision(sf::IntRect(i * 32, j * 32, 32, 32))) {
-						std::cout << i * 32 << " " << j * 32 << "\n";		
-					}
+					player.CheckCollision(sf::IntRect(i * 32, j * 32, 32, 32));
 
 					window.draw(tiles);
 				}

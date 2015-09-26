@@ -70,6 +70,7 @@ void Player::update(sf::RenderWindow &window) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		setAnimation(walkingAnimationUp);
 		movement.y -= speed;
+		
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -104,15 +105,18 @@ void Player::update(sf::RenderWindow &window) {
 bool Player::CheckCollision(sf::IntRect collider) {
 	
 	if (collider.intersects(playerRect)) {
-		animation.setPosition(animation.getPosition().x, collider.top - 32) ;
+	
+			animation.setPosition(animation.getPosition().x, collider.top - 32) ;
+			
 		return true;
+		
 	}
+		
+		animation.move(sf::Vector2f(0, 0.1));
+	
+	
 	
 }
 
-void Player::gravity() {
-	
-}
-	
 
 

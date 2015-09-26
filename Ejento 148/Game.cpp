@@ -9,8 +9,9 @@ void Game::Start(void) {
 	if (gameState != Uninitialized)
 		return;
 
-	window.create(sf::VideoMode(1024, 768, 32), "Ejento 148");
+	window.create(sf::VideoMode(800, 600, 32), "Ejento 148");
 	gameState = Game::ShowingSplash;
+	window.setFramerateLimit(200);
 
 	while (!IsExiting()) {
 		GameLoop();
