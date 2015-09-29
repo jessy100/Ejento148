@@ -7,7 +7,6 @@ void SplashScreen::Show(sf::RenderWindow &window) {
 
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
-	sprite.setScale(0.5, 0.5);
 
 	window.draw(sprite);
 	window.display();

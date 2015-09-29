@@ -19,17 +19,17 @@ void Level::Load() {
 			std::string str;
 			openFile >> str;
 
-			//x is character before comma, 2 is character after comma
+			// x is character before comma, 2 is character after comma
 			char x = str[0], y = str[2];
 
-			//Check if found characters are digits. If not, set to -1 -1 to ignore when drawing.
-			//Use x - '0' to prevent conversion to ascii
+			// Check if found characters are digits. If not, set to -1 -1 to ignore when drawing.
+			// Use x - '0' to prevent conversion to ascii
 			if (!isdigit(x) || !isdigit(y))
 				map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1, -1);
 			else
 				map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0', y - '0');
 
-			//check if next character is new line if true, increment y counter, if not increment x counter.
+			// Check if next character is new line if true, increment y counter, if not increment x counter.
 			if (openFile.peek() == '\n') {
 				loadCounter.x = 0;
 				loadCounter.y++;
@@ -46,10 +46,8 @@ void Level::Show(sf::RenderWindow &window) {
 	Player player(sf::Vector2f(100, 100), "Steve",
 		80.0, 3); // Only for test, remove this
 
-	//sf::Event currentEvent;
 	while (playingLevel) {
 		window.clear();
-		player.update(window);
 		
 		for (int i = 0; i < loadCounter.x; i++) {
 			for (int j = 0; j < loadCounter.y; j++) {
@@ -64,9 +62,8 @@ void Level::Show(sf::RenderWindow &window) {
 			}
 		}
 		
-		
+		player.update(window);
 		window.display();
-
 	}
 }
 

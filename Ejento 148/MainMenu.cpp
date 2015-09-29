@@ -11,16 +11,16 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow &window) {
 	// Play menu item
 	MenuItem playButton;
 	playButton.rect.top = 145;
-	playButton.rect.left = 0;
-	playButton.rect.width = 1023;
+	playButton.rect.left = 200;
+	playButton.rect.width = 800;
 	playButton.rect.height = 235;
 	playButton.action = Play;
 
 	// Exit menu item
 	MenuItem exitButton;
 	exitButton.rect.top = 383;
-	exitButton.rect.left = 0;
-	exitButton.rect.width = 1023;
+	exitButton.rect.left = 200;
+	exitButton.rect.width = 800;
 	exitButton.rect.height = 235;
 	exitButton.action = Exit;
 
