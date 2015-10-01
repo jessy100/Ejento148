@@ -63,9 +63,7 @@ void Player::draw(sf::RenderWindow &window) {
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 	playerRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 32, 32);
-	// If a key was pressed set the correct animation and move correctly
-	// Move this to a proper inputhandler
-	// Choppy movement atm
+
 	sf::Vector2f movement(0.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		setAnimation(walkingAnimationUp);
@@ -92,7 +90,6 @@ void Player::update(sf::RenderWindow &window) {
 	animation.play(*currentAnimation);
 	animation.move(movement * frameTime.asSeconds());
 	
-	
 	// if no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true; 
@@ -103,19 +100,11 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 bool Player::CheckCollision(sf::IntRect collider) {
-	
 	if (collider.intersects(playerRect)) {
-	
-			animation.setPosition(animation.getPosition().x, collider.top - 32) ;
-			
+		animation.setPosition(animation.getPosition().x, collider.top - 32) ;
 		return true;
-		
 	}
-		
-		animation.move(sf::Vector2f(0, 0.1));
-	
-	
-	
+	animation.move(sf::Vector2f(0, 0.1));
 }
 
 
