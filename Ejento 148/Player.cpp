@@ -9,8 +9,6 @@
 Player::Player(sf::Vector2f pos, std::string n, float s, int l) : 
 	position(pos), name(n), speed(s), lives(l)
 {
-	speed = 200;
-
 	if (!texture.loadFromFile("resources/images/player.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
@@ -44,7 +42,7 @@ Player::Player(sf::Vector2f pos, std::string n, float s, int l) :
 
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
-	animation.setPosition(sf::Vector2f(sf::Vector2i(1024, 768) / 2));
+	animation.setPosition(position);
 }
 
 std::string Player::getName() { return name; }
@@ -56,7 +54,6 @@ void Player::setLives(int l) { lives = l; }
 void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
 void Player::draw(sf::RenderWindow &window) {
-
 	window.draw(animation);
 }
 
@@ -64,16 +61,16 @@ void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 	playerRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 32, 32);
 
-	sf::Vector2f movement(0.f, 0.f);
+	movement = sf::Vector2f(0.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		// Jump
 		setAnimation(walkingAnimationUp);
-		movement.y -= speed;
-		
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		// Duck/Crawl
 		setAnimation(walkingAnimationDown);
-		movement.y += speed;
+		//movement.y += speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -92,8 +89,8 @@ void Player::update(sf::RenderWindow &window) {
 	
 	// if no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
-	noKeyWasPressed = true; 
-	
+	noKeyWasPressed = true;
+
 	// Update the animation and draw it
 	animation.update(frameTime);
 	draw(window);
@@ -101,11 +98,10 @@ void Player::update(sf::RenderWindow &window) {
 
 bool Player::CheckCollision(sf::IntRect collider) {
 	if (collider.intersects(playerRect)) {
-		animation.setPosition(animation.getPosition().x, collider.top - 32) ;
+		animation.setPosition(animation.getPosition().x, collider.top - 32);
 		return true;
+	} else {
+		animation.move(sf::Vector2f(0, 0.1));
+		return false;
 	}
-	animation.move(sf::Vector2f(0, 0.1));
 }
-
-
-

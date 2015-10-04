@@ -6,9 +6,6 @@
 #include "Level.h"
 
 void Game::Start(void) {
-	if (gameState != Uninitialized)
-		return;
-
 	window.create(sf::VideoMode(800, 600, 32), "Ejento 148");
 	gameState = Game::ShowingSplash;
 	window.setFramerateLimit(200);
@@ -61,7 +58,6 @@ void Game::GameLoop() {
 		switch (gameState) {
 			case Game::ShowingMenu: {
 				ShowMenu();
-				
 				break;
 			}
 			case Game::ShowingSplash: {
@@ -79,6 +75,3 @@ void Game::GameLoop() {
 		}
 	}
 }
-
-Game::GameState Game::gameState = Uninitialized;
-sf::RenderWindow Game::window;

@@ -18,23 +18,18 @@ public:
 	void Player::setAnimation(Animation &);
 	bool CheckCollision(sf::IntRect collider);
 	
-
-
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
-	sf::Vector2f position;
+	sf::Vector2f position, movement;
 	sf::IntRect playerRect;
 	std::string name;
 	float speed;
 	int lives;
-	Animation *currentAnimation;
-	Animation walkingAnimationDown;
-	Animation walkingAnimationLeft;
-	Animation walkingAnimationRight;
-	Animation walkingAnimationUp;
+	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
+	Animation walkingAnimationRight, walkingAnimationUp;
 	AnimatedSprite animation;
 	bool noKeyWasPressed = true;
 	sf::Clock frameClock;

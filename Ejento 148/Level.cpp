@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Level.h"
 #include "Player.h"
+#include "Enemy.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -44,24 +45,27 @@ void Level::Load() {
 
 void Level::Show(sf::RenderWindow &window) {
 	Player player(sf::Vector2f(100, 100), "Steve",
-		80.0, 3); // Only for test, remove this
+		200.0, 3);
+	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
 
 	while (playingLevel) {
-		window.clear();
+		window.clear(sf::Color(255, 255, 255)); // White background
 		
 		for (int i = 0; i < loadCounter.x; i++) {
 			for (int j = 0; j < loadCounter.y; j++) {
 				if (map[i][j].x != -1 && map[i][j].y != -1) {
-					
 					tiles.setPosition(i * 32, j * 32);
-					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));				
+					tiles.setTextureRect(sf::IntRect(map[i][j].x * 32, map[i][j].y * 32, 32, 32));	
+
 					player.CheckCollision(sf::IntRect(i * 32, j * 32, 32, 32));
+					enemy.CheckCollision(sf::IntRect(i * 32, j * 32, 32, 32));
 
 					window.draw(tiles);
 				}
 			}
 		}
 		
+		enemy.update(window);
 		player.update(window);
 		window.display();
 	}
