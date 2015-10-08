@@ -9,7 +9,7 @@
 Enemy::Enemy(sf::Vector2f pos, float s, int l) :
 	position(pos), speed(s), lives(l)
 {
-	if (!texture.loadFromFile("resources/images/enemy.png")) {
+	if (!texture.loadFromFile("resources/images/enemy.jpg")) {
 		std::cout << "Failed to load enemy spritesheet!" << std::endl;
 	}
 
@@ -27,11 +27,11 @@ Enemy::Enemy(sf::Vector2f pos, float s, int l) :
 	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(0, 0, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(64, 0, 60, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(128, 0, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(192, 0, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(256, 0, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(10, 0, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(10, 170, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(74, 170, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(140, 170, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(206, 170, 64, 80));
 
 	walkingAnimationUp.setSpriteSheet(texture);
 	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));

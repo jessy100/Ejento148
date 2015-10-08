@@ -6,9 +6,10 @@
 #include "Level.h"
 
 void Game::Start(void) {
-	window.create(sf::VideoMode(800, 600, 32), "Ejento 148");
+	int HEIGHT = 800, WIDTH = 600, DEPTH = 32;
+	window.create(sf::VideoMode(HEIGHT, WIDTH, DEPTH), "Ejento 148");
 	gameState = Game::ShowingSplash;
-	window.setFramerateLimit(200);
+	window.setFramerateLimit(60);
 
 	while (!IsExiting()) {
 		GameLoop();
