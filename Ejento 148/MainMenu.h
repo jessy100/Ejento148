@@ -7,7 +7,7 @@
 
 class MainMenu {
 public:
-	enum MenuResult { Nothing, Exit, Play };
+	enum class MenuResult { Nothing, Exit, Play };
 	struct MenuItem {
 		public:
 			sf::Rect<int> rect;

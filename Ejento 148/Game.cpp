@@ -6,16 +6,12 @@
 #include "Level.h"
 
 void Game::Start(void) {
-	if (gameState != Uninitialized)
-		return;
-
-	window.create(sf::VideoMode(800, 600, 32), "Ejento 148");
-	gameState = Game::ShowingSplash;
+	int HEIGHT = 800, WIDTH = 600, DEPTH = 32;
+	window.create(sf::VideoMode(HEIGHT, WIDTH, DEPTH), "Ejento 148");
+	gameState = GameState::ShowingSplash;
 	window.setFramerateLimit(200);
 
-	while (!IsExiting()) {
-		GameLoop();
-	}
+	while (!IsExiting()) { GameLoop(); }
 
 	window.close();
 }
@@ -23,7 +19,7 @@ void Game::Start(void) {
 void Game::ShowSplashScreen() {
 	SplashScreen splashScreen;
 	splashScreen.Show(window);
-	gameState = Game::ShowingMenu;
+	gameState = GameState::ShowingMenu;
 }
 
 void Game::ShowMenu() {
@@ -32,10 +28,10 @@ void Game::ShowMenu() {
 
 	switch (result) {
 		case MainMenu::Exit:
-			gameState = Game::Exiting;
+			gameState = GameState::Exiting;
 			break;
 		case MainMenu::Play:
-			gameState = Game::Playing;
+			gameState = GameState::Playing;
 			break;
 	}
 }
@@ -43,10 +39,11 @@ void Game::ShowMenu() {
 void Game::ExitGame() { exit(0); }
 
 bool Game::IsExiting() {
-	if (gameState == Game::Exiting)
+	if (gameState == GameState::Exiting) {
 		return true;
-	else
+	} else {
 		return false;
+	}
 }
 
 void Game::PlayLevel() {
@@ -59,26 +56,22 @@ void Game::GameLoop() {
 	sf::Event currentEvent;
 	while (window.waitEvent(currentEvent)) {
 		switch (gameState) {
-			case Game::ShowingMenu: {
+			case GameState::ShowingMenu: {
 				ShowMenu();
-				
 				break;
 			}
-			case Game::ShowingSplash: {
+			case GameState::ShowingSplash: {
 				ShowSplashScreen();
 				break;
 			}
-			case Game::Exiting: {
+			case GameState::Exiting: {
 				ExitGame();
 				break;
 			}
-			case Game::Playing: {
+			case GameState::Playing: {
 				PlayLevel();
 				break;
 			}
 		}
 	}
 }
-
-Game::GameState Game::gameState = Uninitialized;
-sf::RenderWindow Game::window;
