@@ -28,7 +28,7 @@ private:
 	sf::IntRect playerRect;
 	std::string name;
 	float speed;
-	int lives;
+	int lives, playerHeight = 32, playerWidth = 32;
 	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
 	Animation walkingAnimationRight, walkingAnimationUp;
 	AnimatedSprite animation;

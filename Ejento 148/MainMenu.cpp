@@ -14,7 +14,7 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow &window) {
 	playButton.rect.left = 200;
 	playButton.rect.width = 800;
 	playButton.rect.height = 235;
-	playButton.action = Play;
+	playButton.action = MenuResult::Play;
 
 	// Exit menu item
 	MenuItem exitButton;
@@ -22,7 +22,7 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow &window) {
 	exitButton.rect.left = 200;
 	exitButton.rect.width = 800;
 	exitButton.rect.height = 235;
-	exitButton.action = Exit;
+	exitButton.action = MenuResult::Exit;
 
 	menuItems.push_back(playButton);
 	menuItems.push_back(exitButton);
@@ -46,7 +46,7 @@ MainMenu::MenuResult MainMenu::HandleClick(int x, int y) {
 		}
 	}
 
-	return Nothing;
+	return MenuResult::Nothing;
 }
 
 MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow &window) {
@@ -59,7 +59,7 @@ MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow &window) {
 			}
 
 			if (menuEvent.type == sf::Event::Closed) {
-				return Exit;
+				return MenuResult::Exit;
 			}
 		}
 	}

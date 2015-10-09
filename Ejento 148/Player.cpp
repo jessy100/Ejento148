@@ -15,28 +15,28 @@ Player::Player(sf::Vector2f pos, std::string n, float s, int l) :
 
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	walkingAnimationDown.setSpriteSheet(texture);
-	walkingAnimationDown.addFrame(sf::IntRect(32, 0, 32, 32));
-	walkingAnimationDown.addFrame(sf::IntRect(64, 0, 32, 32));
-	walkingAnimationDown.addFrame(sf::IntRect(32, 0, 32, 32));
-	walkingAnimationDown.addFrame(sf::IntRect(0, 0, 32, 32));
+	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
+	walkingAnimationDown.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
+	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
+	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
 
 	walkingAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
+	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(64, 32, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, playerHeight, playerWidth));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-	walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
-	walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-	walkingAnimationRight.addFrame(sf::IntRect(0, 64, 32, 32));
+	walkingAnimationRight.addFrame(sf::IntRect(32, 64, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(64, 64, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(32, 64, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 64, playerHeight, playerWidth));
 
 	walkingAnimationUp.setSpriteSheet(texture);
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(64, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(0, 96, 32, 32));
+	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
+	walkingAnimationUp.addFrame(sf::IntRect(64, 96, playerHeight, playerWidth));
+	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
+	walkingAnimationUp.addFrame(sf::IntRect(0, 96, playerHeight, playerWidth));
 
 	currentAnimation = &walkingAnimationDown;
 

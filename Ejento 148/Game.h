@@ -15,12 +15,12 @@ private:
 	void ExitGame();
 	void PlayLevel();
 
-	enum GameState {
+	enum class GameState {
 		Uninitialized, ShowingSplash, Paused,
 		ShowingMenu, Playing, Exiting
 	};
 
-	GameState gameState = Uninitialized;
+	GameState gameState = GameState::Uninitialized;
 	sf::RenderWindow window;
 };
 
