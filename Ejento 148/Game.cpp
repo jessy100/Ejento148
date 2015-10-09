@@ -9,7 +9,7 @@ void Game::Start(void) {
 	int HEIGHT = 800, WIDTH = 600, DEPTH = 32;
 	window.create(sf::VideoMode(HEIGHT, WIDTH, DEPTH), "Ejento 148");
 	gameState = Game::ShowingSplash;
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(200);
 
 	while (!IsExiting()) {
 		GameLoop();

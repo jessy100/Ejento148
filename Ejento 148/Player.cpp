@@ -45,14 +45,6 @@ Player::Player(sf::Vector2f pos, std::string n, float s, int l) :
 	animation.setPosition(position);
 }
 
-std::string Player::getName() { return name; }
-void Player::setName(std::string s) { name = s; }
-float Player::getSpeed() { return speed; }
-void Player::setSpeed(float s) { speed = s; }
-int Player::getLives() { return lives; }
-void Player::setLives(int l) { lives = l; }
-void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
-
 void Player::draw(sf::RenderWindow &window) {
 	window.draw(animation);
 }

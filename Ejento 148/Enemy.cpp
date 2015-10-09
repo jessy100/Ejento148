@@ -46,12 +46,6 @@ Enemy::Enemy(sf::Vector2f pos, float s, int l) :
 	animation.setPosition(position);
 }
 
-float Enemy::getSpeed() { return speed; }
-void Enemy::setSpeed(float s) { speed = s; }
-int Enemy::getLives() { return lives; }
-void Enemy::setLives(int l) { lives = l; }
-void Enemy::setAnimation(Animation &animation) { currentAnimation = &animation; }
-
 void Enemy::draw(sf::RenderWindow &window) {
 	window.draw(animation);
 }

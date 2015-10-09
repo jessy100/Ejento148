@@ -9,13 +9,14 @@ class Player {
 public:
 	Player(sf::Vector2f, std::string n, float s, int l);
 
-	std::string getName();
-	void setName(std::string);
-	float getSpeed();
-	void setSpeed(float);
-	int getLives();
-	void setLives(int);
-	void Player::setAnimation(Animation &);
+	std::string Player::getName() { return name; }
+	void Player::setName(std::string s) { name = s; }
+	float Player::getSpeed() { return speed; }
+	void Player::setSpeed(float s) { speed = s; }
+	int Player::getLives() { return lives; }
+	void Player::setLives(int l) { lives = l; }
+	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
+
 	bool CheckCollision(sf::IntRect collider);
 	
 	void draw(sf::RenderWindow &window);

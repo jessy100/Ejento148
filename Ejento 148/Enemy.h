@@ -9,11 +9,12 @@ class Enemy {
 public:
 	Enemy(sf::Vector2f, float s, int l);
 
-	float getSpeed();
-	void setSpeed(float);
-	int getLives();
-	void setLives(int);
-	void Enemy::setAnimation(Animation &);
+	float Enemy::getSpeed() { return speed; }
+	void Enemy::setSpeed(float s) { speed = s; }
+	int Enemy::getLives() { return lives; }
+	void Enemy::setLives(int l) { lives = l; }
+	void Enemy::setAnimation(Animation &animation) { currentAnimation = &animation; }
+
 	bool CheckCollision(sf::IntRect collider);
 
 	void draw(sf::RenderWindow &window);
