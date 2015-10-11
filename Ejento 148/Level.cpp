@@ -47,7 +47,7 @@ void Level::Load() {
 
 
 void Level::Show(sf::RenderWindow &window) {
-	Player player(sf::Vector2f(100, 100), "Steve", 1.0f, 3);
+	Player player(sf::Vector2f(100, 500), "Steve", 3);
 	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
 
 	while (playingLevel) {
