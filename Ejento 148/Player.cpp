@@ -51,39 +51,61 @@ void Player::draw(sf::RenderWindow &window) {
 
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
-	playerRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 32, 32);
 
-	movement = sf::Vector2f(0.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		// Jump
 		setAnimation(walkingAnimationUp);
+		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// Duck/Crawl
 		setAnimation(walkingAnimationDown);
-		//movement.y += speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		setAnimation(walkingAnimationLeft);
-		movement.x -= speed;
+		velocity.x -= speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		setAnimation(walkingAnimationRight);
-		movement.x += speed;
+		velocity.x += speed;
 		noKeyWasPressed = false;
 	}
 
 	animation.play(*currentAnimation);
-	animation.move(movement * frameTime.asSeconds());
+
+	playerRect = sf::IntRect(animation.getPosition().x,
+		animation.getPosition().y,
+		playerHeight,
+		playerWidth);
+	animation.move(velocity * frameTime.asSeconds());
+
+	if (grounded == false) {
+		velocity.y += gravity;
+	} else {
+		velocity.y = 0;
+	}
 	
-	// if no key was pressed stop the animation
-	if (noKeyWasPressed) { animation.stop(); }
+	// If no key was pressed stop the animation
+	if (noKeyWasPressed) { 
+		animation.stop();
+		velocity.x = 0;
+	}
 	noKeyWasPressed = true;
 
 	// Update the animation and draw it
 	animation.update(frameTime);
 	draw(window);
+}
+
+void Player::CheckCollision(sf::IntRect collider) {
+	if (collider.intersects(playerRect)) {
+		grounded = true;
+		std::cout << grounded << "\n\n";
+	} else {
+		grounded = false;
+		std::cout << grounded << "\n\n";
+	}
 }

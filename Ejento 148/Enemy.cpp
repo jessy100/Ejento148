@@ -56,6 +56,10 @@ void Enemy::update(sf::RenderWindow &window) {
 
 	movement = sf::Vector2f(0.f, 0.f);
 
+	/*
+		Temporary input to test animations
+		Will be replaced with AI system later
+	*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		setAnimation(walkingAnimationRight);
 		movement.x += speed;
@@ -70,22 +74,11 @@ void Enemy::update(sf::RenderWindow &window) {
 	animation.play(*currentAnimation);
 	animation.move(movement * frameTime.asSeconds());
 
-	// if no key was pressed stop the animation
+	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { animation.stop(); }
 	noKeyWasPressed = true;
 
 	// Update the animation and draw it
 	animation.update(frameTime);
 	draw(window);
-}
-
-bool Enemy::CheckCollision(sf::IntRect collider) {
-	if (collider.intersects(enemyRect)) {
-		animation.setPosition(animation.getPosition().x, collider.top - 80);
-		return true;
-	}
-	else {
-		animation.move(sf::Vector2f(0, 0.1));
-		return false;
-	}
 }

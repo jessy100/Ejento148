@@ -47,7 +47,7 @@ void Level::Load() {
 
 
 void Level::Show(sf::RenderWindow &window) {
-	Player player(sf::Vector2f(100, 100), "Steve", 200.0, 3);
+	Player player(sf::Vector2f(100, 100), "Steve", 1.0f, 3);
 	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
 
 	while (playingLevel) {
@@ -59,6 +59,11 @@ void Level::Show(sf::RenderWindow &window) {
 					tiles.setPosition(i * tileSize, j * tileSize);
 					tiles.setTextureRect(sf::IntRect(map[i][j].x * tileSize,
 						map[i][j].y * tileSize,
+						tileSize,
+						tileSize));
+
+					player.CheckCollision(sf::IntRect(i * tileSize,
+						j * tileSize,
 						tileSize,
 						tileSize));
 

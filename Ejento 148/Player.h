@@ -17,22 +17,24 @@ public:
 	void Player::setLives(int l) { lives = l; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
-	bool CheckCollision(sf::IntRect collider);
-	
+	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
-	sf::Vector2f position, movement;
+	sf::Vector2f position, velocity = sf::Vector2f(0,0);
 	sf::IntRect playerRect;
 	std::string name;
-	float speed;
-	int lives, playerHeight = 32, playerWidth = 32;
+
+	const float gravity = 10.0f;
+	float speed, jumpSpeed = 10.0f;
+	int lives, playerHeight = 32, playerWidth = 32, groundHeight = 440;
+	bool noKeyWasPressed = true, grounded = false;
+
 	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
 	Animation walkingAnimationRight, walkingAnimationUp;
 	AnimatedSprite animation;
-	bool noKeyWasPressed = true;
 	sf::Clock frameClock;
 };
 
