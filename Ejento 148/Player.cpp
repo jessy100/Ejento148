@@ -55,8 +55,10 @@ void Player::update(sf::RenderWindow &window) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		// Jump
 		setAnimation(walkingAnimationUp);
+		jumping = true;
 		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
+		grounded = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// Duck/Crawl
@@ -84,8 +86,6 @@ void Player::update(sf::RenderWindow &window) {
 
 	if (grounded == false) {
 		velocity.y += gravity;
-	} else {
-		velocity.y = 0;
 	}
 	
 	// If no key was pressed stop the animation
@@ -102,10 +102,11 @@ void Player::update(sf::RenderWindow &window) {
 
 void Player::CheckCollision(sf::IntRect collider) {
 	if (collider.intersects(playerRect)) {
-		grounded = true;
-		std::cout << grounded << "\n\n";
-	} else {
-		grounded = false;
-		std::cout << grounded << "\n\n";
+		if (velocity.y > 0) {
+			grounded = true;
+			jumping = false;
+			animation.setPosition(animation.getPosition().x, collider.top - 32); // 32 = tileHeight
+		}
+		velocity.y = 0;
 	}
 }

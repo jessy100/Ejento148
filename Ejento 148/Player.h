@@ -17,6 +17,7 @@ public:
 	void Player::setLives(int l) { lives = l; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
+	void jump();
 	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
@@ -28,9 +29,9 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed, jumpSpeed = 10.0f;
-	int lives, playerHeight = 32, playerWidth = 32, groundHeight = 440;
-	bool noKeyWasPressed = true, grounded = false;
+	float speed, jumpSpeed = 20.0f;
+	int lives, playerHeight = 32, playerWidth = 32;
+	bool noKeyWasPressed = true, grounded = false, jumping = false;
 
 	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
 	Animation walkingAnimationRight, walkingAnimationUp;
