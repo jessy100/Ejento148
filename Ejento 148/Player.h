@@ -29,7 +29,7 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed, jumpSpeed = 20.0f;
+	float speed, jumpSpeed = 600.0f;
 	int lives, playerHeight = 32, playerWidth = 32;
 	bool noKeyWasPressed = true, grounded = false, jumping = false;
 

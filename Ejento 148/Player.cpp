@@ -52,10 +52,9 @@ void Player::draw(sf::RenderWindow &window) {
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
 		// Jump
 		setAnimation(walkingAnimationUp);
-		jumping = true;
 		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
 		grounded = false;
@@ -104,7 +103,6 @@ void Player::CheckCollision(sf::IntRect collider) {
 	if (collider.intersects(playerRect)) {
 		if (velocity.y > 0) {
 			grounded = true;
-			jumping = false;
 			animation.setPosition(animation.getPosition().x, collider.top - 32); // 32 = tileHeight
 		}
 		velocity.y = 0;
