@@ -15,8 +15,6 @@ public:
 	void Enemy::setLives(int l) { lives = l; }
 	void Enemy::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
-	bool CheckCollision(sf::IntRect collider);
-
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
