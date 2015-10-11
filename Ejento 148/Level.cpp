@@ -62,16 +62,6 @@ void Level::Show(sf::RenderWindow &window) {
 						tileSize,
 						tileSize));
 
-					player.CheckCollision(sf::IntRect(i * tileSize,
-						j * tileSize,
-						tileSize,
-						tileSize));
-
-					enemy.CheckCollision(sf::IntRect(i * tileSize,
-						j * tileSize,
-						tileSize,
-						tileSize));
-
 					window.draw(tiles);
 				}
 			}

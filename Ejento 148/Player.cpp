@@ -87,13 +87,3 @@ void Player::update(sf::RenderWindow &window) {
 	animation.update(frameTime);
 	draw(window);
 }
-
-bool Player::CheckCollision(sf::IntRect collider) {
-	if (collider.intersects(playerRect)) {
-		animation.setPosition(animation.getPosition().x, collider.top - 32);
-		return true;
-	} else {
-		animation.move(sf::Vector2f(0, 0.1));
-		return false;
-	}
-}

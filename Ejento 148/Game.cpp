@@ -6,7 +6,7 @@
 #include "Level.h"
 
 void Game::Start(void) {
-	int HEIGHT = 800, WIDTH = 600, DEPTH = 32;
+	int HEIGHT = 800, WIDTH = 608, DEPTH = 32;
 	window.create(sf::VideoMode(HEIGHT, WIDTH, DEPTH), "Ejento 148");
 	gameState = GameState::ShowingSplash;
 	window.setFramerateLimit(200);
@@ -27,10 +27,10 @@ void Game::ShowMenu() {
 	MainMenu::MenuResult result = mainMenu.Show(window);
 
 	switch (result) {
-		case MainMenu::Exit:
+		case MainMenu::MenuResult::Exit:
 			gameState = GameState::Exiting;
 			break;
-		case MainMenu::Play:
+		case MainMenu::MenuResult::Play:
 			gameState = GameState::Playing;
 			break;
 	}
