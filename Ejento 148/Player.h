@@ -17,7 +17,6 @@ public:
 	void Player::setLives(int l) { lives = l; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
-	void jump();
 	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);

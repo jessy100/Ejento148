@@ -66,7 +66,7 @@ void Player::update(sf::RenderWindow &window) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// Duck/Crawl
 		setAnimation(walkingAnimationDown);
-		noKeyWasPressed = false;
+		noKeyWasPressed = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		setAnimation(walkingAnimationLeft);
@@ -81,7 +81,8 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 
-	playerRect = sf::IntRect(animation.getPosition().x,
+	playerRect = sf::IntRect(
+		animation.getPosition().x,
 		animation.getPosition().y,
 		playerHeight,
 		playerWidth);
@@ -104,12 +105,12 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 void Player::CheckCollision(sf::IntRect collider) {
-		
 	if (collider.intersects(playerRect)) {
 		if (velocity.y > 0) {
 			grounded = true;
 			jumping = false;
-			animation.setPosition(animation.getPosition().x, collider.top - 32); // 32 = tileHeight
+			animation.setPosition(animation.getPosition().x,
+				collider.top - playerHeight);
 		}	
 		velocity.y = 0;
 	}		
