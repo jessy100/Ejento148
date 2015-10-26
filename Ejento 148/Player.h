@@ -7,7 +7,7 @@
 
 class Player {
 public:
-	Player(sf::Vector2f, std::string n, float s, int l);
+	Player(sf::Vector2f, std::string n, int l);
 
 	std::string Player::getName() { return name; }
 	void Player::setName(std::string s) { name = s; }
@@ -29,7 +29,8 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed, jumpSpeed = 600.0f;
+	float speed = 1000.0f;
+	float jumpSpeed = 600.0f;
 	int lives, playerHeight = 32, playerWidth = 32;
 	bool noKeyWasPressed = true, grounded = false, jumping = false;
 

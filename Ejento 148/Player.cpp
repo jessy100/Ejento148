@@ -6,13 +6,15 @@
 #include <string>
 #include <iostream>
 
-Player::Player(sf::Vector2f pos, std::string n, float s, int l) : 
-	position(pos), name(n), speed(s), lives(l)
+Player::Player(sf::Vector2f pos, std::string n,  int l) : 
+	position(pos), name(n),  lives(l)
 {
 	if (!texture.loadFromFile("resources/images/player.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
 
+
+	speed = 200.0f;
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	walkingAnimationDown.setSpriteSheet(texture);
 	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
@@ -58,7 +60,9 @@ void Player::update(sf::RenderWindow &window) {
 		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
 		grounded = false;
+		jumping = true;
 	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// Duck/Crawl
 		setAnimation(walkingAnimationDown);
@@ -66,12 +70,12 @@ void Player::update(sf::RenderWindow &window) {
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		setAnimation(walkingAnimationLeft);
-		velocity.x -= speed;
+		velocity.x = -speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		setAnimation(walkingAnimationRight);
-		velocity.x += speed;
+		velocity.x = speed;
 		noKeyWasPressed = false;
 	}
 
@@ -100,11 +104,13 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 void Player::CheckCollision(sf::IntRect collider) {
+		
 	if (collider.intersects(playerRect)) {
 		if (velocity.y > 0) {
 			grounded = true;
+			jumping = false;
 			animation.setPosition(animation.getPosition().x, collider.top - 32); // 32 = tileHeight
-		}
+		}	
 		velocity.y = 0;
-	}
+	}		
 }
