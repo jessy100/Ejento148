@@ -20,7 +20,6 @@ public:
 	void update(sf::RenderWindow &window);
 private:
 	sf::Texture texture;
-	sf::Sprite sprite;
 	sf::Vector2f position, velocity = sf::Vector2f(0, 0);
 	sf::IntRect enemyRect;
 

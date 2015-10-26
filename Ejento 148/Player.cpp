@@ -13,8 +13,6 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
 
-
-	speed = 200.0f;
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	walkingAnimationDown.setSpriteSheet(texture);
 	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
