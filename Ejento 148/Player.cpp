@@ -113,5 +113,5 @@ void Player::CheckCollision(sf::IntRect collider) {
 				collider.top - playerHeight);
 		}	
 		velocity.y = 0;
-	}		
+	}
 }

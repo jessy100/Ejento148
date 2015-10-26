@@ -15,6 +15,8 @@ public:
 	void Player::setSpeed(float s) { speed = s; }
 	int Player::getLives() { return lives; }
 	void Player::setLives(int l) { lives = l; }
+	int Player::getDamage() { return playerDamage; }
+	void Player::setDamage(int x) { playerDamage = x; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
 	void CheckCollision(sf::IntRect);
@@ -30,10 +32,17 @@ private:
 	const float gravity = 10.0f;
 	float speed = 1000.0f;
 	float jumpSpeed = 600.0f;
-	int lives, playerHeight = 32, playerWidth = 32;
-	bool noKeyWasPressed = true, grounded = false, jumping = false;
+	int lives,
+		playerHeight = 32, 
+		playerWidth = 32, 
+		playerDamage = 1;
+	bool noKeyWasPressed = true, 
+		grounded = false, 
+		jumping = false;
 
-	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
+	Animation *currentAnimation, 
+			walkingAnimationDown, 
+			walkingAnimationLeft;
 	Animation walkingAnimationRight, walkingAnimationUp;
 	AnimatedSprite animation;
 	sf::Clock frameClock;
