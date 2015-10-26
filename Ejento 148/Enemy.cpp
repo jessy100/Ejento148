@@ -27,11 +27,11 @@ Enemy::Enemy(sf::Vector2f pos, float s, int l) :
 	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(10, 0, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(10, 170, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(74, 170, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(140, 170, 64, 80));
-	walkingAnimationRight.addFrame(sf::IntRect(206, 170, 64, 80));
+	walkingAnimationRight.addFrame(sf::IntRect(10, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(10, 170, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(74, 170, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(140, 170, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(206, 170, enemyWidth, enemyHeight));
 
 	walkingAnimationUp.setSpriteSheet(texture);
 	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
@@ -54,31 +54,48 @@ void Enemy::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 	enemyRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 58, 80);
 
-	movement = sf::Vector2f(0.f, 0.f);
-
 	/*
 		Temporary input to test animations
 		Will be replaced with AI system later
 	*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		setAnimation(walkingAnimationRight);
-		movement.x += speed;
+		velocity.x = speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		setAnimation(walkingAnimationRight);
-		movement.x -= speed;
+		velocity.x = -speed;
 		noKeyWasPressed = false;
 	}
 
 	animation.play(*currentAnimation);
-	animation.move(movement * frameTime.asSeconds());
+	animation.move(velocity * frameTime.asSeconds());
+
+	if (grounded == false) {
+		velocity.y += gravity;
+	}
 
 	// If no key was pressed stop the animation
-	if (noKeyWasPressed) { animation.stop(); }
+	if (noKeyWasPressed) {
+		animation.stop();
+		velocity.x = 0;
+	}
 	noKeyWasPressed = true;
 
 	// Update the animation and draw it
 	animation.update(frameTime);
 	draw(window);
+}
+
+void Enemy::CheckCollision(sf::IntRect collider) {
+	if (collider.intersects(enemyRect)) {
+		if (velocity.y > 0) {
+			grounded = true;
+			jumping = false;
+			animation.setPosition(animation.getPosition().x,
+				collider.top - enemyHeight);
+		}
+		velocity.y = 0;
+	}
 }
