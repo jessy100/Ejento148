@@ -15,12 +15,15 @@ public:
 	void Player::setSpeed(float s) { speed = s; }
 	int Player::getLives() { return lives; }
 	void Player::setLives(int l) { lives = l; }
+	sf::Vector2f Player::getPosition() { return position;}
+	//void Player::setPosition(sf::Vector2f testPos);
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
 	void jump();
 	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
+
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;

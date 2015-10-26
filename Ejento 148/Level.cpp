@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cctype>
 #include <string>
+#include "camera.hpp"
 
 void Level::Load() {
 	std::ifstream levelMap("resources/levels/level1.txt");
@@ -49,6 +50,8 @@ void Level::Load() {
 void Level::Show(sf::RenderWindow &window) {
 	Player player(sf::Vector2f(100, 500), "Steve", 3);
 	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
+	camera camera(player);
+	
 
 	while (playingLevel) {
 		window.clear(sf::Color(255, 255, 255)); // White background
@@ -74,6 +77,7 @@ void Level::Show(sf::RenderWindow &window) {
 		
 		enemy.update(window);
 		player.update(window);
+		camera.update(window);
 		window.display();
 	}
 }

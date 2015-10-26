@@ -97,14 +97,21 @@ void Player::update(sf::RenderWindow &window) {
 		velocity.x = 0;
 	}
 	noKeyWasPressed = true;
-
-	// Update the animation and draw it
 	animation.update(frameTime);
+
+	position = animation.getPosition();
+	//std::cout << animation.getPosition().x;
+	
+
 	draw(window);
 }
 
+
+
+
 void Player::CheckCollision(sf::IntRect collider) {
-		
+	
+	
 	if (collider.intersects(playerRect)) {
 		if (velocity.y > 0) {
 			grounded = true;

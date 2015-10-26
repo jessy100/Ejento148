@@ -1,13 +1,12 @@
-﻿Build started 10/11/2015 11:18:50 PM.
-     1>Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" on node 2 (Build target(s)).
+﻿Build started 10/26/2015 11:12:04 AM.
+     1>Project "C:\Users\jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp
-         Player.cpp
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\player.cpp(87): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\player.cpp(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp
+         camera.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:/SFML-2.1/lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:/SFML-2.1/lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
+         Debug\camera.obj
          "Debug\Ejento 148.obj"
          Debug\Enemy.obj
          Debug\Game.obj
@@ -16,9 +15,9 @@
          Debug\Player.obj
          Debug\SplashScreen.obj
          Debug\stdafx.obj
-         Ejento 148.vcxproj -> C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe
-     1>Done Building Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" (Build target(s)).
+         Ejento 148.vcxproj -> C:\Users\jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe
+     1>Done Building Project "C:\Users\jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.72
+Time Elapsed 00:00:01.31
