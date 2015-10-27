@@ -4,6 +4,7 @@
 #include "SplashScreen.h"
 #include "Player.h"
 #include "Level.h"
+#include "Audio.h"
 
 void Game::Start(void) {
 	window.create(
@@ -30,6 +31,7 @@ void Game::ShowSplashScreen() {
 }
 
 void Game::ShowMenu() {
+	audio.MusicStart("menu-music.mp3", 4);
 	MainMenu mainMenu;
 	MainMenu::MenuResult result = mainMenu.Show(window);
 

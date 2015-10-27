@@ -3,6 +3,7 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "Audio.h"
 
 class Game {
 public:
@@ -24,6 +25,7 @@ private:
 	sf::RenderWindow window;
 
 	int screenHeight = 800, screenWidth = 608, screenDepth = 32;
+	Audio audio;
 };
 
 #endif
