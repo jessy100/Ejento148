@@ -31,7 +31,7 @@ void Game::ShowSplashScreen() {
 }
 
 void Game::ShowMenu() {
-	audio.PlayAudio("menu-music.wav", 6, 1);
+	Audio::PlayMusic("menu-music.wav", 2, 1);
 
 	MainMenu mainMenu;
 	MainMenu::MenuResult result = mainMenu.Show(window);
@@ -57,8 +57,8 @@ bool Game::IsExiting() {
 }
 
 void Game::PlayLevel() {
-	audio.StopAudio();
-	audio.PlayAudio("level-music.wav", 6, 1);
+	Audio::StopMusic();
+	Audio::PlayMusic("level-music.wav", 2, 1);
 
 	Level level;
 	level.Load();

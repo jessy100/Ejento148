@@ -25,7 +25,6 @@ private:
 	sf::RenderWindow window;
 
 	int screenHeight = 800, screenWidth = 608, screenDepth = 32;
-	Audio audio;
 };
 
 #endif
