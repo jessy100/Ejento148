@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
 #include "AnimatedSprite.h"
+#include "Audio.h"
 
 class Player {
 public:

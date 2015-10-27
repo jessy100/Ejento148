@@ -8,9 +8,8 @@
 
 class Audio {
 public:
-	void MusicStart(std::string file, float volume);
-	void MusicStop(char *file);
-	void PlaySound(char *file);
+	void PlayAudio(std::string, float, bool);
+	void StopAudio();
 private:
 	sf::Music music;
 };

@@ -4,21 +4,17 @@
 #include <string>
 #include <iostream>
 
-void Audio::MusicStart(std::string file, float volume){
+void Audio::PlayAudio(std::string file, float volume, bool loop){
 	if (!music.openFromFile("resources/audio/"+file)) {
 		std::cout << "ERROR Music file " << file << " not found\n";
 	}
-	music.setLoop(true);
+	music.setLoop(loop);
 	music.setVolume(volume);
 
 	music.play();
 	std::cout << music.getStatus() << "\n";
 }
 
-void Audio::MusicStop(char * file){
-
-}
-
-void Audio::PlaySound(char * file){
-
+void Audio::StopAudio(){
+	music.stop();
 }
