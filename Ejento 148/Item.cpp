@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "Item.h"
 #include "AnimatedSprite.h"
+#include "Player.h"
 #include <string>
 #include <iostream>
 
-Item::Item(sf::Vector2f pos, std::string e, int l) :
-	position(pos), effect(e), lives(l)
+Item::Item(sf::Vector2f pos, std::string e) :
+	position(pos), effect(e)
 {
 	if (effect == "damage") {
 		if (!texture.loadFromFile("resources/images/weapon-item.png")) {
@@ -19,26 +20,32 @@ Item::Item(sf::Vector2f pos, std::string e, int l) :
 		}
 	}
 
-
-}
-
-void Item::draw(sf::RenderWindow &window) {
-	window.draw(sprite);
-}
-
-void Item::update(sf::RenderWindow &window) {
 	itemRect = sf::IntRect(
 		position.x,
 		position.y,
 		itemHeight,
 		itemWidth);
 
-	// Update the animation and draw it
-	draw(window);
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
 }
 
-void Item::CheckCollision(sf::IntRect collider) {
-	if (collider.intersects(itemRect)) {
+void Item::draw(sf::RenderWindow &window) {
+	window.draw(sprite);
+}
 
+bool Item::CheckCollision(Player &player) {
+	if (player.getRect().intersects(itemRect)) {
+		if (effect == "damage") {
+			player.setDamage(player.getDamage() + 1);
+			std::cout << "Player picked up a weapon\n";
+			std::cout << "Player damage is now " << player.getDamage() << "\n";
+		} else if(effect == "health") {
+			player.setHealth(player.getHealth() + 1);
+			std::cout << "Player picked up health\n";
+			std::cout << "Player health is now " << player.getHealth() << "\n";
+		}
+		return true;
 	}
+	return false;
 }

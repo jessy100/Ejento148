@@ -2,27 +2,23 @@
 #define _ITEM_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 
 class Item {
 public:
-	Item(sf::Vector2f, std::string n, int l);
+	Item(sf::Vector2f, std::string n);
 
-
-	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
-	void update(sf::RenderWindow &window);
+	bool CheckCollision(Player &);
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
-	sf::Vector2f position, velocity = sf::Vector2f(0, 0);
+	sf::Vector2f position;
 	sf::IntRect itemRect;
 	std::string effect;
 
-	const float gravity = 10.0f;
-	int lives,
-		itemHeight = 32,
-		itemWidth = 32;
-	bool grounded = false;
+	int itemHeight = 16,
+		itemWidth = 16;
 };
 
 #endif

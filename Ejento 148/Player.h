@@ -16,8 +16,11 @@ public:
 	int Player::getLives() { return lives; }
 	void Player::setLives(int l) { lives = l; }
 	int Player::getDamage() { return playerDamage; }
-	void Player::setDamage(int x) { playerDamage = x; }
+	void Player::setDamage(int d) { playerDamage = d; }
+	int Player::getHealth() { return playerHealth; }
+	void Player::setHealth(int h) { playerHealth = h; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
+	sf::IntRect Player::getRect() { return playerRect; }
 
 	void CheckCollision(sf::IntRect);
 	void draw(sf::RenderWindow &window);
@@ -32,6 +35,7 @@ private:
 	float speed = 200.0f;
 	float jumpSpeed = 600.0f;
 	int lives,
+		playerHealth = 10,
 		playerHeight = 32, 
 		playerWidth = 32, 
 		playerDamage = 1;
