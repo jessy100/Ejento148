@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "AnimatedSprite.h"
+#include "Audio.h"
 #include <string>
 #include <iostream>
 
@@ -54,6 +55,7 @@ void Player::update(sf::RenderWindow &window) {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
 		// Jump
+		Audio::PlaySound("jump.wav", 6, 0);
 		setAnimation(walkingAnimationUp);
 		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
