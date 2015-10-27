@@ -14,6 +14,7 @@ public:
 	float Player::getSpeed() { return speed; }
 	void Player::setSpeed(float s) { speed = s; }
 	int Player::getLives() { return lives; }
+	sf::Vector2f Player::getPosition() { return position; }
 	void Player::setLives(int l) { lives = l; }
 	int Player::getDamage() { return playerDamage; }
 	void Player::setDamage(int d) { playerDamage = d; }

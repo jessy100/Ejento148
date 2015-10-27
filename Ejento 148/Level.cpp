@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Camera.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -51,6 +52,7 @@ void Level::Show(sf::RenderWindow &window) {
 	Player player(sf::Vector2f(100, 500), "Steve", 3);
 	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
 	Item item(sf::Vector2f(300, 500), "health");
+	Camera camera(player);
 
 	while (playingLevel) {
 		window.clear(sf::Color(255, 255, 255)); // White background
@@ -86,6 +88,7 @@ void Level::Show(sf::RenderWindow &window) {
 
 		enemy.update(window);
 		player.update(window);
+		camera.update(window);
 		window.display();
 	}
 }

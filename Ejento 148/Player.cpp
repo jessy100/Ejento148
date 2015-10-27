@@ -97,8 +97,12 @@ void Player::update(sf::RenderWindow &window) {
 	}
 	noKeyWasPressed = true;
 
+	
+
 	// Update the animation and draw it
 	animation.update(frameTime);
+
+	position = animation.getPosition();
 	draw(window);
 }
 
