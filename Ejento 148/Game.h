@@ -3,27 +3,29 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "Audio.h"
 
-class Game
-{
-
+class Game {
 public:
-	static void Start();
+	void Start();
 private:
-	static bool IsExiting();
-	static void GameLoop();
-	static void ShowSplashScreen();
-	static void ShowMenu();
-	static void ExitGame();
-	static void PlayLevel();
+	bool IsExiting();
+	void GameLoop();
+	void ShowSplashScreen();
+	void ShowMenu();
+	void ExitGame();
+	void PlayLevel();
 
-	enum GameState {
+	enum class GameState {
 		Uninitialized, ShowingSplash, Paused,
 		ShowingMenu, Playing, Exiting
 	};
 
-	static GameState gameState;
-	static sf::RenderWindow window;
+	GameState gameState = GameState::Uninitialized;
+	sf::RenderWindow window;
+
+	int screenHeight = 800, screenWidth = 608, screenDepth = 32;
+	Audio audio;
 };
 
 #endif
