@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include <vector>
 #include "Camera.h"
 #include <sstream>
 #include <iostream>
@@ -49,9 +50,20 @@ void Level::Load() {
 
 
 void Level::Show(sf::RenderWindow &window) {
-	Player player(sf::Vector2f(100, 500), "Steve", 3);
+	Player player(sf::Vector2f(100, 500), "Ejento 148", 3);
 	Enemy enemy(sf::Vector2f(300, 100), 100.0, 3);
-	Item item(sf::Vector2f(300, 500), "health");
+
+	std::vector<Item> items;
+
+	Item item1(sf::Vector2f(100, 500), "health");
+	Item item2(sf::Vector2f(200, 500), "damage");
+	Item item3(sf::Vector2f(300, 500), "health");
+	Item item4(sf::Vector2f(400, 500), "damage");
+	items.push_back(item1);
+	items.push_back(item2);
+	items.push_back(item3);
+	items.push_back(item4);
+
 	Camera camera(player);
 
 	while (playingLevel) {
@@ -81,9 +93,14 @@ void Level::Show(sf::RenderWindow &window) {
 			}
 		}
 
-		item.draw(window);
-		if (item.CheckCollision(player)) {
-			
+		// Loop through all items in the items vector and check if they collide with the player
+		for (std::vector<int>::size_type i = 0; i != items.size(); ++i) {
+			items[i].draw(window);
+			// If so, remove the object from the vector
+			if (items[i].CheckCollision(player)) {
+				items.erase(items.begin() + i);
+				std::cout << items.size() << "\n";
+			}
 		}
 
 		enemy.update(window);
