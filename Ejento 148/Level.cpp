@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Camera.h"
+#include "Score.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -11,6 +12,11 @@
 #include <string>
 
 void Level::Load() {
+	
+	//VOORBEELD
+	//Score score;
+	//score.saveScore("HansTest","1235","14:14");
+
 	std::ifstream levelMap("resources/levels/level1.txt");
 
 	if (levelMap.is_open()) {
