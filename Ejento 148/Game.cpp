@@ -31,7 +31,7 @@ void Game::ShowSplashScreen() {
 }
 
 void Game::ShowMenu() {
-	audio.MusicStart("menu-music.mp3", 4);
+	audio.MusicStart("menu-music.wav", 6);
 	MainMenu mainMenu;
 	MainMenu::MenuResult result = mainMenu.Show(window);
 
