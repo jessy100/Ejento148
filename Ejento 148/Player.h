@@ -24,6 +24,7 @@ public:
 	sf::IntRect Player::getRect() { return playerRect; }
 
 	void CheckCollision(sf::IntRect);
+	void SwingSword();
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
@@ -33,7 +34,7 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed = 200.0f, jumpSpeed = 600.0f;
+	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 1.0f;
 	int lives,
 		playerHealth = 10,
 		playerHeight = 60, 
@@ -45,12 +46,21 @@ private:
 		jumping = false;
 
 	Animation *currentAnimation, 
-			walkingAnimationDown, 
-			walkingAnimationLeft;
-	Animation walkingAnimationRight, walkingAnimationUp;
+		idleAnimationRight, 
+		idleAnimationLeft, 
+		walkingAnimationDown, 
+		walkingAnimationLeft,
+		walkingAnimationRight,
+		walkingAnimationUp, 
+		swingAnimationRight, 
+		swingAnimationLeft;
+
 	AnimatedSprite animation;
 	sf::Clock frameClock, swingWeaponClock;
 	sf::Time swingWeaponTime;
+
+	enum Direction {left, right};
+	Direction direction = Direction::right;
 };
 
 #endif

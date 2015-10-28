@@ -15,28 +15,55 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	}
 
 	// Set up the animations for all four directions (set spritesheet and push frames)
+
+	// Idle right
+	idleAnimationRight.setSpriteSheet(texture);
+	idleAnimationRight.addFrame(sf::IntRect(128, 186, playerHeight, playerWidth));
+
+	// Idle left
+	idleAnimationLeft.setSpriteSheet(texture);
+	idleAnimationLeft.addFrame(sf::IntRect(64, 687, playerHeight, playerWidth));
+
+	// Crawl/duck/lie down
 	walkingAnimationDown.setSpriteSheet(texture);
 	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
 
+	// Walk left
 	walkingAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 556, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(192, 620, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(128, 620, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(64, 620, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 620, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(192, 684, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 555, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(192, 619, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(128, 619, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(64, 619, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 619, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(192, 683, playerHeight, playerWidth));
 
+	// Walk right
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(192, 54, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(0, 118, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(64, 118, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(128, 118, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(192, 118, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(0, 182, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(192, 53, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 117, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(64, 117, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(128, 117, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(192, 117, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 181, playerHeight, playerWidth));
 
+	// Swing weapon right
+	swingAnimationRight.setSpriteSheet(texture);
+	swingAnimationRight.addFrame(sf::IntRect(64, 314, playerHeight, playerWidth));
+	swingAnimationRight.addFrame(sf::IntRect(128, 314, playerHeight, playerWidth));
+	swingAnimationRight.addFrame(sf::IntRect(192, 314, playerHeight, playerWidth));
+	swingAnimationRight.addFrame(sf::IntRect(0, 378, playerHeight, playerWidth));
+
+	// Swing weapon left
+	swingAnimationLeft.setSpriteSheet(texture);
+	swingAnimationLeft.addFrame(sf::IntRect(128, 815, playerHeight, playerWidth));
+	swingAnimationLeft.addFrame(sf::IntRect(64, 815, playerHeight, playerWidth));
+	swingAnimationLeft.addFrame(sf::IntRect(0, 815, playerHeight, playerWidth));
+	swingAnimationLeft.addFrame(sf::IntRect(192, 879, playerHeight, playerWidth));
+
+	// Jump
 	walkingAnimationUp.setSpriteSheet(texture);
 	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
 	walkingAnimationUp.addFrame(sf::IntRect(64, 96, playerHeight, playerWidth));
@@ -68,11 +95,13 @@ void Player::update(sf::RenderWindow &window) {
 		noKeyWasPressed = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		direction = Direction::left;
 		setAnimation(walkingAnimationLeft);
 		velocity.x = -speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		direction = Direction::right;
 		setAnimation(walkingAnimationRight);
 		velocity.x = speed;
 		noKeyWasPressed = false;
@@ -84,17 +113,18 @@ void Player::update(sf::RenderWindow &window) {
 			swingWeaponClock.restart();
 
 			// Call function to swing weapon
-			std::cout << "Swing\n";
+			SwingSword();
 
 			canSwingWeapon = false;
 		} else {
 			// Check if 2 seconds have passed
 			swingWeaponTime = swingWeaponClock.getElapsedTime();
-			if (swingWeaponTime.asSeconds() > 2) {
+			if (swingWeaponTime.asSeconds() > attackSpeed) {
 				// If so, set canSwingWeapon to true
 				canSwingWeapon = true;
 			}
 		}
+		noKeyWasPressed = false;
 	}
 
 	animation.play(*currentAnimation);
@@ -112,7 +142,11 @@ void Player::update(sf::RenderWindow &window) {
 	
 	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { 
-		animation.stop();
+		if (direction == right) {
+			setAnimation(idleAnimationRight);
+		} else {
+			setAnimation(idleAnimationLeft);
+		}
 		velocity.x = 0;
 	}
 	noKeyWasPressed = true;
@@ -138,4 +172,14 @@ void Player::CheckCollision(sf::IntRect collider) {
 		}	
 		velocity.y = 0;
 	}
+}
+
+void Player::SwingSword() {
+	// Perform swing animation
+	if (direction == right) {
+		setAnimation(swingAnimationRight);
+	} else if (direction == left) {
+		setAnimation(swingAnimationLeft);
+	}
+	std::cout << "You swing your sword for " << playerDamage << " damage\n";
 }
