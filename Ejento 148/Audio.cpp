@@ -12,7 +12,6 @@ void Audio::PlayMusic(std::string file, float volume, bool loop){
 	backgroundMusic.setVolume(volume);
 
 	backgroundMusic.play();
-	std::cout << backgroundMusic.getStatus() << "\n";
 }
 
 void Audio::StopMusic(){
@@ -26,8 +25,6 @@ void Audio::PlaySound(std::string file, float volume, bool loop) {
 
 	actionSound.setBuffer(buffer);
 	actionSound.play();
-
-	std::cout << actionSound.getStatus() << "\n";
 }
 
 sf::Music Audio::backgroundMusic;

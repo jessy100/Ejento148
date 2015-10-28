@@ -46,10 +46,6 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	animation.setPosition(position);
 }
 
-void Player::draw(sf::RenderWindow &window) {
-	window.draw(animation);
-}
-
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 
@@ -62,7 +58,6 @@ void Player::update(sf::RenderWindow &window) {
 		grounded = false;
 		jumping = true;
 	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		// Duck/Crawl
 		setAnimation(walkingAnimationDown);
@@ -77,6 +72,25 @@ void Player::update(sf::RenderWindow &window) {
 		setAnimation(walkingAnimationRight);
 		velocity.x = speed;
 		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		// Check if the player can swing his weapon
+		if (canSwingWeapon == true) {
+			// Reset the clock
+			swingWeaponClock.restart();
+
+			// Call function to swing weapon
+			std::cout << "Swing\n";
+
+			canSwingWeapon = false;
+		} else {
+			// Check if 2 seconds have passed
+			swingWeaponTime = swingWeaponClock.getElapsedTime();
+			if (swingWeaponTime.asSeconds() > 2) {
+				// If so, set canSwingWeapon to true
+				canSwingWeapon = true;
+			}
+		}
 	}
 
 	animation.play(*currentAnimation);
@@ -99,13 +113,15 @@ void Player::update(sf::RenderWindow &window) {
 	}
 	noKeyWasPressed = true;
 
-	
-
 	// Update the animation and draw it
 	animation.update(frameTime);
 
 	position = animation.getPosition();
 	draw(window);
+}
+
+void Player::draw(sf::RenderWindow &window) {
+	window.draw(animation);
 }
 
 void Player::CheckCollision(sf::IntRect collider) {

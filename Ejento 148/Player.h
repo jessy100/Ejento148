@@ -33,8 +33,7 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed = 200.0f;
-	float jumpSpeed = 600.0f;
+	float speed = 200.0f, jumpSpeed = 600.0f;
 	int lives,
 		playerHealth = 10,
 		playerHeight = 32, 
@@ -42,6 +41,7 @@ private:
 		playerDamage = 1;
 	bool noKeyWasPressed = true, 
 		grounded = false, 
+		canSwingWeapon = true,
 		jumping = false;
 
 	Animation *currentAnimation, 
@@ -49,7 +49,8 @@ private:
 			walkingAnimationLeft;
 	Animation walkingAnimationRight, walkingAnimationUp;
 	AnimatedSprite animation;
-	sf::Clock frameClock;
+	sf::Clock frameClock, swingWeaponClock;
+	sf::Time swingWeaponTime;
 };
 
 #endif

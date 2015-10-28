@@ -96,10 +96,9 @@ void Level::Show(sf::RenderWindow &window) {
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != items.size(); ++i) {
 			items[i].draw(window);
-			// If so, remove the object from the vector
+			// If so, relocate the item
 			if (items[i].CheckCollision(player)) {
 				items[i].setPosition(sf::Vector2f(-32, 0));
-				std::cout << items.size() << "\n";
 			}
 		}
 
