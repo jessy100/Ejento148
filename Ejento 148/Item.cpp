@@ -20,17 +20,17 @@ Item::Item(sf::Vector2f pos, std::string e) :
 		}
 	}
 
+	sprite.setTexture(texture);
+}
+
+void Item::draw(sf::RenderWindow &window) {
 	itemRect = sf::IntRect(
 		position.x,
 		position.y,
 		itemHeight,
 		itemWidth);
 
-	sprite.setTexture(texture);
 	sprite.setPosition(position);
-}
-
-void Item::draw(sf::RenderWindow &window) {
 	window.draw(sprite);
 }
 

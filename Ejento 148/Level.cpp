@@ -98,7 +98,7 @@ void Level::Show(sf::RenderWindow &window) {
 			items[i].draw(window);
 			// If so, remove the object from the vector
 			if (items[i].CheckCollision(player)) {
-				items.erase(items.begin() + i);
+				items[i].setPosition(sf::Vector2f(-32, 0));
 				std::cout << items.size() << "\n";
 			}
 		}

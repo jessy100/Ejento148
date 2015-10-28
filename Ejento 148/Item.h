@@ -10,6 +10,8 @@ public:
 
 	void draw(sf::RenderWindow &window);
 	bool CheckCollision(Player &);
+
+	void setPosition(sf::Vector2f p) { position = p; }
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
