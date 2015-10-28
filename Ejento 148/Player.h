@@ -36,8 +36,8 @@ private:
 	float speed = 200.0f, jumpSpeed = 600.0f;
 	int lives,
 		playerHealth = 10,
-		playerHeight = 32, 
-		playerWidth = 32, 
+		playerHeight = 60, 
+		playerWidth = 60, 
 		playerDamage = 1;
 	bool noKeyWasPressed = true, 
 		grounded = false, 

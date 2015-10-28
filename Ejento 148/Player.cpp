@@ -10,28 +10,32 @@
 Player::Player(sf::Vector2f pos, std::string n,  int l) : 
 	position(pos), name(n),  lives(l)
 {
-	if (!texture.loadFromFile("resources/images/player.png")) {
+	if (!texture.loadFromFile("resources/images/ninja.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
 
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	walkingAnimationDown.setSpriteSheet(texture);
-	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
+	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
 	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
 
 	walkingAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(64, 32, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, playerHeight, playerWidth));
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 556, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(192, 620, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(128, 620, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(64, 620, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 620, playerHeight, playerWidth));
+	walkingAnimationLeft.addFrame(sf::IntRect(192, 684, playerHeight, playerWidth));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(32, 64, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(64, 64, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(32, 64, playerHeight, playerWidth));
-	walkingAnimationRight.addFrame(sf::IntRect(0, 64, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(192, 54, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 118, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(64, 118, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(128, 118, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(192, 118, playerHeight, playerWidth));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 182, playerHeight, playerWidth));
 
 	walkingAnimationUp.setSpriteSheet(texture);
 	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
