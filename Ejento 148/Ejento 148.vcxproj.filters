@@ -84,6 +84,12 @@
     <ClInclude Include="score.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="TimerScreen.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreCounter.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -126,6 +132,12 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="score.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreCounter.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerScreen.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
