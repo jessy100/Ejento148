@@ -30,7 +30,8 @@ public:
 private:
 	sf::Texture texture;
 	sf::Vector2f position, velocity = sf::Vector2f(0,0);
-	sf::IntRect playerRect;
+	sf::IntRect playerRect, 
+				weaponRect;
 	std::string name;
 
 	const float gravity = 10.0f;
@@ -39,7 +40,9 @@ private:
 		playerHealth = 10,
 		playerHeight = 60, 
 		playerWidth = 60, 
-		playerDamage = 1;
+		playerDamage = 1, 
+		weaponRange = 30, 
+		weaponArc = 40;
 	bool noKeyWasPressed = true, 
 		grounded = false, 
 		canSwingWeapon = true,
@@ -61,6 +64,9 @@ private:
 
 	enum Direction {left, right};
 	Direction direction = Direction::right;
+
+	// Test to visualise the weapon collision
+	sf::RectangleShape weapon;
 };
 
 #endif
