@@ -46,6 +46,7 @@ private:
 	bool noKeyWasPressed = true, 
 		grounded = false, 
 		canSwingWeapon = true,
+		swingingWeapon = false, 
 		jumping = false;
 
 	Animation *currentAnimation, 
@@ -59,8 +60,8 @@ private:
 		swingAnimationLeft;
 
 	AnimatedSprite animation;
-	sf::Clock frameClock, swingWeaponClock;
-	sf::Time swingWeaponTime;
+	sf::Clock frameClock, swingWeaponClock, swingAnimationClock;
+	sf::Time swingWeaponTime, swingAnimationTime;
 
 	enum Direction {left, right};
 	Direction direction = Direction::right;

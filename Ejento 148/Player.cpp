@@ -51,14 +51,14 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 
 	// Swing weapon right
 	swingAnimationRight.setSpriteSheet(texture);
-	swingAnimationRight.addFrame(sf::IntRect(64, 314, playerHeight, playerWidth));
+	//swingAnimationRight.addFrame(sf::IntRect(64, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(128, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(192, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(0, 378, playerHeight, playerWidth));
 
 	// Swing weapon left
 	swingAnimationLeft.setSpriteSheet(texture);
-	swingAnimationLeft.addFrame(sf::IntRect(128, 815, playerHeight, playerWidth));
+	//swingAnimationLeft.addFrame(sf::IntRect(128, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(64, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(0, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(192, 879, playerHeight, playerWidth));
@@ -150,12 +150,21 @@ void Player::update(sf::RenderWindow &window) {
 	if (grounded == false) {
 		velocity.y += gravity;
 	}
+
+	// Check if the player has swung a weapon and for how long
+	if (swingingWeapon == true) {
+		swingAnimationTime = swingAnimationClock.getElapsedTime();
+		if (swingAnimationTime.asSeconds() > attackSpeed) {
+			// Stop swinging the weapon
+			swingingWeapon = false;
+		}
+	}
 	
 	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { 
-		if (direction == right) {
+		if (direction == right && swingingWeapon == false) {
 			setAnimation(idleAnimationRight);
-		} else {
+		} else if(direction == left && swingingWeapon == false) {
 			setAnimation(idleAnimationLeft);
 		}
 		velocity.x = 0;
@@ -189,6 +198,11 @@ void Player::CheckCollision(sf::IntRect collider) {
 }
 
 void Player::SwingSword() {
+	// Player is swinging the weapon
+	swingingWeapon = true;
+	// Start the clock
+	swingWeaponClock.restart();
+
 	// Perform swing animation
 	if (direction == right) {
 		setAnimation(swingAnimationRight);
