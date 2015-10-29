@@ -21,7 +21,8 @@ public:
 	int Player::getHealth() { return playerHealth; }
 	void Player::setHealth(int h) { playerHealth = h; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
-	sf::IntRect Player::getRect() { return playerRect; }
+	sf::IntRect Player::getPlayerRect() { return playerRect; }
+	sf::IntRect Player::getWeaponRect() { return weaponRect; }
 
 	void CheckCollision(sf::IntRect);
 	void SwingSword();

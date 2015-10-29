@@ -13,6 +13,8 @@ public:
 	void Enemy::setSpeed(float s) { speed = s; }
 	int Enemy::getLives() { return lives; }
 	void Enemy::setLives(int l) { lives = l; }
+	int Enemy::getHealth() { return enemyHealth; }
+	void Enemy::setHealth(int h) { enemyHealth = h; }
 	void Enemy::setAnimation(Animation &animation) { currentAnimation = &animation; }
 
 	void CheckCollision(sf::IntRect);
@@ -24,14 +26,17 @@ private:
 	sf::IntRect enemyRect;
 
 	const float gravity = 10.0f;
-	float speed = 1000.0f;
-	float jumpSpeed = 600.0f;
-	int lives, enemyHeight = 80, enemyWidth = 64;
+	float speed = 1000.0f, jumpSpeed = 600.0f;
+	int lives, enemyHeight = 80, enemyWidth = 64, enemyHealth = 3;
 	bool noKeyWasPressed = true, grounded = false, jumping = false;
 
-	Animation *currentAnimation, walkingAnimationDown, walkingAnimationLeft;
-	Animation walkingAnimationRight, walkingAnimationUp;
+	Animation *currentAnimation, 
+		walkingAnimationDown,
+		walkingAnimationLeft, 
+		walkingAnimationRight, 
+		walkingAnimationUp;
 	AnimatedSprite animation;
+
 	sf::Clock frameClock;
 };
 

@@ -98,4 +98,11 @@ void Enemy::CheckCollision(sf::IntRect collider) {
 		}
 		velocity.y = 0;
 	}
+
+	/*
+	// Check if the enemy unit intersects with the weapon IntRect of the player
+	if (enemyRect.intersects()) {
+		
+	}
+	*/
 }
