@@ -3,6 +3,7 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "Tile.h"
 
 class Level {
 public:
@@ -17,6 +18,7 @@ private:
 	sf::Vector2i map[200][200];
 	sf::Texture tileTexture;
 	sf::Sprite tiles;
+	std::vector<Tile *> tileVec;
 };
 
 #endif
