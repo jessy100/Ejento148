@@ -5,7 +5,7 @@
 Camera::Camera(Player & player) :
 	player{ player }
 {
-	screenDimensions = sf::Vector2f(800, 608);
+	screenDimensions = sf::Vector2f(896, 640);
 	view.reset(sf::FloatRect(0, 0, screenDimensions.x, screenDimensions.y));
 	view.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
 }

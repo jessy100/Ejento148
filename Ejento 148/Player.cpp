@@ -155,6 +155,11 @@ void Player::update(sf::RenderWindow &window) {
 	animation.update(frameTime);
 
 	position = animation.getPosition();
+
+	if (position.y > 575) {
+		grounded = true;
+		velocity.y = 0;
+	}
 	draw(window);
 }
 

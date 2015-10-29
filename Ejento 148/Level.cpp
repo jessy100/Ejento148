@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Tile.h"
+#include "InteractiveTile.h"
+#include "BackgroundTile.h"
 #include <vector>
 #include "Camera.h"
 #include <sstream>
@@ -17,8 +20,7 @@ void Level::Load() {
 	if (levelMap.is_open()) {
 		std::string tileLocation;
 		levelMap >> tileLocation;
-		tileTexture.loadFromFile(tileLocation);
-		tiles.setTexture(tileTexture);
+		
 		while (!levelMap.eof()) {
 			std::string str;
 			levelMap >> str;
@@ -26,12 +28,18 @@ void Level::Load() {
 			// x is character before comma, 2 is character after comma
 			char x = str[0], y = str[2];
 
-			// Check if found characters are digits. If not, set to -1 -1 to ignore when drawing.
-			// Use x - '0' to prevent conversion to ascii
-			if (!isdigit(x) || !isdigit(y)) {
-				map[loadCounter.x][loadCounter.y] = sf::Vector2i(-1, -1);
-			} else {
-				map[loadCounter.x][loadCounter.y] = sf::Vector2i(x - '0', y - '0');
+			// Use x - '0' to prevent conversion to ascii		
+			if (isdigit(x) || isdigit(y)) {
+				if ((x - '0') > 5) {
+					// create new interactive tile
+					tileVec.push_back(new InteractiveTile(sf::Vector2f(loadCounter.x * 128,
+						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
+				}
+				else {
+					//create background tile
+					tileVec.push_back(new BackgroundTile(sf::Vector2f(loadCounter.x * 128,
+						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
+				}
 			}
 
 			// Check if next character is new line if true, increment y counter, if not increment x counter.
@@ -69,28 +77,8 @@ void Level::Show(sf::RenderWindow &window) {
 	while (playingLevel) {
 		window.clear(sf::Color(255, 255, 255)); // White background
 		
-		for (int i = 0; i < loadCounter.x; ++i) {
-			for (int j = 0; j < loadCounter.y; ++j) {
-				if (map[i][j].x != -1 && map[i][j].y != -1) {
-					tiles.setPosition(i * tileSize, j * tileSize);
-					tiles.setTextureRect(sf::IntRect(map[i][j].x * tileSize,
-						map[i][j].y * tileSize,
-						tileSize,
-						tileSize));
-
-					player.CheckCollision(sf::IntRect(i * tileSize,
-						j * tileSize,
-						tileSize,
-						tileSize));
-
-					enemy.CheckCollision(sf::IntRect(i * tileSize,
-						j * tileSize,
-						tileSize,
-						tileSize));
-
-					window.draw(tiles);
-				}
-			}
+		for (auto& tile : tileVec) {
+			tile->draw(window);
 		}
 
 		// Loop through all items in the items vector and check if they collide with the player

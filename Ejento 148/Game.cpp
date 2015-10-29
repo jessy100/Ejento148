@@ -9,8 +9,8 @@
 void Game::Start(void) {
 	window.create(
 		sf::VideoMode(
-			screenHeight,
 			screenWidth,
+			screenHeight,
 			screenDepth
 			),
 		"Ejento 148"
