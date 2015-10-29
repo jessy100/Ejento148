@@ -51,14 +51,14 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 
 	// Swing weapon right
 	swingAnimationRight.setSpriteSheet(texture);
-	swingAnimationRight.addFrame(sf::IntRect(64, 314, playerHeight, playerWidth));
+	//swingAnimationRight.addFrame(sf::IntRect(64, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(128, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(192, 314, playerHeight, playerWidth));
 	swingAnimationRight.addFrame(sf::IntRect(0, 378, playerHeight, playerWidth));
 
 	// Swing weapon left
 	swingAnimationLeft.setSpriteSheet(texture);
-	swingAnimationLeft.addFrame(sf::IntRect(128, 815, playerHeight, playerWidth));
+	//swingAnimationLeft.addFrame(sf::IntRect(128, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(64, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(0, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(192, 879, playerHeight, playerWidth));
@@ -75,6 +75,9 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
 	animation.setPosition(position);
+
+	weapon.setSize(sf::Vector2f(weaponRange, weaponArc));
+	weapon.setFillColor(sf::Color::Red);
 }
 
 void Player::update(sf::RenderWindow &window) {
@@ -129,6 +132,14 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 
+	// Hide the hitbox of the weapon outside of the level
+	weaponRect = sf::IntRect(
+		-100, 
+		0, 
+		weaponRange, 
+		playerHeight
+	);
+
 	playerRect = sf::IntRect(
 		animation.getPosition().x,
 		animation.getPosition().y,
@@ -139,12 +150,21 @@ void Player::update(sf::RenderWindow &window) {
 	if (grounded == false) {
 		velocity.y += gravity;
 	}
+
+	// Check if the player has swung a weapon and for how long
+	if (swingingWeapon == true) {
+		swingAnimationTime = swingAnimationClock.getElapsedTime();
+		if (swingAnimationTime.asSeconds() > attackSpeed) {
+			// Stop swinging the weapon
+			swingingWeapon = false;
+		}
+	}
 	
 	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { 
-		if (direction == right) {
+		if (direction == right && swingingWeapon == false) {
 			setAnimation(idleAnimationRight);
-		} else {
+		} else if(direction == left && swingingWeapon == false) {
 			setAnimation(idleAnimationLeft);
 		}
 		velocity.x = 0;
@@ -164,6 +184,9 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 void Player::draw(sf::RenderWindow &window) {
+	// Test to visualise the weapon collision
+	window.draw(weapon);
+
 	window.draw(animation);
 }
 
@@ -180,11 +203,37 @@ void Player::CheckCollision(sf::IntRect collider) {
 }
 
 void Player::SwingSword() {
+	// Player is swinging the weapon
+	swingingWeapon = true;
+	// Start the clock
+	swingWeaponClock.restart();
+
 	// Perform swing animation
 	if (direction == right) {
 		setAnimation(swingAnimationRight);
+		// Deal damage to any entity within weaponRange pixels to the right side
+		weaponRect = sf::IntRect(
+			animation.getPosition().x + (playerWidth / 2),
+			animation.getPosition().y + (playerHeight / 3),
+			weaponArc,
+			weaponRange
+		);
+
+		// Test to visualise the weapon collision
+		weapon.setPosition(sf::Vector2f(animation.getPosition().x + (playerWidth / 2), animation.getPosition().y + (playerHeight / 3)));
+
 	} else if (direction == left) {
 		setAnimation(swingAnimationLeft);
+		// Deal damage to any entity within weaponRange pixels to the left side
+		weaponRect = sf::IntRect(
+			animation.getPosition().x,
+			animation.getPosition().y + (playerHeight / 3),
+			weaponArc,
+			weaponRange
+		);
+
+		// Test to visualise the weapon collision
+		weapon.setPosition(sf::Vector2f(animation.getPosition().x, animation.getPosition().y + (playerHeight / 3)));
 	}
 	std::cout << "You swing your sword for " << playerDamage << " damage\n";
 }

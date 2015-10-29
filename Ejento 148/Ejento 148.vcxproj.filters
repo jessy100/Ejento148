@@ -84,6 +84,7 @@
     <ClInclude Include="score.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="TimerScreen.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -102,6 +103,8 @@
     <ClInclude Include="BackgroundTile.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+=======
+>>>>>>> 6095ebc22ef44c38a39a3fd9cbda9e9696374673
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -146,6 +149,7 @@
     <ClCompile Include="score.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ScoreCounter.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -163,5 +167,7 @@
     <ResourceCompile Include="Ejento 148.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+=======
+>>>>>>> 6095ebc22ef44c38a39a3fd9cbda9e9696374673
   </ItemGroup>
 </Project>

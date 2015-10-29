@@ -167,12 +167,14 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="score.h" />
-    <ClInclude Include="ScoreCounter.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+<<<<<<< HEAD
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TimerScreen.h" />
+=======
+>>>>>>> 6095ebc22ef44c38a39a3fd9cbda9e9696374673
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
@@ -189,7 +191,6 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="score.cpp" />
-    <ClCompile Include="ScoreCounter.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -197,7 +198,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TimerScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ejento 148.rc" />
