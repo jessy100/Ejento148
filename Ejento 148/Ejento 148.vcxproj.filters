@@ -84,6 +84,15 @@
     <ClInclude Include="score.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractiveTile.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundTile.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -126,6 +135,12 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="score.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundTile.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractiveTile.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
