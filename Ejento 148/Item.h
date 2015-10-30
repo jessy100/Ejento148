@@ -9,8 +9,9 @@ public:
 	Item(sf::Vector2f, std::string n);
 
 	void draw(sf::RenderWindow &window);
-	bool CheckCollision(Player &);
+	void CheckCollision(Player &);
 
+	bool isLooted() { return looted; }
 	void setPosition(sf::Vector2f p) { position = p; }
 private:
 	sf::Texture texture;
@@ -21,6 +22,8 @@ private:
 
 	int itemHeight = 16,
 		itemWidth = 16;
+
+	bool looted = false;
 };
 
 #endif

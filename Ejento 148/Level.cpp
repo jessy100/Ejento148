@@ -93,16 +93,17 @@ void Level::Show(sf::RenderWindow &window) {
 
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != enemies.size(); ++i) {
-			enemies[i].update(window);
-			enemies[i].CheckCollision(player);
+			if (!enemies[i].isKilled()) {
+				enemies[i].update(window);
+				enemies[i].CheckCollision(player);
+			}
 		}
 
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != items.size(); ++i) {
-			items[i].draw(window);
-			// If so, relocate the item
-			if (items[i].CheckCollision(player)) {
-				items[i].setPosition(sf::Vector2f(-32, 0));
+			if (!items[i].isLooted()) {
+				items[i].draw(window);
+				items[i].CheckCollision(player);
 			}
 		}
 

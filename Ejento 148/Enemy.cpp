@@ -51,7 +51,7 @@ void Enemy::draw(sf::RenderWindow &window) {
 }
 
 void Enemy::update(sf::RenderWindow &window) {
-	if (dead == false) {
+	if (killed == false) {
 		sf::Time frameTime = frameClock.restart();
 
 		// Update the collision rectangle

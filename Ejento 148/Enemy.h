@@ -17,6 +17,7 @@ public:
 	void Enemy::setPosition(sf::Vector2f p) { position = p; }
 	void Enemy::takeDamage(Player &);
 	void Enemy::setAnimation(Animation &animation) { currentAnimation = &animation; }
+	bool Enemy::isKilled() { return killed; }
 
 	void CheckCollision(Player &player);
 	void draw(sf::RenderWindow &window);
@@ -29,7 +30,7 @@ private:
 	const float gravity = 10.0f;
 	float speed = 1000.0f, jumpSpeed = 600.0f;
 	int enemyHealth, enemyHeight = 80, enemyWidth = 64;
-	bool noKeyWasPressed = true, grounded = false, jumping = false, dead = false;
+	bool noKeyWasPressed = true, grounded = false, jumping = false, killed = false;
 
 	Animation *currentAnimation, 
 		walkingAnimationDown,

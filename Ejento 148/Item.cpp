@@ -24,28 +24,26 @@ Item::Item(sf::Vector2f pos, std::string e) :
 }
 
 void Item::draw(sf::RenderWindow &window) {
-	itemRect = sf::IntRect(
-		position.x,
-		position.y,
-		itemHeight,
-		itemWidth);
+	if (looted == false) {
+		itemRect = sf::IntRect(
+			position.x,
+			position.y,
+			itemHeight,
+			itemWidth);
 
-	sprite.setPosition(position);
-	window.draw(sprite);
+		sprite.setPosition(position);
+		window.draw(sprite);
+	}
 }
 
-bool Item::CheckCollision(Player &player) {
+void Item::CheckCollision(Player &player) {
 	if (player.getPlayerRect().intersects(itemRect)) {
 		if (effect == "damage") {
 			player.setDamage(player.getDamage() + 1);
-			std::cout << "Player picked up a weapon\n";
-			std::cout << "Player damage is now " << player.getDamage() << "\n";
 		} else if(effect == "health") {
 			player.setHealth(player.getHealth() + 1);
-			std::cout << "Player picked up health\n";
-			std::cout << "Player health is now " << player.getHealth() << "\n";
 		}
-		return true;
+		looted = true;
+		std::cout << "item type " << effect << " has been looted\n";
 	}
-	return false;
 }
