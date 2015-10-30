@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 
-Enemy::Enemy(sf::Vector2f pos, float s, int l) :
-	position(pos), speed(s), lives(l)
+Enemy::Enemy(sf::Vector2f pos, float s, int h) :
+	position(pos), speed(s), enemyHealth(h)
 {
 	if (!texture.loadFromFile("resources/images/enemy.jpg")) {
 		std::cout << "Failed to load enemy spritesheet!" << std::endl;
@@ -51,51 +51,63 @@ void Enemy::draw(sf::RenderWindow &window) {
 }
 
 void Enemy::update(sf::RenderWindow &window) {
-	sf::Time frameTime = frameClock.restart();
-	enemyRect = sf::IntRect(animation.getPosition().x, animation.getPosition().y, 58, 80);
+	if (dead == false) {
+		sf::Time frameTime = frameClock.restart();
 
-	/*
+		// Update the collision rectangle
+		enemyRect = sf::IntRect(animation.getPosition().x,
+			animation.getPosition().y,
+			enemyWidth,
+			enemyHeight);
+
+		position = animation.getPosition();
+		/*
 		Temporary input to test animations
 		Will be replaced with AI system later
-	*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		setAnimation(walkingAnimationRight);
-		velocity.x = speed;
-		noKeyWasPressed = false;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		setAnimation(walkingAnimationRight);
-		velocity.x = -speed;
-		noKeyWasPressed = false;
-	}
+		*/
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			setAnimation(walkingAnimationRight);
+			velocity.x = speed;
+			noKeyWasPressed = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			setAnimation(walkingAnimationRight);
+			velocity.x = -speed;
+			noKeyWasPressed = false;
+		}
 
-	animation.play(*currentAnimation);
-	animation.move(velocity * frameTime.asSeconds());
+		animation.play(*currentAnimation);
+		animation.move(velocity * frameTime.asSeconds());
 
-	if (grounded == false) {
-		velocity.y += gravity;
+		if (grounded == false) {
+			velocity.y += gravity;
+		}
+
+		if (position.y > 575) {
+			grounded = true;
+			velocity.y = 0;
+		}
+
+		// If no key was pressed stop the animation
+		if (noKeyWasPressed) {
+			animation.stop();
+			velocity.x = 0;
+		}
+		noKeyWasPressed = true;
+
+		// Update the animation and draw it
+		animation.update(frameTime);
+		draw(window);
 	}
-
-	// If no key was pressed stop the animation
-	if (noKeyWasPressed) {
-		animation.stop();
-		velocity.x = 0;
-	}
-	noKeyWasPressed = true;
-
-	// Update the animation and draw it
-	animation.update(frameTime);
-	draw(window);
 }
 
-void Enemy::CheckCollision(sf::IntRect collider) {
-	if (collider.intersects(enemyRect)) {
-		if (velocity.y > 0) {
-			grounded = true;
-			jumping = false;
-			animation.setPosition(animation.getPosition().x,
-				collider.top - enemyHeight);
-		}
-		velocity.y = 0;
+void Enemy::takeDamage(Player &player) {
+	enemyHealth -= player.getDamage();
+	std::cout << "Most recently hit enemy has " << enemyHealth << " health remaining";
+}
+
+void Enemy::CheckCollision(Player &player) {
+	if (player.getWeaponRect().intersects(enemyRect)) {
+		takeDamage(player);
 	}
 }

@@ -137,7 +137,7 @@ void Player::update(sf::RenderWindow &window) {
 		-100, 
 		0, 
 		weaponRange, 
-		playerHeight
+		weaponArc
 	);
 
 	playerRect = sf::IntRect(
@@ -236,5 +236,4 @@ void Player::SwingSword() {
 		// Test to visualise the weapon collision
 		weapon.setPosition(sf::Vector2f(animation.getPosition().x, animation.getPosition().y + (playerHeight / 3)));
 	}
-	std::cout << "You swing your sword for " << playerDamage << " damage\n";
 }

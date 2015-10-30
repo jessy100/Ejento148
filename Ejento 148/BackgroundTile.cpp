@@ -14,7 +14,6 @@ BackgroundTile::BackgroundTile(sf::Vector2f position, std::string tileLocation, 
 }
 
 void BackgroundTile::draw(sf::RenderWindow &window) {
-	std::cout << texturePosition.x << "\n";
 	sprite.setTextureRect(sf::IntRect(texturePosition.x * tileSize,
 		texturePosition.y * tileSize,
 		tileSize,

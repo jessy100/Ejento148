@@ -88,10 +88,10 @@
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="InteractiveTile.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundTile.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +138,10 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundTile.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="InteractiveTile.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ void Item::draw(sf::RenderWindow &window) {
 }
 
 bool Item::CheckCollision(Player &player) {
-	if (player.getRect().intersects(itemRect)) {
+	if (player.getPlayerRect().intersects(itemRect)) {
 		if (effect == "damage") {
 			player.setDamage(player.getDamage() + 1);
 			std::cout << "Player picked up a weapon\n";

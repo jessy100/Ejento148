@@ -58,11 +58,12 @@ bool Game::IsExiting() {
 }
 
 void Game::PlayLevel() {
+	Level level;
+	level.Load();
+
 	Audio::StopMusic();
 	Audio::PlayMusic("level-music.wav", 2, 1);
 
-	Level level;
-	level.Load();
 	level.Show(window);
 }
 
@@ -70,22 +71,22 @@ void Game::GameLoop() {
 	sf::Event currentEvent;
 	while (window.waitEvent(currentEvent)) {
 		switch (gameState) {
-		case GameState::ShowingMenu: {
-			ShowMenu();
-			break;
-		}
-		case GameState::ShowingSplash: {
-			ShowSplashScreen();
-			break;
-		}
-		case GameState::Exiting: {
-			ExitGame();
-			break;
-		}
-		case GameState::Playing: {
-			PlayLevel();
-			break;
-		}
+			case GameState::ShowingMenu: {
+				ShowMenu();
+				break;
+			}
+			case GameState::ShowingSplash: {
+				ShowSplashScreen();
+				break;
+			}
+			case GameState::Exiting: {
+				ExitGame();
+				break;
+			}
+			case GameState::Playing: {
+				PlayLevel();
+				break;
+			}
 		}
 	}
 }
