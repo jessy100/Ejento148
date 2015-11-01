@@ -63,12 +63,13 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	swingAnimationLeft.addFrame(sf::IntRect(0, 815, playerHeight, playerWidth));
 	swingAnimationLeft.addFrame(sf::IntRect(192, 879, playerHeight, playerWidth));
 
-	// Jump
-	walkingAnimationUp.setSpriteSheet(texture);
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
-	walkingAnimationUp.addFrame(sf::IntRect(64, 96, playerHeight, playerWidth));
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, playerHeight, playerWidth));
-	walkingAnimationUp.addFrame(sf::IntRect(0, 96, playerHeight, playerWidth));
+	// Jump right
+	jumpAnimationRight.setSpriteSheet(texture);
+	jumpAnimationRight.addFrame(sf::IntRect(192, 53, playerHeight, playerWidth));
+
+	// Jump left
+	jumpAnimationLeft.setSpriteSheet(texture);
+	jumpAnimationLeft.addFrame(sf::IntRect(0, 555, playerHeight, playerWidth));
 
 	currentAnimation = &walkingAnimationDown;
 
@@ -86,7 +87,11 @@ void Player::update(sf::RenderWindow &window) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
 		// Jump
 		Audio::PlaySound("jump.wav", 6, 0);
-		setAnimation(walkingAnimationUp);
+		if (direction == right) {
+			setAnimation(jumpAnimationRight);
+		} else {
+			setAnimation(jumpAnimationLeft);
+		}
 		velocity.y -= jumpSpeed;
 		noKeyWasPressed = false;
 		grounded = false;
@@ -99,13 +104,17 @@ void Player::update(sf::RenderWindow &window) {
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		direction = Direction::left;
-		setAnimation(walkingAnimationLeft);
+		if (grounded == true && swingingWeapon == false) {
+			setAnimation(walkingAnimationLeft);
+		}
 		velocity.x = -speed;
 		noKeyWasPressed = false;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		direction = Direction::right;
-		setAnimation(walkingAnimationRight);
+		if (grounded == true && swingingWeapon == false) {
+			setAnimation(walkingAnimationRight);
+		}
 		velocity.x = speed;
 		noKeyWasPressed = false;
 	}
@@ -153,18 +162,27 @@ void Player::update(sf::RenderWindow &window) {
 
 	// Check if the player has swung a weapon and for how long
 	if (swingingWeapon == true) {
+
+		// If so, perform swing animation in the proper direction
+		if (direction == right) {
+			setAnimation(swingAnimationRight);
+		} else {
+			setAnimation(swingAnimationLeft);
+		}
+
+		// Check how long the player has swung his weapon
 		swingAnimationTime = swingAnimationClock.getElapsedTime();
 		if (swingAnimationTime.asSeconds() > attackSpeed) {
 			// Stop swinging the weapon
 			swingingWeapon = false;
 		}
 	}
-	
+
 	// If no key was pressed stop the animation
 	if (noKeyWasPressed) { 
-		if (direction == right && swingingWeapon == false) {
+		if (direction == right && swingingWeapon == false && grounded == true) {
 			setAnimation(idleAnimationRight);
-		} else if(direction == left && swingingWeapon == false) {
+		} else if(direction == left && swingingWeapon == false && grounded == true) {
 			setAnimation(idleAnimationLeft);
 		}
 		velocity.x = 0;
@@ -206,12 +224,13 @@ void Player::CheckCollision(sf::IntRect collider) {
 void Player::SwingSword() {
 	// Player is swinging the weapon
 	swingingWeapon = true;
-	// Start the clock
+
+	// Restart the clock
 	swingWeaponClock.restart();
+	swingAnimationClock.restart();
 
 	// Perform swing animation
 	if (direction == right) {
-		setAnimation(swingAnimationRight);
 		// Deal damage to any entity within weaponRange pixels to the right side
 		weaponRect = sf::IntRect(
 			animation.getPosition().x + (playerWidth / 2),
@@ -224,7 +243,6 @@ void Player::SwingSword() {
 		weapon.setPosition(sf::Vector2f(animation.getPosition().x + (playerWidth / 2), animation.getPosition().y + (playerHeight / 3)));
 
 	} else if (direction == left) {
-		setAnimation(swingAnimationLeft);
 		// Deal damage to any entity within weaponRange pixels to the left side
 		weaponRect = sf::IntRect(
 			animation.getPosition().x,

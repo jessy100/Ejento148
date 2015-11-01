@@ -36,7 +36,7 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 1.0f;
+	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 0.5f;
 	int lives,
 		playerHealth = 10,
 		playerHeight = 60, 
@@ -56,7 +56,8 @@ private:
 		walkingAnimationDown, 
 		walkingAnimationLeft,
 		walkingAnimationRight,
-		walkingAnimationUp, 
+		jumpAnimationRight,
+		jumpAnimationLeft, 
 		swingAnimationRight, 
 		swingAnimationLeft;
 
