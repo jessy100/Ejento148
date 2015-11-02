@@ -41,8 +41,22 @@ private:
 		walkingAnimationRight, 
 		walkingAnimationUp;
 	AnimatedSprite animation;
-	sf::Clock frameClock, invulernabilityClock;
-	sf::Time invulnerabilityTime;
+	sf::Clock frameClock, invulernabilityClock, actionClock;
+	sf::Time invulnerabilityTime, actionTime;
+
+	enum Action { idleLeft,
+		idleRight, 
+		shootingLeft, 
+		shootingRight, 
+		walkingLeft,
+		walkingRight, 
+		dyingLeft, 
+		dyingRight 
+	};
+	Action action = Action::idleLeft;
+
+	enum Direction { left, right };
+	Direction direction = Direction::left;
 };
 
 #endif

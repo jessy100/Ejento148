@@ -79,10 +79,12 @@ void Enemy::update(sf::RenderWindow &window) {
 		animation.play(*currentAnimation);
 		animation.move(velocity * frameTime.asSeconds());
 
-		if (grounded == false) {
-			velocity.y += gravity;
-		}
+		// Apply gravity
+		if (grounded == false) { velocity.y += gravity; }
 
+		// Check if the enemy's health has been reduced to 0
+		if (enemyHealth == 0) {  killed = true; }
+	
 		if (position.y > 575) {
 			grounded = true;
 			velocity.y = 0;
@@ -106,7 +108,6 @@ void Enemy::takeDamage(Player &player) {
 		invulernabilityClock.restart();
 
 		enemyHealth -= player.getDamage();
-		std::cout << "Most recently hit enemy has " << enemyHealth << " health remaining\n";
 
 		invulnerable = true;
 	} else {
