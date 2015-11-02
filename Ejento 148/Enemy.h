@@ -22,6 +22,7 @@ public:
 	void CheckCollision(Player &player);
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
+	void updateState();
 private:
 	sf::Texture texture;
 	sf::Vector2f position, velocity = sf::Vector2f(0, 0);
@@ -29,34 +30,33 @@ private:
 
 	const float gravity = 10.0f;
 	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.6f;
-	int enemyHealth, enemyHeight = 80, enemyWidth = 64;
-	bool noKeyWasPressed = true,
-		grounded = false,
+	int enemyHealth, enemyWidth = 50, enemyHeight = 51;
+	bool grounded = false,
 		invulnerable = false, 
 		killed = false;
 
-	Animation *currentAnimation, 
-		walkingAnimationDown,
+	Animation *currentAnimation,
 		walkingAnimationLeft, 
 		walkingAnimationRight, 
-		walkingAnimationUp;
+		idleAnimationLeft, 
+		idleAnimationRight,
+		shootingAnimationLeft, 
+		shootingAnimationRight, 
+		dyingAnimationLeft, 
+		dyingAnimationRight;
 	AnimatedSprite animation;
 	sf::Clock frameClock, invulernabilityClock, actionClock;
 	sf::Time invulnerabilityTime, actionTime;
 
-	enum Action { idleLeft,
-		idleRight, 
-		shootingLeft, 
-		shootingRight, 
-		walkingLeft,
-		walkingRight, 
-		dyingLeft, 
-		dyingRight 
+	enum State { idle, 
+		shooting, 
+		walking, 
+		dying 
 	};
-	Action action = Action::idleLeft;
+	State state = State::walking;
 
 	enum Direction { left, right };
-	Direction direction = Direction::left;
+	Direction direction = Direction::right;
 };
 
 #endif
