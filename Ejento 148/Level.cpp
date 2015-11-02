@@ -6,6 +6,8 @@
 #include "Tile.h"
 #include "InteractiveTile.h"
 #include "BackgroundTile.h"
+#include "TimerCounter.h"
+#include "ScoreCounter.h"
 #include <vector>
 #include "Camera.h"
 #include <sstream>
@@ -57,7 +59,12 @@ void Level::Load() {
 
 
 void Level::Show(sf::RenderWindow &window) {
+	
 	Player player(sf::Vector2f(100, 500), "Ejento 148", 3);
+	
+	timerCounter timer(sf::Vector2f(50,50));
+	scoreCounter score(sf::Vector2f(400,50));
+	score.add(20);
 
 	std::vector<Item> items;
 	std::vector<Enemy> enemies;
@@ -105,9 +112,12 @@ void Level::Show(sf::RenderWindow &window) {
 			}
 		}
 
+
 		//enemy.update(window);
 		player.update(window);
 		camera.update(window);
+		timer.draw(window,camera.getPosition());
+		score.draw(window, camera.getPosition());
 		window.display();
 	}
 }

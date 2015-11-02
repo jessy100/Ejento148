@@ -6,6 +6,7 @@ public:
 	Camera(Player & player);
 
 	void update(sf::RenderWindow &window);
+	sf::Vector2f getPosition() { return cameraPosition; }
 
 private:
 	sf::View view;
