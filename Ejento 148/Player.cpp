@@ -76,9 +76,6 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
 	animation.setPosition(position);
-
-	weapon.setSize(sf::Vector2f(weaponRange, weaponArc));
-	weapon.setFillColor(sf::Color::Red);
 }
 
 void Player::update(sf::RenderWindow &window) {
@@ -141,14 +138,17 @@ void Player::update(sf::RenderWindow &window) {
 
 	animation.play(*currentAnimation);
 
-	// Hide the hitbox of the weapon outside of the level
-	weaponRect = sf::IntRect(
-		-100, 
-		0, 
-		weaponRange, 
-		weaponArc
-	);
+	if (swingingWeapon == false) {
+		// Hide the hitbox of the weapon outside of the level
+		weaponRect = sf::IntRect(
+			-100,
+			0,
+			weaponRange,
+			weaponArc
+		);
+	}
 
+	// Update the position of the player collision box
 	playerRect = sf::IntRect(
 		animation.getPosition().x,
 		animation.getPosition().y,
@@ -203,9 +203,6 @@ void Player::update(sf::RenderWindow &window) {
 }
 
 void Player::draw(sf::RenderWindow &window) {
-	// Test to visualise the weapon collision
-	window.draw(weapon);
-
 	window.draw(animation);
 }
 
@@ -225,7 +222,7 @@ void Player::SwingSword() {
 	// Player is swinging the weapon
 	swingingWeapon = true;
 
-	// Restart the clock
+	// Restart the clocks to keep tracking of the time it takes to swing a weapon
 	swingWeaponClock.restart();
 	swingAnimationClock.restart();
 
@@ -238,10 +235,6 @@ void Player::SwingSword() {
 			weaponArc,
 			weaponRange
 		);
-
-		// Test to visualise the weapon collision
-		weapon.setPosition(sf::Vector2f(animation.getPosition().x + (playerWidth / 2), animation.getPosition().y + (playerHeight / 3)));
-
 	} else if (direction == left) {
 		// Deal damage to any entity within weaponRange pixels to the left side
 		weaponRect = sf::IntRect(
@@ -250,8 +243,5 @@ void Player::SwingSword() {
 			weaponArc,
 			weaponRange
 		);
-
-		// Test to visualise the weapon collision
-		weapon.setPosition(sf::Vector2f(animation.getPosition().x, animation.getPosition().y + (playerHeight / 3)));
 	}
 }

@@ -28,9 +28,12 @@ private:
 	sf::IntRect enemyRect;
 
 	const float gravity = 10.0f;
-	float speed = 1000.0f, jumpSpeed = 600.0f;
+	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.6f;
 	int enemyHealth, enemyHeight = 80, enemyWidth = 64;
-	bool noKeyWasPressed = true, grounded = false, jumping = false, killed = false;
+	bool noKeyWasPressed = true,
+		grounded = false,
+		invulnerable = false, 
+		killed = false;
 
 	Animation *currentAnimation, 
 		walkingAnimationDown,
@@ -38,7 +41,8 @@ private:
 		walkingAnimationRight, 
 		walkingAnimationUp;
 	AnimatedSprite animation;
-	sf::Clock frameClock;
+	sf::Clock frameClock, invulernabilityClock;
+	sf::Time invulnerabilityTime;
 };
 
 #endif

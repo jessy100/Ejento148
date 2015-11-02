@@ -24,7 +24,7 @@ private:
 	GameState gameState = GameState::Uninitialized;
 	sf::RenderWindow window;
 
-	int screenHeight = 640, screenWidth = 896, screenDepth = 32;
+	int screenWidth = 896, screenHeight = 640, screenDepth = 32;
 	
 };
 

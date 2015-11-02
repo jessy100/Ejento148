@@ -21,7 +21,7 @@ public:
 	int Player::getHealth() { return playerHealth; }
 	void Player::setHealth(int h) { playerHealth = h; }
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
-	sf::IntRect getWeaponRect() { return weaponRect; }
+	sf::IntRect Player::getWeaponRect() { return weaponRect; }
 	sf::IntRect Player::getPlayerRect() { return playerRect; }
 
 	void CheckCollision(sf::IntRect);
@@ -67,9 +67,6 @@ private:
 
 	enum Direction {left, right};
 	Direction direction = Direction::right;
-
-	// Test to visualise the weapon collision
-	sf::RectangleShape weapon;
 };
 
 #endif

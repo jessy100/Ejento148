@@ -34,8 +34,7 @@ void Level::Load() {
 					// create new interactive tile
 					tileVec.push_back(new InteractiveTile(sf::Vector2f(loadCounter.x * 128,
 						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
-				}
-				else {
+				} else {
 					//create background tile
 					tileVec.push_back(new BackgroundTile(sf::Vector2f(loadCounter.x * 128,
 						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
@@ -46,8 +45,7 @@ void Level::Load() {
 			if (levelMap.peek() == '\n') {
 				loadCounter.x = 0;
 				loadCounter.y++;
-			}
-			else {
+			} else {
 				loadCounter.x++;
 			}
 		}

@@ -102,8 +102,21 @@ void Enemy::update(sf::RenderWindow &window) {
 }
 
 void Enemy::takeDamage(Player &player) {
-	enemyHealth -= player.getDamage();
-	std::cout << "Most recently hit enemy has " << enemyHealth << " health remaining";
+	if (invulnerable == false) {
+		invulernabilityClock.restart();
+
+		enemyHealth -= player.getDamage();
+		std::cout << "Most recently hit enemy has " << enemyHealth << " health remaining\n";
+
+		invulnerable = true;
+	} else {
+		// Check how long it has been since being hit
+		invulnerabilityTime = invulernabilityClock.getElapsedTime();
+
+		if (invulnerabilityTime.asSeconds() > hitTimer) {
+			invulnerable = false;
+		}
+	}
 }
 
 void Enemy::CheckCollision(Player &player) {
