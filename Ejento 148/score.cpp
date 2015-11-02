@@ -14,7 +14,7 @@ Score::Score() {
 
 }
 
-void Score::getScores() {
+std::vector<std::string> Score::getScores() {
 	//Call the file index.php on host jessy-visch.nl/ejento
 	sf::Http::Request request("ejento/index.php");
 
@@ -27,6 +27,7 @@ void Score::getScores() {
 	if (status == sf::Http::Response::Ok) {
 		std::string responseStr = response.getBody();
 		Score::parseResponseString(responseStr);
+		return seglist;
 		//std::cout << response.getBody();
 	}
 	else {
@@ -36,18 +37,11 @@ void Score::getScores() {
 
 void Score::parseResponseString(std::string str) {
 	std::stringstream test(str);
-	std::string segment;
-	std::vector<std::string> seglist;
 
 	while (std::getline(test, segment, ';'))
 	{
 		seglist.push_back(segment);
 	}
-
-	for (auto i : seglist)
-		std::cout << i << '\n';
-
-
 }
 
 void Score::saveScore(std::string name, std::string score, std::string tijd) {

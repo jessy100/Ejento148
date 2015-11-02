@@ -15,10 +15,11 @@ private:
 	void ShowMenu();
 	void ExitGame();
 	void PlayLevel();
+	void ShowScoreboard();
 
 	enum class GameState {
 		Uninitialized, ShowingSplash, Paused,
-		ShowingMenu, Playing, Exiting
+		ShowingMenu, Playing, Exiting,ShowingScoreboard
 	};
 
 	GameState gameState = GameState::Uninitialized;

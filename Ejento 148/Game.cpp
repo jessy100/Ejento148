@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Audio.h"
+#include "ScoreScreen.h"
 
 void Game::Start(void) {
 	window.create(
@@ -43,6 +44,8 @@ void Game::ShowMenu() {
 	case MainMenu::MenuResult::Play:
 		gameState = GameState::Playing;
 		break;
+	case MainMenu::MenuResult::ScoreBoard:
+		gameState = GameState::ShowingScoreboard;
 	}
 }
 
@@ -67,6 +70,12 @@ void Game::PlayLevel() {
 	level.Show(window);
 }
 
+void Game::ShowScoreboard() {
+	ScoreScreen scoreScreen;
+	scoreScreen.draw(window);
+	gameState = GameState::ShowingScoreboard;
+}
+
 void Game::GameLoop() {
 	sf::Event currentEvent;
 	while (window.waitEvent(currentEvent)) {
@@ -85,6 +94,11 @@ void Game::GameLoop() {
 			}
 			case GameState::Playing: {
 				PlayLevel();
+				break;
+			}
+									 
+			case GameState::ShowingScoreboard:{
+				ShowScoreboard();
 				break;
 			}
 		}

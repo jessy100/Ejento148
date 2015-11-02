@@ -13,12 +13,14 @@ public:
 	Score();
 
 
-	void Score::getScores();
+	std::vector<std::string> Score::getScores();
 	void Score::saveScore(std::string name, std::string score, std::string tijd);
 	void Score::parseResponseString(std::string str);
 	void Score::draw(sf::RenderWindow &window);
 private:
 	sf::Http http;
+	std::string segment;
+	std::vector<std::string> seglist;
 
 };
 
