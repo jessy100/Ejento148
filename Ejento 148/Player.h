@@ -26,6 +26,7 @@ public:
 
 	void CheckCollision(sf::IntRect);
 	void SwingSword();
+	void GameOver();
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
@@ -36,7 +37,7 @@ private:
 	std::string name;
 
 	const float gravity = 10.0f;
-	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 0.5f;
+	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 0.5f, deathDuration = 1.4f;
 	int lives,
 		playerHealth = 10,
 		playerHeight = 60, 
@@ -48,25 +49,27 @@ private:
 		grounded = false, 
 		canSwingWeapon = true,
 		swingingWeapon = false, 
-		jumping = false;
+		jumping = false, 
+		dead = false;
 
 	Animation *currentAnimation, 
 		idleAnimationRight, 
 		idleAnimationLeft, 
-		walkingAnimationDown, 
 		walkingAnimationLeft,
 		walkingAnimationRight,
 		jumpAnimationRight,
 		jumpAnimationLeft, 
 		swingAnimationRight, 
-		swingAnimationLeft;
+		swingAnimationLeft, 
+		deathAnimationLeft, 
+		deathAnimationRight;
 
 	AnimatedSprite animation;
-	sf::Clock frameClock, swingWeaponClock, swingAnimationClock;
-	sf::Time swingWeaponTime, swingAnimationTime;
+	sf::Clock frameClock, swingWeaponClock, swingAnimationClock, deathAnimationClock;
+	sf::Time swingWeaponTime, swingAnimationTime, deathAnimationTime;
 
 	enum Direction {left, right};
-	Direction direction = Direction::right;
+	Direction direction = Direction::left;
 };
 
 #endif
