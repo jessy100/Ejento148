@@ -136,8 +136,6 @@ void Player::update(sf::RenderWindow &window) {
 		noKeyWasPressed = false;
 	}
 
-	animation.play(*currentAnimation);
-
 	if (swingingWeapon == false) {
 		// Hide the hitbox of the weapon outside of the level
 		weaponRect = sf::IntRect(
@@ -154,7 +152,9 @@ void Player::update(sf::RenderWindow &window) {
 		animation.getPosition().y,
 		playerHeight,
 		playerWidth);
+
 	animation.move(velocity * frameTime.asSeconds());
+	animation.play(*currentAnimation);
 
 	if (grounded == false) {
 		velocity.y += gravity;
@@ -194,7 +194,7 @@ void Player::update(sf::RenderWindow &window) {
 
 	position = animation.getPosition();
 
-	if (position.y > 575) {
+	if (position.y > (640 - playerHeight)) {
 		grounded = true;
 		velocity.y = 0;
 	}

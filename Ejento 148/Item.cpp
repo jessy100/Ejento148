@@ -44,6 +44,5 @@ void Item::CheckCollision(Player &player) {
 			player.setHealth(player.getHealth() + 1);
 		}
 		looted = true;
-		std::cout << "item type " << effect << " has been looted\n";
 	}
 }

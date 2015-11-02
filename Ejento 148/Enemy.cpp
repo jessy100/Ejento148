@@ -9,16 +9,40 @@
 Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	position(pos), speed(s), enemyHealth(h)
 {
-	if (!texture.loadFromFile("resources/images/enemy.jpg")) {
+	if (!texture.loadFromFile("resources/images/enemy.png")) {
 		std::cout << "Failed to load enemy spritesheet!" << std::endl;
 	}
 
 	// Set up the animations for all four directions (set spritesheet and push frames)
-	walkingAnimationDown.setSpriteSheet(texture);
-	walkingAnimationDown.addFrame(sf::IntRect(20, 4, 65, 75));
-	walkingAnimationDown.addFrame(sf::IntRect(64, 0, 32, 32));
-	walkingAnimationDown.addFrame(sf::IntRect(32, 0, 32, 32));
-	walkingAnimationDown.addFrame(sf::IntRect(0, 0, 32, 32));
+	// Idle left
+	idleAnimationLeft.setSpriteSheet(texture);
+	idleAnimationLeft.addFrame(sf::IntRect(530, 105, enemyWidth, enemyHeight));
+
+	// Idle right
+	idleAnimationRight.setSpriteSheet(texture);
+	idleAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
+
+	// Shooting left
+	shootingAnimationLeft.setSpriteSheet(texture);
+	shootingAnimationLeft.addFrame(sf::IntRect(252, 418, enemyWidth, enemyHeight));
+	shootingAnimationLeft.addFrame(sf::IntRect(188, 418, enemyWidth, enemyHeight));
+	shootingAnimationLeft.addFrame(sf::IntRect(134, 418, enemyWidth, enemyHeight));
+	shootingAnimationLeft.addFrame(sf::IntRect(91, 418, enemyWidth, enemyHeight));
+
+	// Shooting right
+	shootingAnimationRight.setSpriteSheet(texture);
+	shootingAnimationRight.addFrame(sf::IntRect(10, 0, enemyWidth, enemyHeight));
+	shootingAnimationRight.addFrame(sf::IntRect(62, 0, enemyWidth, enemyHeight));
+	shootingAnimationRight.addFrame(sf::IntRect(115, 0, enemyWidth, enemyHeight));
+	shootingAnimationRight.addFrame(sf::IntRect(171, 0, enemyWidth, enemyHeight));
+
+	// Dying left
+	dyingAnimationLeft.setSpriteSheet(texture);
+	dyingAnimationLeft.addFrame(sf::IntRect(660, 130, enemyWidth, enemyHeight));
+
+	// Dying right
+	dyingAnimationRight.setSpriteSheet(texture);
+	dyingAnimationRight.addFrame(sf::IntRect(660, 130, enemyWidth, enemyHeight));
 
 	walkingAnimationLeft.setSpriteSheet(texture);
 	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
@@ -27,19 +51,14 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(10, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(10, 170, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(74, 170, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(140, 170, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(206, 170, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(10, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(51, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(101, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(152, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(200, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(253, 124, enemyWidth, enemyHeight));
 
-	walkingAnimationUp.setSpriteSheet(texture);
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(64, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(32, 96, 32, 32));
-	walkingAnimationUp.addFrame(sf::IntRect(0, 96, 32, 32));
-
-	currentAnimation = &walkingAnimationRight;
+	currentAnimation = &idleAnimationLeft;
 
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
@@ -61,19 +80,45 @@ void Enemy::update(sf::RenderWindow &window) {
 			enemyHeight);
 
 		position = animation.getPosition();
+
+		// Update the enemy's current state based off environment
+		updateState();
+
 		/*
-		Temporary input to test animations
-		Will be replaced with AI system later
+			Perform an action based on the enemy's current state
 		*/
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			setAnimation(walkingAnimationRight);
-			velocity.x = speed;
-			noKeyWasPressed = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			setAnimation(walkingAnimationRight);
-			velocity.x = -speed;
-			noKeyWasPressed = false;
+		switch (state) {
+			case idle:
+				if (direction == left) {
+					setAnimation(idleAnimationLeft);
+				} else {
+					setAnimation(idleAnimationRight);
+				}
+				break;
+			case shooting:
+				if (direction == left) {
+					setAnimation(shootingAnimationLeft);
+				} else {
+					setAnimation(shootingAnimationRight);
+				}
+				break;
+			case walking:
+				if (direction == left) {
+					setAnimation(walkingAnimationLeft);
+					//velocity.x = -speed;
+				} else {
+					setAnimation(walkingAnimationRight);
+					//velocity.x = speed;
+				}
+				break;
+			case dying:
+				if (direction == left) {
+					setAnimation(dyingAnimationLeft);
+				} else {
+					setAnimation(dyingAnimationLeft);
+				}
+				// Set killed to true
+				break;
 		}
 
 		animation.play(*currentAnimation);
@@ -81,21 +126,11 @@ void Enemy::update(sf::RenderWindow &window) {
 
 		// Apply gravity
 		if (grounded == false) { velocity.y += gravity; }
-
-		// Check if the enemy's health has been reduced to 0
-		if (enemyHealth == 0) {  killed = true; }
 	
-		if (position.y > 575) {
+		if (position.y > 300) {
 			grounded = true;
 			velocity.y = 0;
 		}
-
-		// If no key was pressed stop the animation
-		if (noKeyWasPressed) {
-			animation.stop();
-			velocity.x = 0;
-		}
-		noKeyWasPressed = true;
 
 		// Update the animation and draw it
 		animation.update(frameTime);
@@ -103,12 +138,16 @@ void Enemy::update(sf::RenderWindow &window) {
 	}
 }
 
+void Enemy::updateState() {
+	// Check if the enemy's health has been reduced to 0
+	if (enemyHealth == 0) { state = State::dying; }
+}
+
 void Enemy::takeDamage(Player &player) {
 	if (invulnerable == false) {
 		invulernabilityClock.restart();
 
 		enemyHealth -= player.getDamage();
-
 		invulnerable = true;
 	} else {
 		// Check how long it has been since being hit

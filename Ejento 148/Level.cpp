@@ -76,9 +76,9 @@ void Level::Show(sf::RenderWindow &window) {
 	Enemy enemy3(sf::Vector2f(300, 200), 200.0f, 3);
 	Enemy enemy4(sf::Vector2f(400, 200), 200.0f, 3);
 	enemies.push_back(enemy1);
-	enemies.push_back(enemy2);
-	enemies.push_back(enemy3);
-	enemies.push_back(enemy4);
+	//enemies.push_back(enemy2);
+	//enemies.push_back(enemy3);
+	//enemies.push_back(enemy4);
 
 	Camera camera(player);
 
@@ -90,7 +90,7 @@ void Level::Show(sf::RenderWindow &window) {
 		}
 
 		// Loop through all items in the items vector and check if they collide with the player
-		for (std::vector<int>::size_type i = 0; i != enemies.size(); ++i) {
+		for (std::vector<int>::size_type i = 0; i != enemies.size(); i++) {
 			if (!enemies[i].isKilled()) {
 				enemies[i].update(window);
 				enemies[i].CheckCollision(player);
