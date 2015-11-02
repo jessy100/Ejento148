@@ -24,13 +24,6 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	idleAnimationLeft.setSpriteSheet(texture);
 	idleAnimationLeft.addFrame(sf::IntRect(64, 687, playerHeight, playerWidth));
 
-	// Crawl/duck/lie down
-	walkingAnimationDown.setSpriteSheet(texture);
-	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
-	walkingAnimationDown.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
-	walkingAnimationDown.addFrame(sf::IntRect(32, 0, playerHeight, playerWidth));
-	walkingAnimationDown.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
-
 	// Walk left
 	walkingAnimationLeft.setSpriteSheet(texture);
 	walkingAnimationLeft.addFrame(sf::IntRect(0, 555, playerHeight, playerWidth));
@@ -71,7 +64,27 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 	jumpAnimationLeft.setSpriteSheet(texture);
 	jumpAnimationLeft.addFrame(sf::IntRect(0, 555, playerHeight, playerWidth));
 
-	currentAnimation = &walkingAnimationDown;
+	// Die left
+	deathAnimationLeft.setSpriteSheet(texture);
+	deathAnimationLeft.addFrame(sf::IntRect(192, 502, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(128, 502, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(64, 502, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(0, 502, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(192, 566, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(128, 566, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(64, 566, playerHeight, playerWidth));
+
+	// Die right
+	deathAnimationRight.setSpriteSheet(texture);
+	deathAnimationRight.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(128, 0, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(192, 0, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(0, 64, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(64, 64, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(128, 64, playerHeight, playerWidth));
+
+	currentAnimation = &idleAnimationRight;
 
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
@@ -81,61 +94,83 @@ Player::Player(sf::Vector2f pos, std::string n,  int l) :
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
-		// Jump
-		Audio::PlaySound("jump.wav", 6, 0);
-		if (direction == right) {
-			setAnimation(jumpAnimationRight);
-		} else {
-			setAnimation(jumpAnimationLeft);
-		}
-		velocity.y -= jumpSpeed;
-		noKeyWasPressed = false;
-		grounded = false;
-		jumping = true;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		// Duck/Crawl
-		setAnimation(walkingAnimationDown);
-		noKeyWasPressed = true;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		direction = Direction::left;
-		if (grounded == true && swingingWeapon == false) {
-			setAnimation(walkingAnimationLeft);
-		}
-		velocity.x = -speed;
-		noKeyWasPressed = false;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		direction = Direction::right;
-		if (grounded == true && swingingWeapon == false) {
-			setAnimation(walkingAnimationRight);
-		}
-		velocity.x = speed;
-		noKeyWasPressed = false;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		// Check if the player can swing his weapon
-		if (canSwingWeapon == true) {
-			// Reset the clock
-			swingWeaponClock.restart();
+	/*
+		Player input
+	*/
+	if (dead == false) {
 
-			// Call function to swing weapon
-			SwingSword();
-
-			canSwingWeapon = false;
-		} else {
-			// Check if 2 seconds have passed
-			swingWeaponTime = swingWeaponClock.getElapsedTime();
-			if (swingWeaponTime.asSeconds() > attackSpeed) {
-				// If so, set canSwingWeapon to true
-				canSwingWeapon = true;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
+			// Jump
+			Audio::PlaySound("jump.wav", 6, 0);
+			if (direction == right) {
+				setAnimation(jumpAnimationRight);
+			} else {
+				setAnimation(jumpAnimationLeft);
 			}
+			velocity.y -= jumpSpeed;
+			noKeyWasPressed = false;
+			grounded = false;
+			jumping = true;
 		}
-		noKeyWasPressed = false;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			direction = Direction::left;
+			if (grounded == true && swingingWeapon == false) {
+				setAnimation(walkingAnimationLeft);
+			}
+			velocity.x = -speed;
+			noKeyWasPressed = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			direction = Direction::right;
+			if (grounded == true && swingingWeapon == false) {
+				setAnimation(walkingAnimationRight);
+			}
+			velocity.x = speed;
+			noKeyWasPressed = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			// Check if the player can swing his weapon
+			if (canSwingWeapon == true) {
+				// Call function to swing weapon
+				SwingSword();
+
+				canSwingWeapon = false;
+			} else {
+				// Check if x seconds have passed
+				swingWeaponTime = swingWeaponClock.getElapsedTime();
+				if (swingWeaponTime.asSeconds() > attackSpeed) {
+					// If so, set canSwingWeapon to true
+					canSwingWeapon = true;
+				}
+			}
+			noKeyWasPressed = false;
+		} // End player input
+
+	} // End if dead == false
+
+	// If the player has reached 0 health, play the death animation
+	if (playerHealth <= 0) {
+		// R.I.P.
+		if (dead == false) {
+			deathAnimationClock.restart();
+			dead = true;
+		}
+
+		if (direction == left) {
+			setAnimation(deathAnimationLeft);
+		} else {
+			setAnimation(deathAnimationRight);
+		}
+
+		// Check if x seconds have passed
+		deathAnimationTime = deathAnimationClock.getElapsedTime();
+		if (deathAnimationTime.asSeconds() > deathDuration) {
+			// If so, the animation is finished and the game is over
+			GameOver();
+		}
 	}
 
+	// If the player is not swinging his weapon, move the hitbox somewhere out of the way
 	if (swingingWeapon == false) {
 		// Hide the hitbox of the weapon outside of the level
 		weaponRect = sf::IntRect(
@@ -153,9 +188,11 @@ void Player::update(sf::RenderWindow &window) {
 		playerHeight,
 		playerWidth);
 
+	// Update and play the animation
 	animation.move(velocity * frameTime.asSeconds());
 	animation.play(*currentAnimation);
 
+	// Apply gravity
 	if (grounded == false) {
 		velocity.y += gravity;
 	}
@@ -179,10 +216,10 @@ void Player::update(sf::RenderWindow &window) {
 	}
 
 	// If no key was pressed stop the animation
-	if (noKeyWasPressed) { 
-		if (direction == right && swingingWeapon == false && grounded == true) {
+	if (noKeyWasPressed && swingingWeapon == false && grounded == true && dead == false) {
+		if (direction == right) {
 			setAnimation(idleAnimationRight);
-		} else if(direction == left && swingingWeapon == false && grounded == true) {
+		} else if(direction == left) {
 			setAnimation(idleAnimationLeft);
 		}
 		velocity.x = 0;
@@ -196,6 +233,7 @@ void Player::update(sf::RenderWindow &window) {
 
 	if (position.y > (640 - playerHeight)) {
 		grounded = true;
+		position.y = (640 - playerHeight);
 		velocity.y = 0;
 	}
 
@@ -244,4 +282,8 @@ void Player::SwingSword() {
 			weaponRange
 		);
 	}
+}
+
+void Player::GameOver() {
+	// The player has died. End the game and show the post-game screen
 }
