@@ -130,7 +130,7 @@ void Enemy::update(sf::RenderWindow &window) {
 		// Apply gravity
 		if (grounded == false) { velocity.y += gravity; }
 	
-		if (position.y > 300) {
+		if (position.y > (640 - enemyHeight)) {
 			grounded = true;
 			velocity.y = 0;
 		}

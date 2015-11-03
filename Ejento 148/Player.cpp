@@ -10,10 +10,6 @@
 Player::Player(sf::Vector2f pos, std::string n,  int h) : 
 	position(pos), name(n),  playerHealth(h)
 {
-	rectshape.setPosition(sf::Vector2f(pos.x + 20, pos.y + 20));
-	rectshape.setFillColor(sf::Color::Red);
-	rectshape.setSize(sf::Vector2f(20, 35));
-
 	if (!texture.loadFromFile("resources/images/ninja.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
@@ -192,7 +188,8 @@ void Player::update(sf::RenderWindow &window) {
 		animation.getPosition().x + 25,
 		animation.getPosition().y + 28,
 		20,
-		35);
+		35
+	);
 
 	
 	// Update and play the animation
@@ -237,7 +234,6 @@ void Player::update(sf::RenderWindow &window) {
 	animation.update(frameTime);
 
 	position = animation.getPosition();
-	rectshape.setPosition(sf::Vector2f(position.x + 20, position.y + 25));
 
 	if (position.y > (635 - playerHeight)) {
 		grounded = true;
@@ -251,15 +247,10 @@ void Player::update(sf::RenderWindow &window) {
 
 void Player::draw(sf::RenderWindow &window) {
 	window.draw(animation);
-	//window.draw(rectshape);
 }
 
 void Player::CheckCollision(sf::IntRect collider) {
-
-	
 	if (collider.top >= playerRect.top) {
-
-		//animation.setPosition(animation.getPosition().x, collider.top );
 		velocity.y = 0;
 		onPlatform = true;
 	}
@@ -269,11 +260,7 @@ void Player::CheckCollision(sf::IntRect collider) {
 	}
 	if (collider.left > playerRect.left + playerRect.width) {
 		velocity.x = 0;
-	}
-		
-	
-
-	
+	}	
 }
 
 void Player::SwingSword() {
