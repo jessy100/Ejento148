@@ -25,16 +25,16 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	// Shooting left
 	shootingAnimationLeft.setSpriteSheet(texture);
 	shootingAnimationLeft.addFrame(sf::IntRect(252, 418, enemyWidth, enemyHeight));
-	shootingAnimationLeft.addFrame(sf::IntRect(188, 418, enemyWidth, enemyHeight));
-	shootingAnimationLeft.addFrame(sf::IntRect(134, 418, enemyWidth, enemyHeight));
-	shootingAnimationLeft.addFrame(sf::IntRect(91, 418, enemyWidth, enemyHeight));
+	//shootingAnimationLeft.addFrame(sf::IntRect(188, 418, enemyWidth, enemyHeight));
+	//shootingAnimationLeft.addFrame(sf::IntRect(134, 418, enemyWidth, enemyHeight));
+	//shootingAnimationLeft.addFrame(sf::IntRect(91, 418, enemyWidth, enemyHeight));
 
 	// Shooting right
 	shootingAnimationRight.setSpriteSheet(texture);
 	shootingAnimationRight.addFrame(sf::IntRect(10, 0, enemyWidth, enemyHeight));
-	shootingAnimationRight.addFrame(sf::IntRect(62, 0, enemyWidth, enemyHeight));
-	shootingAnimationRight.addFrame(sf::IntRect(115, 0, enemyWidth, enemyHeight));
-	shootingAnimationRight.addFrame(sf::IntRect(171, 0, enemyWidth, enemyHeight));
+	//shootingAnimationRight.addFrame(sf::IntRect(62, 0, enemyWidth, enemyHeight));
+	//shootingAnimationRight.addFrame(sf::IntRect(115, 0, enemyWidth, enemyHeight));
+	//shootingAnimationRight.addFrame(sf::IntRect(171, 0, enemyWidth, enemyHeight));
 
 	// Dying left
 	dyingAnimationLeft.setSpriteSheet(texture);
@@ -46,17 +46,17 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 
 	walkingAnimationLeft.setSpriteSheet(texture);
 	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
+	//walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
+	//walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
+	//walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
 
 	walkingAnimationRight.setSpriteSheet(texture);
 	walkingAnimationRight.addFrame(sf::IntRect(10, 124, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(51, 124, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(101, 124, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(152, 124, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(200, 124, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(253, 124, enemyWidth, enemyHeight));
+	//walkingAnimationRight.addFrame(sf::IntRect(51, 124, enemyWidth, enemyHeight));
+	//walkingAnimationRight.addFrame(sf::IntRect(101, 124, enemyWidth, enemyHeight));
+	//walkingAnimationRight.addFrame(sf::IntRect(152, 124, enemyWidth, enemyHeight));
+	//walkingAnimationRight.addFrame(sf::IntRect(200, 124, enemyWidth, enemyHeight));
+	//walkingAnimationRight.addFrame(sf::IntRect(253, 124, enemyWidth, enemyHeight));
 
 	currentAnimation = &idleAnimationLeft;
 
@@ -105,10 +105,10 @@ void Enemy::update(sf::RenderWindow &window) {
 			case walking:
 				if (direction == left) {
 					setAnimation(walkingAnimationLeft);
-					//velocity.x = -speed;
+					velocity.x = -speed;
 				} else {
 					setAnimation(walkingAnimationRight);
-					//velocity.x = speed;
+					velocity.x = speed;
 				}
 				break;
 			case dying:

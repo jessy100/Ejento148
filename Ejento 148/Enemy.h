@@ -25,7 +25,7 @@ public:
 	void updateState();
 private:
 	sf::Texture texture;
-	sf::Vector2f position, velocity = sf::Vector2f(0, 0);
+	sf::Vector2f position, velocity = sf::Vector2f(0, 0), spawnPoint;
 	sf::IntRect enemyRect;
 
 	const float gravity = 10.0f;

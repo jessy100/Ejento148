@@ -7,8 +7,8 @@
 #include <string>
 #include <iostream>
 
-Player::Player(sf::Vector2f pos, std::string n,  int l) : 
-	position(pos), name(n),  lives(l)
+Player::Player(sf::Vector2f pos, std::string n,  int h) : 
+	position(pos), name(n),  playerHealth(h)
 {
 	if (!texture.loadFromFile("resources/images/ninja.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
