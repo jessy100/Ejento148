@@ -26,16 +26,26 @@ void Level::Load() {
 		while (!levelMap.eof()) {
 			std::string str;
 			levelMap >> str;
+			
+			std::string posX,posY = "";
 
 			// x is character before comma, 2 is character after comma
-			char x = str[0], y = str[2];
+			char x = str[0], y = str[2]; 
+			if (str[3] != NULL) {
+				 
+			}
+			
+			
 
 			// Use x - '0' to prevent conversion to ascii		
 			if (isdigit(x) || isdigit(y)) {
-				if ((x - '0') > 5) {
+				if ((y - '0') > 5) {
+					posX = std::to_string(str[4] - '0') + std::to_string(str[5] - '0') + std::to_string(str[6] - '0');
+					posY = std::to_string(str[8] - '0') + std::to_string(str[9] - '0') + std::to_string(str[10] - '0');
+					
 					// create new interactive tile
-					tileVec.push_back(new InteractiveTile(sf::Vector2f(loadCounter.x * 128,
-						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
+					tileVec.push_back(new InteractiveTile(sf::Vector2f(atoi(posX.c_str()),
+						atoi(posY.c_str())), tileLocation, sf::Vector2f(x - '0', y - '0')));
 				} else {
 					//create background tile
 					tileVec.push_back(new BackgroundTile(sf::Vector2f(loadCounter.x * 128,
@@ -60,7 +70,7 @@ void Level::Load() {
 
 void Level::Show(sf::RenderWindow &window) {
 	
-	Player player(sf::Vector2f(100, 500), "Ejento 148", 3);
+	Player player(sf::Vector2f(100, 500), "Ejento 148", 10);
 	
 	timerCounter timer(sf::Vector2f(50,50));
 	scoreCounter score(sf::Vector2f(400,50));
@@ -94,6 +104,16 @@ void Level::Show(sf::RenderWindow &window) {
 
 		for (auto& tile : tileVec) {
 			tile->draw(window);
+
+			if (tile->getType() == "InteractiveTile") {
+				//std::cout << player.getPlayerRect().top << "\n";
+				sf::IntRect tileRect = tile->getRect();
+				//std::cout << tileRect.left << " | " << tileRect.width << "\n";
+				if (tileRect.intersects(player.getPlayerRect())) {
+					player.CheckCollision(tileRect);
+				}
+				
+			}
 		}
 
 		// Loop through all items in the items vector and check if they collide with the player

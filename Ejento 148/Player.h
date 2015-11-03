@@ -23,6 +23,7 @@ public:
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 	sf::IntRect Player::getWeaponRect() { return weaponRect; }
 	sf::IntRect Player::getPlayerRect() { return playerRect; }
+	
 
 	void CheckCollision(sf::IntRect);
 	void SwingSword();
@@ -30,6 +31,9 @@ public:
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
+	//test
+	sf::RectangleShape rectshape;
+	//testend
 	sf::Texture texture;
 	sf::Vector2f position, velocity = sf::Vector2f(0,0);
 	sf::IntRect playerRect, 
@@ -41,6 +45,8 @@ private:
 	int lives,
 		playerHealth = 10,
 		playerHeight = 60, 
+		playerCollisionHeight = 35,
+		playerCollisionWidth = 50,
 		playerWidth = 60, 
 		playerDamage = 1, 
 		weaponRange = 30, 
@@ -50,7 +56,8 @@ private:
 		canSwingWeapon = true,
 		swingingWeapon = false, 
 		jumping = false, 
-		dead = false;
+		dead = false,
+		onPlatform = false;
 
 	Animation *currentAnimation, 
 		idleAnimationRight, 

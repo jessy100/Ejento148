@@ -10,6 +10,10 @@
 Player::Player(sf::Vector2f pos, std::string n,  int l) : 
 	position(pos), name(n),  lives(l)
 {
+	rectshape.setPosition(sf::Vector2f(pos.x + 20, pos.y + 20));
+	rectshape.setFillColor(sf::Color::Red);
+	rectshape.setSize(sf::Vector2f(20, 35));
+
 	if (!texture.loadFromFile("resources/images/ninja.png")) {
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
@@ -99,7 +103,8 @@ void Player::update(sf::RenderWindow &window) {
 	*/
 	if (dead == false) {
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded 
+			|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) && onPlatform) {
 			// Jump
 			Audio::PlaySound("jump.wav", 6, 0);
 			if (direction == right) {
@@ -110,11 +115,12 @@ void Player::update(sf::RenderWindow &window) {
 			velocity.y -= jumpSpeed;
 			noKeyWasPressed = false;
 			grounded = false;
+			onPlatform = false;
 			jumping = true;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 			direction = Direction::left;
-			if (grounded == true && swingingWeapon == false) {
+			if (swingingWeapon == false) {
 				setAnimation(walkingAnimationLeft);
 			}
 			velocity.x = -speed;
@@ -122,7 +128,7 @@ void Player::update(sf::RenderWindow &window) {
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			direction = Direction::right;
-			if (grounded == true && swingingWeapon == false) {
+			if (swingingWeapon == false) {
 				setAnimation(walkingAnimationRight);
 			}
 			velocity.x = speed;
@@ -183,11 +189,12 @@ void Player::update(sf::RenderWindow &window) {
 
 	// Update the position of the player collision box
 	playerRect = sf::IntRect(
-		animation.getPosition().x,
-		animation.getPosition().y,
-		playerHeight,
-		playerWidth);
+		animation.getPosition().x + 25,
+		animation.getPosition().y + 28,
+		20,
+		35);
 
+	
 	// Update and play the animation
 	animation.move(velocity * frameTime.asSeconds());
 	animation.play(*currentAnimation);
@@ -216,7 +223,7 @@ void Player::update(sf::RenderWindow &window) {
 	}
 
 	// If no key was pressed stop the animation
-	if (noKeyWasPressed && swingingWeapon == false && grounded == true && dead == false) {
+	if (noKeyWasPressed && swingingWeapon == false  && dead == false) {
 		if (direction == right) {
 			setAnimation(idleAnimationRight);
 		} else if(direction == left) {
@@ -230,9 +237,11 @@ void Player::update(sf::RenderWindow &window) {
 	animation.update(frameTime);
 
 	position = animation.getPosition();
+	rectshape.setPosition(sf::Vector2f(position.x + 20, position.y + 25));
 
-	if (position.y > (640 - playerHeight)) {
+	if (position.y > (635 - playerHeight)) {
 		grounded = true;
+		onPlatform = false;
 		position.y = (640 - playerHeight);
 		velocity.y = 0;
 	}
@@ -242,18 +251,29 @@ void Player::update(sf::RenderWindow &window) {
 
 void Player::draw(sf::RenderWindow &window) {
 	window.draw(animation);
+	//window.draw(rectshape);
 }
 
 void Player::CheckCollision(sf::IntRect collider) {
-	if (collider.intersects(playerRect)) {
-		if (velocity.y > 0) {
-			grounded = true;
-			jumping = false;
-			animation.setPosition(animation.getPosition().x,
-				collider.top - playerHeight);
-		}	
+
+	
+	if (collider.top >= playerRect.top) {
+
+		//animation.setPosition(animation.getPosition().x, collider.top );
 		velocity.y = 0;
+		onPlatform = true;
 	}
+	if (collider.top <= playerRect.top) {
+			velocity.y = gravity + 100;
+
+	}
+	if (collider.left > playerRect.left + playerRect.width) {
+		velocity.x = 0;
+	}
+		
+	
+
+	
 }
 
 void Player::SwingSword() {
