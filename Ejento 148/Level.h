@@ -13,12 +13,13 @@ public:
 	void SetPlayingLevel(bool);
 private:
 	bool playingLevel = true;
-	int tileSize = 32;
+	float tileSize = 128;
 	sf::Vector2i loadCounter = sf::Vector2i(0, 0);
 	sf::Vector2i map[200][200];
 	sf::Texture tileTexture;
 	sf::Sprite tiles;
 	std::vector<Tile *> tileVec;
+	int levelWidth;
 };
 
 #endif
