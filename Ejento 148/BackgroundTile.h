@@ -19,7 +19,7 @@ private:
 	sf::Texture texture;
 	std::string tileLocation;
 	int tileSize = 128;
-	std::string type = "InteractiveTile";
+	std::string type = "BackgroundTile";
 
 
 };
