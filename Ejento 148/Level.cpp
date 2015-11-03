@@ -88,10 +88,10 @@ void Level::Show(sf::RenderWindow &window) {
 	items.push_back(item3);
 	items.push_back(item4);
 
-	Enemy enemy1(sf::Vector2f(100, 200), 200.0f, 3);
-	Enemy enemy2(sf::Vector2f(200, 200), 200.0f, 3);
-	Enemy enemy3(sf::Vector2f(300, 200), 200.0f, 3);
-	Enemy enemy4(sf::Vector2f(400, 200), 200.0f, 3);
+	Enemy enemy1(sf::Vector2f(100, 200), 100.0f, 3);
+	Enemy enemy2(sf::Vector2f(200, 200), 100.0f, 3);
+	Enemy enemy3(sf::Vector2f(300, 200), 100.0f, 3);
+	Enemy enemy4(sf::Vector2f(400, 200), 100.0f, 3);
 	enemies.push_back(enemy1);
 	//enemies.push_back(enemy2);
 	//enemies.push_back(enemy3);

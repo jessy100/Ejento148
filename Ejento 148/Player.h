@@ -13,9 +13,7 @@ public:
 	void Player::setName(std::string s) { name = s; }
 	float Player::getSpeed() { return speed; }
 	void Player::setSpeed(float s) { speed = s; }
-	int Player::getLives() { return lives; }
 	sf::Vector2f Player::getPosition() { return position; }
-	void Player::setLives(int l) { lives = l; }
 	int Player::getDamage() { return playerDamage; }
 	void Player::setDamage(int d) { playerDamage = d; }
 	int Player::getHealth() { return playerHealth; }
@@ -42,8 +40,7 @@ private:
 
 	const float gravity = 10.0f;
 	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 0.5f, deathDuration = 1.4f;
-	int lives,
-		playerHealth = 10,
+	int playerHealth,
 		playerHeight = 60, 
 		playerCollisionHeight = 35,
 		playerCollisionWidth = 50,
@@ -77,6 +74,8 @@ private:
 
 	enum Direction {left, right};
 	Direction direction = Direction::left;
+
+	sf::RectangleShape rec;
 };
 
 #endif

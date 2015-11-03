@@ -19,11 +19,12 @@ void Audio::StopMusic(){
 }
 
 void Audio::PlaySound(std::string file, float volume, bool loop) {
-	if (!buffer.loadFromFile("resources/audio/" + file)) {
+	if (!buffer.loadFromFile("resources/audio/"+file)) {
 		std::cout << "ERROR Music file " << file << " not found\n";
 	}
 
 	actionSound.setBuffer(buffer);
+	actionSound.setVolume(volume);
 	actionSound.play();
 }
 

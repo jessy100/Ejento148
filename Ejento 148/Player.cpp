@@ -7,8 +7,8 @@
 #include <string>
 #include <iostream>
 
-Player::Player(sf::Vector2f pos, std::string n,  int l) : 
-	position(pos), name(n),  lives(l)
+Player::Player(sf::Vector2f pos, std::string n,  int h) : 
+	position(pos), name(n),  playerHealth(h)
 {
 	rectshape.setPosition(sf::Vector2f(pos.x + 20, pos.y + 20));
 	rectshape.setFillColor(sf::Color::Red);
@@ -106,7 +106,7 @@ void Player::update(sf::RenderWindow &window) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded 
 			|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) && onPlatform) {
 			// Jump
-			Audio::PlaySound("jump.wav", 6, 0);
+			Audio::PlaySound("jump.wav", 3, 0);
 			if (direction == right) {
 				setAnimation(jumpAnimationRight);
 			} else {
@@ -277,6 +277,7 @@ void Player::CheckCollision(sf::IntRect collider) {
 }
 
 void Player::SwingSword() {
+	Audio::PlaySound("sword-attack.wav", 2, 0);
 	// Player is swinging the weapon
 	swingingWeapon = true;
 

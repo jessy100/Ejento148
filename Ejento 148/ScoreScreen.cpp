@@ -40,7 +40,7 @@ void ScoreScreen::draw(sf::RenderWindow &window) {
 			y++;
 		}
 
-		
+
 		text.setPosition(sf::Vector2f(300 + (100 * x), 120 + (50 * y)));
 		text.setString(i);
 		text.setCharacterSize(20);
