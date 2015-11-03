@@ -6,14 +6,14 @@
 #include <sstream>
 #include <string>
 
-class timerCounter {
+class TimerCounter {
 public:
 	/*
 	constructor for the timerscreen class.
 	you give a position to the constructor.
 	for the place where the timer will be standing on the play window.
 	*/
-	timerCounter(sf::Vector2f position);
+	TimerCounter(sf::Vector2f position);
 
 	/*
 	the draw methode draws the timer to the window.

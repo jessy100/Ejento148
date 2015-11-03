@@ -21,11 +21,13 @@ public:
 	void Player::setAnimation(Animation &animation) { currentAnimation = &animation; }
 	sf::IntRect Player::getWeaponRect() { return weaponRect; }
 	sf::IntRect Player::getPlayerRect() { return playerRect; }
+	bool Player::isDead() { return dead; }
 	
-
 	void CheckCollision(sf::IntRect);
 	void SwingSword();
-	void GameOver();
+	void TakeDamage();
+	void CheckPlayerHealth();
+	void HandleKeyboardInput();
 	void draw(sf::RenderWindow &window);
 	void update(sf::RenderWindow &window);
 private:
@@ -38,8 +40,14 @@ private:
 				weaponRect;
 	std::string name;
 
-	const float gravity = 10.0f;
-	float speed = 200.0f, jumpSpeed = 600.0f, attackSpeed = 0.5f, deathDuration = 1.4f;
+	const float gravity = 10.0f, 
+		hitTimer = 1.2f, // How long the player is invulnerable after being hit
+		deathDuration = 1.4f; // Duration of the death animation
+
+	float speed = 200.0f,
+		jumpSpeed = 600.0f,
+		attackSpeed = 0.5f;
+
 	int playerHealth,
 		playerHeight = 60, 
 		playerCollisionHeight = 35,
@@ -48,13 +56,16 @@ private:
 		playerDamage = 1, 
 		weaponRange = 30, 
 		weaponArc = 40;
+
 	bool noKeyWasPressed = true, 
 		grounded = false, 
 		canSwingWeapon = true,
 		swingingWeapon = false, 
 		jumping = false, 
+		dying = false,
 		dead = false,
-		onPlatform = false;
+		onPlatform = false, 
+		invulnerable = false;
 
 	Animation *currentAnimation, 
 		idleAnimationRight, 
@@ -69,8 +80,15 @@ private:
 		deathAnimationRight;
 
 	AnimatedSprite animation;
-	sf::Clock frameClock, swingWeaponClock, swingAnimationClock, deathAnimationClock;
-	sf::Time swingWeaponTime, swingAnimationTime, deathAnimationTime;
+	sf::Clock frameClock, 
+		swingWeaponClock, 
+		swingAnimationClock,
+		deathAnimationClock, 
+		invulernabilityClock;
+	sf::Time swingWeaponTime, 
+		swingAnimationTime,
+		deathAnimationTime, 
+		invulnerabilityTime;
 
 	enum Direction {left, right};
 	Direction direction = Direction::left;

@@ -13,6 +13,8 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 		std::cout << "Failed to load enemy spritesheet!" << std::endl;
 	}
 
+	animation.setPosition(position);
+
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	// Idle left
 	idleAnimationLeft.setSpriteSheet(texture);
@@ -65,7 +67,6 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
-	animation.setPosition(position);
 }
 
 void Enemy::draw(sf::RenderWindow &window) {
@@ -120,7 +121,8 @@ void Enemy::update(sf::RenderWindow &window) {
 				} else {
 					setAnimation(dyingAnimationLeft);
 				}
-				// Set killed to true
+				// Set killed to true once the death animation is done playing
+				killed = true;
 				break;
 		}
 
@@ -158,7 +160,7 @@ void Enemy::updateState() {
 	}
 }
 
-void Enemy::takeDamage(Player &player) {
+void Enemy::TakeDamage(Player &player) {
 	if (invulnerable == false) {
 		invulernabilityClock.restart();
 
@@ -176,6 +178,6 @@ void Enemy::takeDamage(Player &player) {
 
 void Enemy::CheckCollision(Player &player) {
 	if (player.getWeaponRect().intersects(enemyRect)) {
-		takeDamage(player);
+		TakeDamage(player);
 	}
 }

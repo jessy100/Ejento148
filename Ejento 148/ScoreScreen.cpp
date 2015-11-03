@@ -27,19 +27,16 @@ void ScoreScreen::draw(sf::RenderWindow &window) {
 		std::stringstream test(i);
 		std::string segment;
 
-		while (std::getline(test, segment, ' '))
-		{
+		while (std::getline(test, segment, ' ')) {
 			parts.push_back(segment);
 		}
 	}
 
 	for (auto i : parts) {
-
 		if (x > 2) {
 			x = 0;
 			y++;
 		}
-
 
 		text.setPosition(sf::Vector2f(300 + (100 * x), 120 + (50 * y)));
 		text.setString(i);

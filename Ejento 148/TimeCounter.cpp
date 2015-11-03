@@ -5,14 +5,14 @@
 #include <SFML\System\Clock.hpp>
 #include "TimerCounter.h"
 
-timerCounter::timerCounter(sf::Vector2f position) :
+TimerCounter::TimerCounter(sf::Vector2f position) :
 	position{ position }
 {
 	font.loadFromFile("resources/fonts/DKFaceYourFears.ttf");
 	text.setFont(font);
 }
 
-void timerCounter::draw(sf::RenderWindow & window, sf::Vector2f position) {
+void TimerCounter::draw(sf::RenderWindow & window, sf::Vector2f position) {
 	timer();
 
 	std::ostringstream os;
@@ -25,7 +25,7 @@ void timerCounter::draw(sf::RenderWindow & window, sf::Vector2f position) {
 	window.draw(text);
 }
 
-void timerCounter::timer() {
+void TimerCounter::timer() {
 	sf::Time msec = clock.getElapsedTime();
 	imsec = msec.asMilliseconds();
 	if (imsec >= 999) {

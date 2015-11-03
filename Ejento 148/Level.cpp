@@ -34,8 +34,6 @@ void Level::Load() {
 			if (str[3] != NULL) {
 				 
 			}
-			
-			
 
 			// Use x - '0' to prevent conversion to ascii		
 			if (isdigit(x) || isdigit(y)) {
@@ -61,7 +59,6 @@ void Level::Load() {
 					levelWidth = loadCounter.x * tileSize;
 				}
 				
-				std::cout << levelWidth;
 				loadCounter.x = 0;
 				loadCounter.y++;
 			} else {
@@ -79,30 +76,25 @@ void Level::Show(sf::RenderWindow &window) {
 	
 	Player player(sf::Vector2f(100, 500), "Ejento 148", 10);
 	
-	timerCounter timer(sf::Vector2f(50,50));
-	scoreCounter score(sf::Vector2f(400,50));
-	score.add(20);
+	TimerCounter timer(sf::Vector2f(50,50));
+	ScoreCounter score(sf::Vector2f(400,50));
+	score.increase(20);
 
-	std::vector<Item> items;
-	std::vector<Enemy> enemies;
+	std::vector<Item *> items;
+	std::vector<Enemy *> enemies;
+	
+	/*
+		Create new items and enemies
+	*/
+	items.push_back(new Item(sf::Vector2f(100, 500), "health"));
+	items.push_back(new Item(sf::Vector2f(200, 500), "damage"));
+	items.push_back(new Item(sf::Vector2f(300, 500), "health"));
+	items.push_back(new Item(sf::Vector2f(400, 500), "damage"));
 
-	Item item1(sf::Vector2f(100, 500), "health");
-	Item item2(sf::Vector2f(200, 500), "damage");
-	Item item3(sf::Vector2f(300, 500), "health");
-	Item item4(sf::Vector2f(400, 500), "damage");
-	items.push_back(item1);
-	items.push_back(item2);
-	items.push_back(item3);
-	items.push_back(item4);
-
-	Enemy enemy1(sf::Vector2f(100, 200), 200.0f, 3);
-	Enemy enemy2(sf::Vector2f(200, 200), 200.0f, 3);
-	Enemy enemy3(sf::Vector2f(300, 200), 200.0f, 3);
-	Enemy enemy4(sf::Vector2f(400, 200), 200.0f, 3);
-	enemies.push_back(enemy1);
-	//enemies.push_back(enemy2);
-	//enemies.push_back(enemy3);
-	//enemies.push_back(enemy4);
+	enemies.push_back(new Enemy(sf::Vector2f(100, 400), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(300, 400), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(500, 400), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(700, 400), 100.0f, 3));
 
 	Camera camera(player);
 
@@ -113,9 +105,7 @@ void Level::Show(sf::RenderWindow &window) {
 			tile->draw(window);
 
 			if (tile->getType() == "InteractiveTile") {
-				//std::cout << player.getPlayerRect().top << "\n";
 				sf::IntRect tileRect = tile->getRect();
-				//std::cout << tileRect.left << " | " << tileRect.width << "\n";
 				if (tileRect.intersects(player.getPlayerRect())) {
 					player.CheckCollision(tileRect);
 				}
@@ -125,28 +115,37 @@ void Level::Show(sf::RenderWindow &window) {
 
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != enemies.size(); i++) {
-			if (!enemies[i].isKilled()) {
-				enemies[i].update(window);
-				enemies[i].CheckCollision(player);
+			if (!enemies[i]->isKilled()) {
+				enemies[i]->update(window);
+				enemies[i]->CheckCollision(player);
 			}
 		}
 
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != items.size(); ++i) {
-			if (!items[i].isLooted()) {
-				items[i].draw(window);
-				items[i].CheckCollision(player);
+			if (!items[i]->isLooted()) {
+				items[i]->draw(window);
+				items[i]->CheckCollision(player);
 			}
 		}
 
+		// Check if the player character is dead
+		if (player.isDead() == true) {
+			GameOver();
+		}
 
-		//enemy.update(window);
 		player.update(window);
 		camera.update(window);
 		timer.draw(window,camera.getPosition());
 		score.draw(window, camera.getPosition());
 		window.display();
 	}
+}
+
+void Level::GameOver() {
+	// The player has died, and the game is over
+	// Call the screen where the player can put in his name for the leaderboards
+	std::cout << "Game Over\n";
 }
 
 void Level::SetPlayingLevel(bool p) { playingLevel = p; }

@@ -9,7 +9,7 @@ class Level {
 public:
 	void Show(sf::RenderWindow& window);
 	void Load();
-
+	void GameOver();
 	void SetPlayingLevel(bool);
 private:
 	bool playingLevel = true;

@@ -14,6 +14,8 @@ Player::Player(sf::Vector2f pos, std::string n,  int h) :
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 	}
 
+	animation.setPosition(position);
+
 	// Set up the animations for all four directions (set spritesheet and push frames)
 
 	// Idle right
@@ -88,89 +90,20 @@ Player::Player(sf::Vector2f pos, std::string n,  int h) :
 
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
-	animation.setPosition(position);
 }
 
 void Player::update(sf::RenderWindow &window) {
 	sf::Time frameTime = frameClock.restart();
 
 	/*
-		Player input
+		If the player character is not dying, input is permitted
 	*/
-	if (dead == false) {
+	if (dying == false) {
+		HandleKeyboardInput();
+	} // End if(dying == false)
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) && onPlatform) {
-			// Jump
-			Audio::PlaySound("jump.wav", 3, 0);
-			if (direction == right) {
-				setAnimation(jumpAnimationRight);
-			} else {
-				setAnimation(jumpAnimationLeft);
-			}
-			velocity.y -= jumpSpeed;
-			noKeyWasPressed = false;
-			grounded = false;
-			onPlatform = false;
-			jumping = true;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			direction = Direction::left;
-			if (swingingWeapon == false) {
-				setAnimation(walkingAnimationLeft);
-			}
-			velocity.x = -speed;
-			noKeyWasPressed = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			direction = Direction::right;
-			if (swingingWeapon == false) {
-				setAnimation(walkingAnimationRight);
-			}
-			velocity.x = speed;
-			noKeyWasPressed = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			// Check if the player can swing his weapon
-			if (canSwingWeapon == true) {
-				// Call function to swing weapon
-				SwingSword();
-
-				canSwingWeapon = false;
-			} else {
-				// Check if x seconds have passed
-				swingWeaponTime = swingWeaponClock.getElapsedTime();
-				if (swingWeaponTime.asSeconds() > attackSpeed) {
-					// If so, set canSwingWeapon to true
-					canSwingWeapon = true;
-				}
-			}
-			noKeyWasPressed = false;
-		} // End player input
-
-	} // End if dead == false
-
-	// If the player has reached 0 health, play the death animation
-	if (playerHealth <= 0) {
-		// R.I.P.
-		if (dead == false) {
-			deathAnimationClock.restart();
-			dead = true;
-		}
-
-		if (direction == left) {
-			setAnimation(deathAnimationLeft);
-		} else {
-			setAnimation(deathAnimationRight);
-		}
-
-		// Check if x seconds have passed
-		deathAnimationTime = deathAnimationClock.getElapsedTime();
-		if (deathAnimationTime.asSeconds() > deathDuration) {
-			// If so, the animation is finished and the game is over
-			GameOver();
-		}
-	}
+	// Check if the player is healthy
+	CheckPlayerHealth();
 
 	// If the player is not swinging his weapon, move the hitbox somewhere out of the way
 	if (swingingWeapon == false) {
@@ -220,7 +153,7 @@ void Player::update(sf::RenderWindow &window) {
 	}
 
 	// If no key was pressed stop the animation
-	if (noKeyWasPressed && swingingWeapon == false  && dead == false) {
+	if (noKeyWasPressed && swingingWeapon == false  && dying == false) {
 		if (direction == right) {
 			setAnimation(idleAnimationRight);
 		} else if(direction == left) {
@@ -255,12 +188,12 @@ void Player::CheckCollision(sf::IntRect collider) {
 		onPlatform = true;
 	}
 	if (collider.top <= playerRect.top) {
-			velocity.y = gravity + 100;
+		velocity.y = gravity + 100;
 
 	}
 	if (collider.left > playerRect.left + playerRect.width) {
 		velocity.x = 0;
-	}	
+	}
 }
 
 void Player::SwingSword() {
@@ -292,6 +225,102 @@ void Player::SwingSword() {
 	}
 }
 
-void Player::GameOver() {
-	// The player has died. End the game and show the post-game screen
+void Player::TakeDamage() {
+	if (invulnerable == false) {
+		invulernabilityClock.restart();
+
+		// Enemy hits deal 1 damage
+		playerHealth -= 1;
+		invulnerable = true;
+	}
+	else {
+		// Check how long it has been since being hit
+		invulnerabilityTime = invulernabilityClock.getElapsedTime();
+
+		if (invulnerabilityTime.asSeconds() > hitTimer) {
+			invulnerable = false;
+		}
+	}
+}
+
+void Player::CheckPlayerHealth() {
+	// If the player has reached 0 health, play the death animation
+	if (playerHealth <= 0) {
+		// Set the player's velocity to 0 so he doesn't slide while dying
+		velocity.x = 0;
+		velocity.y = 0;
+
+		// R.I.P.
+		if (dying == false) {
+			deathAnimationClock.restart();
+			dying = true;
+		}
+
+		if (direction == left) {
+			setAnimation(deathAnimationLeft);
+		}
+		else {
+			setAnimation(deathAnimationRight);
+		}
+
+		// Check if x seconds have passed
+		deathAnimationTime = deathAnimationClock.getElapsedTime();
+		if (deathAnimationTime.asSeconds() > deathDuration) {
+			// If so, the animation is finished and the game is over
+			dead = true;
+		}
+	}
+}
+
+void Player::HandleKeyboardInput() {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) && onPlatform) {
+		// Jump
+		Audio::PlaySound("jump.wav", 3, 0);
+		if (direction == right) {
+			setAnimation(jumpAnimationRight);
+		}
+		else {
+			setAnimation(jumpAnimationLeft);
+		}
+		velocity.y -= jumpSpeed;
+		noKeyWasPressed = false;
+		grounded = false;
+		onPlatform = false;
+		jumping = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		direction = Direction::left;
+		if (swingingWeapon == false) {
+			setAnimation(walkingAnimationLeft);
+		}
+		velocity.x = -speed;
+		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		direction = Direction::right;
+		if (swingingWeapon == false) {
+			setAnimation(walkingAnimationRight);
+		}
+		velocity.x = speed;
+		noKeyWasPressed = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		// Check if the player can swing his weapon
+		if (canSwingWeapon == true) {
+			// Call function to swing weapon
+			SwingSword();
+
+			canSwingWeapon = false;
+		}
+		else {
+			// Check if x seconds have passed
+			swingWeaponTime = swingWeaponClock.getElapsedTime();
+			if (swingWeaponTime.asSeconds() > attackSpeed) {
+				// If so, set canSwingWeapon to true
+				canSwingWeapon = true;
+			}
+		}
+		noKeyWasPressed = false;
+	} // End player input
 }

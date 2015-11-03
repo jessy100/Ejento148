@@ -12,7 +12,6 @@ class Score {
 public:
 	Score();
 
-
 	std::vector<std::string> Score::getScores();
 	void Score::saveScore(std::string name, std::string score, std::string tijd);
 	void Score::parseResponseString(std::string str);

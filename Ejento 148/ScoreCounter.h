@@ -7,7 +7,7 @@
 #include <string>
 
 
-class scoreCounter {
+class ScoreCounter {
 public:
 	/*
 	this is the constructor for the scoreCounter class.
@@ -15,7 +15,7 @@ public:
 	the position is the place where the score will be on the window.
 	the beginScore will be the score that will be showed when the windows is opened.
 	*/
-	scoreCounter(sf::Vector2f position, int beginScore = 0);
+	ScoreCounter(sf::Vector2f position, int beginScore = 0);
 
 	/*
 	the draw methode draws the score to the window.
@@ -28,13 +28,13 @@ public:
 	the add methode adds the score.
 	you give a score to the methode. which is the value of the increase of the current score.
 	*/
-	void add(int score);
+	void increase(int score);
 
 	/*
 	the lower methode lowers the score.
 	you give a score to the methode. which is the value of the decrease of the current score.
 	*/
-	void lower(int score);
+	void decrease(int score);
 
 private:
 	sf::Vector2f position;
