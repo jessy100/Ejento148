@@ -5,16 +5,14 @@
 #include <sstream>
 #include <algorithm>
 #include <vector>
-#include "Score.h"
+#include "WebScore.h"
 #include "SFML\Network\Http.hpp"
 
-
-Score::Score() {
+WebScore::WebScore() {
 	http.setHost("http://jessy-visch.nl/");
-
 }
 
-std::vector<std::string> Score::getScores() {
+std::vector<std::string> WebScore::getScores() {
 	//Call the file index.php on host jessy-visch.nl/ejento
 	sf::Http::Request request("ejento/index.php");
 
@@ -26,25 +24,23 @@ std::vector<std::string> Score::getScores() {
 
 	if (status == sf::Http::Response::Ok) {
 		std::string responseStr = response.getBody();
-		Score::parseResponseString(responseStr);
+		WebScore::parseResponseString(responseStr);
 		return seglist;
 		//std::cout << response.getBody();
-	}
-	else {
+	} else {
 		std::cout << "An error occured while retrieving scores: " << status;
 	}
 }
 
-void Score::parseResponseString(std::string str) {
+void WebScore::parseResponseString(std::string str) {
 	std::stringstream test(str);
 
-	while (std::getline(test, segment, ';'))
-	{
+	while (std::getline(test, segment, ';')) {
 		seglist.push_back(segment);
 	}
 }
 
-void Score::saveScore(std::string name, std::string score, std::string tijd) {
+void WebScore::saveScore(std::string name, std::string score, std::string tijd) {
 
 	//Call the file index.php on host jessy-visch.nl/ejento
 	sf::Http::Request request("ejento/save.php", sf::Http::Request::Post);
@@ -64,12 +60,11 @@ void Score::saveScore(std::string name, std::string score, std::string tijd) {
 		//std::string responseStr = response.getBody();
 		//Score::parseResponseString(responseStr);
 		std::cout << response.getBody();
-	}
-	else {
+	} else {
 		std::cout << "An error occured while retrieving scores: " << status;
 	}
 }
 
-void Score::draw(sf::RenderWindow &window) {
+void WebScore::draw(sf::RenderWindow &window) {
 
 }

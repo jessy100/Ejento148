@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "ScoreScreen.h"
 #include <iostream>
-#include "score.h"
+#include "WebScore.h"
 #include <sstream>
 #include <istream>
 #include <string>

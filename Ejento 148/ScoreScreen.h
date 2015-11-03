@@ -3,7 +3,7 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
-#include "score.h"
+#include "WebScore.h"
 
 class ScoreScreen {
 public:
@@ -12,7 +12,7 @@ public:
 	ScoreScreen();
 	void draw(sf::RenderWindow &window);
 private:
-	Score score;
+	WebScore score;
 	sf::Font font;
 	sf::Text text;
 	int x,y = 0;

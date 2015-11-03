@@ -8,14 +8,14 @@
 #include "SFML\Network\Http.hpp"
 
 
-class Score {
+class WebScore {
 public:
-	Score();
+	WebScore();
 
-	std::vector<std::string> Score::getScores();
-	void Score::saveScore(std::string name, std::string score, std::string tijd);
-	void Score::parseResponseString(std::string str);
-	void Score::draw(sf::RenderWindow &window);
+	std::vector<std::string> WebScore::getScores();
+	void WebScore::saveScore(std::string name, std::string score, std::string tijd);
+	void WebScore::parseResponseString(std::string str);
+	void WebScore::draw(sf::RenderWindow &window);
 private:
 	sf::Http http;
 	std::string segment;
