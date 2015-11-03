@@ -24,6 +24,7 @@ void Audio::PlaySound(std::string file, float volume, bool loop) {
 	}
 
 	actionSound.setBuffer(buffer);
+	actionSound.setVolume(volume);
 	actionSound.play();
 }
 

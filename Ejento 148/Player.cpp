@@ -101,7 +101,7 @@ void Player::update(sf::RenderWindow &window) {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grounded) {
 			// Jump
-			Audio::PlaySound("jump.wav", 6, 0);
+			Audio::PlaySound("jump.wav", 3, 0);
 			if (direction == right) {
 				setAnimation(jumpAnimationRight);
 			} else {
@@ -257,6 +257,7 @@ void Player::CheckCollision(sf::IntRect collider) {
 }
 
 void Player::SwingSword() {
+	Audio::PlaySound("sword-attack.wav", 2, 0);
 	// Player is swinging the weapon
 	swingingWeapon = true;
 
