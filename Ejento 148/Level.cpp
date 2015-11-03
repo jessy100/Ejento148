@@ -48,13 +48,20 @@ void Level::Load() {
 						atoi(posY.c_str())), tileLocation, sf::Vector2f(x - '0', y - '0')));
 				} else {
 					//create background tile
-					tileVec.push_back(new BackgroundTile(sf::Vector2f(loadCounter.x * 128,
-						loadCounter.y * 128), tileLocation, sf::Vector2f(x - '0', y - '0')));
+					
+					
+					tileVec.push_back(new BackgroundTile(sf::Vector2f(loadCounter.x * tileSize,
+						loadCounter.y * tileSize), tileLocation, sf::Vector2f(x - '0', y - '0')));
 				}
 			}
 
 			// Check if next character is new line if true, increment y counter, if not increment x counter.
 			if (levelMap.peek() == '\n') {
+				if (loadCounter.x * tileSize >= levelWidth) {
+					levelWidth = loadCounter.x * tileSize;
+				}
+				
+				std::cout << levelWidth;
 				loadCounter.x = 0;
 				loadCounter.y++;
 			} else {
@@ -88,10 +95,10 @@ void Level::Show(sf::RenderWindow &window) {
 	items.push_back(item3);
 	items.push_back(item4);
 
-	Enemy enemy1(sf::Vector2f(100, 200), 100.0f, 3);
-	Enemy enemy2(sf::Vector2f(200, 200), 100.0f, 3);
-	Enemy enemy3(sf::Vector2f(300, 200), 100.0f, 3);
-	Enemy enemy4(sf::Vector2f(400, 200), 100.0f, 3);
+	Enemy enemy1(sf::Vector2f(100, 200), 200.0f, 3);
+	Enemy enemy2(sf::Vector2f(200, 200), 200.0f, 3);
+	Enemy enemy3(sf::Vector2f(300, 200), 200.0f, 3);
+	Enemy enemy4(sf::Vector2f(400, 200), 200.0f, 3);
 	enemies.push_back(enemy1);
 	//enemies.push_back(enemy2);
 	//enemies.push_back(enemy3);
