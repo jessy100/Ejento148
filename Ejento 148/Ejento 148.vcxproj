@@ -169,7 +169,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="score.h" />
+    <ClInclude Include="WebScore.h" />
     <ClInclude Include="ScoreCounter.h" />
     <ClInclude Include="ScoreScreen.h" />
     <ClInclude Include="SplashScreen.h" />
@@ -192,7 +192,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="score.cpp" />
+    <ClCompile Include="WebScore.cpp" />
     <ClCompile Include="ScoreCounter.cpp" />
     <ClCompile Include="ScoreScreen.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
@@ -202,7 +202,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TimeCounter.cpp" />
+    <ClCompile Include="TimerCounter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

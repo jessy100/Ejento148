@@ -81,9 +81,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="score.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -96,10 +93,13 @@
     <ClInclude Include="ScoreCounter.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreScreen.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
     <ClInclude Include="TimerCounter.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreScreen.h">
+    <ClInclude Include="WebScore.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,9 +143,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="score.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="BackgroundTile.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
@@ -155,11 +152,14 @@
     <ClCompile Include="ScoreCounter.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="TimeCounter.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreScreen.cpp">
       <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerCounter.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="WebScore.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
