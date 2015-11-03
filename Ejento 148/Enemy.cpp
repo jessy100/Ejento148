@@ -60,6 +60,9 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 
 	currentAnimation = &idleAnimationLeft;
 
+	// Save the spawnpoint of the enemy unit
+	spawnPoint = position;
+
 	// Set up AnimatedSprite
 	AnimatedSprite animation(sf::seconds((float)0.2), true, false);
 	animation.setPosition(position);
@@ -102,7 +105,7 @@ void Enemy::update(sf::RenderWindow &window) {
 					setAnimation(shootingAnimationRight);
 				}
 				break;
-			case walking:
+			case patrol:
 				if (direction == left) {
 					setAnimation(walkingAnimationLeft);
 					velocity.x = -speed;
@@ -141,6 +144,18 @@ void Enemy::update(sf::RenderWindow &window) {
 void Enemy::updateState() {
 	// Check if the enemy's health has been reduced to 0
 	if (enemyHealth == 0) { state = State::dying; }
+
+	// Check if the player is within shooting range of the enemy
+	// If so, perform a shot in the player direction
+	// If the player is out of range and the enemy is not shooting, move closer
+
+
+	// Make the enemy unit patrol near his spawnpoint
+	if (state == patrol && position.x < (spawnPoint.x - walkDistance)) {
+		direction = right;
+	} else if (state == patrol && position.x > (spawnPoint.x + walkDistance)) {
+		direction = left;
+	}
 }
 
 void Enemy::takeDamage(Player &player) {

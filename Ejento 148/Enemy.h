@@ -30,7 +30,11 @@ private:
 
 	const float gravity = 10.0f;
 	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.6f;
-	int enemyHealth, enemyWidth = 50, enemyHeight = 51;
+	int enemyHealth, 
+		enemyWidth = 50, 
+		enemyHeight = 51,
+		walkDistance = 100,
+		bulletRange = 200;
 	bool grounded = false,
 		invulnerable = false, 
 		killed = false;
@@ -50,10 +54,10 @@ private:
 
 	enum State { idle, 
 		shooting, 
-		walking, 
+		patrol, 
 		dying 
 	};
-	State state = State::walking;
+	State state = State::patrol;
 
 	enum Direction { left, right };
 	Direction direction = Direction::right;

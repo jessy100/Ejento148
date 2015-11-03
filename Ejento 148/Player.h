@@ -67,6 +67,8 @@ private:
 
 	enum Direction {left, right};
 	Direction direction = Direction::left;
+
+	sf::RectangleShape rec;
 };
 
 #endif
