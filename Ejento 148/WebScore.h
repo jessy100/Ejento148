@@ -1,5 +1,5 @@
-#ifndef _SCORE_HPP
-#define _SCORE_HPP
+#ifndef _WEBSCORE_HPP
+#define _WEBSCORE_HPP
 
 #include <SFML\Graphics.hpp>
 #include <string>

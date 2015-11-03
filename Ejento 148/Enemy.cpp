@@ -77,6 +77,9 @@ void Enemy::update(sf::RenderWindow &window) {
 	if (killed == false) {
 		sf::Time frameTime = frameClock.restart();
 
+		// Update the enemy's current state based off environment
+		updateState();
+
 		// Update the collision rectangle
 		enemyRect = sf::IntRect(animation.getPosition().x,
 			animation.getPosition().y,
@@ -84,9 +87,6 @@ void Enemy::update(sf::RenderWindow &window) {
 			enemyHeight);
 
 		position = animation.getPosition();
-
-		// Update the enemy's current state based off environment
-		updateState();
 
 		/*
 			Perform an action based on the enemy's current state
@@ -118,8 +118,10 @@ void Enemy::update(sf::RenderWindow &window) {
 			case dying:
 				if (direction == left) {
 					setAnimation(dyingAnimationLeft);
+					// Perform the left death animation for a set amount of time
 				} else {
-					setAnimation(dyingAnimationLeft);
+					setAnimation(dyingAnimationRight);
+					// Perform the right death animation for a set amount of time
 				}
 				// Set killed to true once the death animation is done playing
 				killed = true;

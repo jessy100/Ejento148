@@ -49,6 +49,7 @@ private:
 		shootingAnimationRight, 
 		dyingAnimationLeft, 
 		dyingAnimationRight;
+
 	AnimatedSprite animation;
 	sf::Clock frameClock, invulernabilityClock, actionClock;
 	sf::Time invulnerabilityTime, actionTime;
