@@ -32,15 +32,12 @@ void Level::Load() {
 
 			// x is character before comma, 2 is character after comma
 			char x = str[0], y = str[2];
-			if (str[3] != NULL) {
-
-			}
 
 			// Use x - '0' to prevent conversion to ascii		
 			if (isdigit(x) || isdigit(y)) {
 				if ((y - '0') > 5) {
-					posX = std::to_string(str[4] - '0') + std::to_string(str[5] - '0') + std::to_string(str[6] - '0');
-					posY = std::to_string(str[8] - '0') + std::to_string(str[9] - '0') + std::to_string(str[10] - '0');
+					posX = std::to_string(str[4] - '0') + std::to_string(str[5] - '0') + std::to_string(str[6] - '0') + std::to_string(str[7] - '0');
+					posY = std::to_string(str[9] - '0') + std::to_string(str[10] - '0') + std::to_string(str[11] - '0');
 
 					// create new interactive tile
 					tileVec.push_back(new InteractiveTile(sf::Vector2f(atoi(posX.c_str()),
