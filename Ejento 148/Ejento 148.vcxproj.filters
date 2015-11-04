@@ -104,6 +104,7 @@
     </ClInclude>
     <ClInclude Include="GameOverScreen.h">
       <Filter>Header Files\Screens</Filter>
+    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -168,6 +169,7 @@
     </ClCompile>
     <ClCompile Include="GameOverScreen.cpp">
       <Filter>Source Files\Screens</Filter>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
