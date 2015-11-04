@@ -225,12 +225,12 @@ void Player::SwingSword() {
 	}
 }
 
-void Player::TakeDamage() {
+void Player::TakeDamage(int damage) {
 	if (invulnerable == false) {
 		invulernabilityClock.restart();
 
 		// Enemy hits deal 1 damage
-		playerHealth -= 1;
+		playerHealth -= damage;
 		invulnerable = true;
 	}
 	else {
@@ -308,7 +308,7 @@ void Player::HandleKeyboardInput() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) { 
 		swingWeaponTime = swingWeaponClock.getElapsedTime();
 		if (swingWeaponTime.asSeconds() > attackSpeed) { // Check if x seconds have passed
-			// If so, set canSwingWeapon to true
+			// If so, swing the sword
 			SwingSword();
 		}
 		noKeyWasPressed = false;
