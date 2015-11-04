@@ -38,7 +38,6 @@ void GameOverScreen::draw(sf::RenderWindow &window) {
 			if (event.type == sf::Event::TextEntered) {	
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 					isDone = true;
-					std::cout << "isDone";
 					score.saveScore(name, "50", "1:30");
 				}
 				else {

@@ -143,7 +143,6 @@ void Level::Show(sf::RenderWindow &window, Game *game) {
 		if (player.isDead() == true || player.getPosition().x > levelWidth) {
 			GameOver(game, camera, window);
 		}
-		std::cout << player.getPosition().x << "\n";
 		window.display();
 	}
 } 
