@@ -148,6 +148,7 @@ void Enemy::update(sf::RenderWindow &window, Player &player) {
 			case dying:
 				if (falling == false) {
 					deathAnimationClock.restart();
+					ScoreCounter::increase(10);
 					falling = true;
 				}
 
@@ -212,11 +213,10 @@ void Enemy::CheckCollision(Player &player) {
 void Enemy::UpdateState(Player &player) {
 	// Check if the enemy's health has been reduced to 0
 	if (enemyHealth <= 0) { 
-		state = State::dying; 
-		ScoreCounter::increase(10);
+		state = State::dying;
 	} else {
 		// Check if the player is within vertical viewing range of the enemy
-		if (player.getPosition().y + 10 > animation.getPosition().y
+		if ((player.getPosition().y + heightDifference) > animation.getPosition().y
 			&& player.getPosition().y < (animation.getPosition().y + enemyHeight)) {
 			// Check if the player within shooting range
 			// To the right side of the enemy
@@ -239,8 +239,6 @@ void Enemy::UpdateState(Player &player) {
 		} else {
 			state = patrol;
 		}
-		// If so, perform a shot in the player direction
-		// If the player is out of range and the enemy is not shooting, move closer
 	}
 
 

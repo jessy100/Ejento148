@@ -68,23 +68,23 @@ Player::Player(sf::Vector2f pos, std::string n,  int h) :
 
 	// Die left
 	deathAnimationLeft.setSpriteSheet(texture);
-	deathAnimationLeft.addFrame(sf::IntRect(192, 502, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(128, 502, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(64, 502, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(0, 502, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(192, 566, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(128, 566, playerHeight, playerWidth));
-	deathAnimationLeft.addFrame(sf::IntRect(64, 566, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(192, 492, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(128, 492, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(64, 492, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(0, 492, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(192, 556, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(128, 556, playerHeight, playerWidth));
+	deathAnimationLeft.addFrame(sf::IntRect(64, 556, playerHeight, playerWidth));
 
 	// Die right
 	deathAnimationRight.setSpriteSheet(texture);
-	deathAnimationRight.addFrame(sf::IntRect(0, 0, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(64, 0, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(128, 0, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(192, 0, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(0, 64, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(64, 64, playerHeight, playerWidth));
-	deathAnimationRight.addFrame(sf::IntRect(128, 64, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(0, -10, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(64, -10, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(128, -10, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(192, -10, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(0, 54, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(64, 54, playerHeight, playerWidth));
+	deathAnimationRight.addFrame(sf::IntRect(128, 54, playerHeight, playerWidth));
 
 	currentAnimation = &idleAnimationRight;
 
@@ -93,6 +93,9 @@ Player::Player(sf::Vector2f pos, std::string n,  int h) :
 }
 
 void Player::update(sf::RenderWindow &window) {
+	sf::Event event;
+	while (window.pollEvent(event)) {}
+
 	sf::Time frameTime = frameClock.restart();
 
 	/*
@@ -168,10 +171,9 @@ void Player::update(sf::RenderWindow &window) {
 
 	position = animation.getPosition();
 
-	if (position.y > (635 - playerHeight)) {
+	if (position.y > (633 - playerHeight)) {
 		grounded = true;
 		onPlatform = false;
-		position.y = (640 - playerHeight);
 		velocity.y = 0;
 	}
 
@@ -226,21 +228,8 @@ void Player::SwingSword() {
 }
 
 void Player::TakeDamage(int damage) {
-	if (invulnerable == false) {
-		invulernabilityClock.restart();
-
-		// Enemy hits deal 1 damage
-		playerHealth -= damage;
-		invulnerable = true;
-	}
-	else {
-		// Check how long it has been since being hit
-		invulnerabilityTime = invulernabilityClock.getElapsedTime();
-
-		if (invulnerabilityTime.asSeconds() > hitTimer) {
-			invulnerable = false;
-		}
-	}
+	// Take damage from a hit
+	playerHealth -= damage;
 }
 
 void Player::CheckPlayerHealth() {

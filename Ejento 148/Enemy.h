@@ -46,7 +46,8 @@ private:
 		enemyHeight = 56,
 		walkDistance = 100,
 		bulletRange = 200,
-		viewRange = 300;
+		viewRange = 300, 
+		heightDifference = 20; // Difference in height between the enemy and player
 
 	bool grounded = false,
 		invulnerable = false, 

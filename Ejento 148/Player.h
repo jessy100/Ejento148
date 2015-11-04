@@ -40,9 +40,8 @@ private:
 				weaponRect;
 	std::string name;
 
-	const float gravity = 10.0f, 
-		hitTimer = 1.2f, // How long the player is invulnerable after being hit
-		deathDuration = 1.4f; // Duration of the death animation
+	const float gravity = 10.0f,
+		deathDuration = 1.2f; // Duration of the death animation
 
 	float speed = 200.0f,
 		jumpSpeed = 600.0f,
@@ -64,8 +63,7 @@ private:
 		jumping = false, 
 		dying = false,
 		dead = false,
-		onPlatform = false, 
-		invulnerable = false;
+		onPlatform = false;
 
 	Animation *currentAnimation, 
 		idleAnimationRight, 
@@ -83,12 +81,10 @@ private:
 	sf::Clock frameClock, 
 		swingWeaponClock, 
 		swingAnimationClock,
-		deathAnimationClock, 
-		invulernabilityClock;
+		deathAnimationClock;
 	sf::Time swingWeaponTime, 
 		swingAnimationTime,
-		deathAnimationTime, 
-		invulnerabilityTime;
+		deathAnimationTime;
 
 	enum Direction {left, right};
 	Direction direction = Direction::left;
