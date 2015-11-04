@@ -33,22 +33,25 @@ private:
 	sf::Vector2f position, velocity = sf::Vector2f(0, 0), spawnPoint;
 	sf::IntRect enemyRect;
 
-	const float gravity = 10.0f, 
-		hitTimer = 0.8f, 
+	const float gravity = 10.0f,
+		hitTimer = 0.8f,
+		fallDuration = 1.7f,
 		shotDelay = 1.5f;
 	float speed = 1000.0f,
 		jumpSpeed = 600.0f;
 
 	int enemyHealth, 
-		enemyWidth = 42, 
-		enemyHeight = 64,
+		enemyWidth = 35, 
+		deathWidth = 49,
+		enemyHeight = 56,
 		walkDistance = 100,
 		bulletRange = 200,
 		viewRange = 300;
 
 	bool grounded = false,
 		invulnerable = false, 
-		killed = false, 
+		killed = false,
+		falling = false, 
 		canShoot = true;
 
 	Animation *currentAnimation,
@@ -62,8 +65,16 @@ private:
 		dyingAnimationRight;
 
 	AnimatedSprite animation;
-	sf::Clock frameClock, invulernabilityClock, actionClock, shootClock;
-	sf::Time invulnerabilityTime, actionTime, shootTime;
+	sf::Clock frameClock,
+		invulernabilityClock,
+		actionClock,
+		shootClock,
+		deathAnimationClock;
+
+	sf::Time invulnerabilityTime,
+		actionTime,
+		shootTime,
+		deathAnimationTime;
 
 	enum State { idle, 
 		shooting, 

@@ -19,7 +19,7 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	// Idle left
 	idleAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(250, 67, enemyWidth, enemyHeight));
+	idleAnimationLeft.addFrame(sf::IntRect(250, 67, enemyWidth, enemyHeight));
 
 	// Idle right
 	idleAnimationRight.setSpriteSheet(texture);
@@ -27,37 +27,53 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 
 	// Shooting left
 	shootingAnimationLeft.setSpriteSheet(texture);
-	shootingAnimationLeft.addFrame(sf::IntRect(250, 67, enemyWidth, enemyHeight));
+	shootingAnimationLeft.addFrame(sf::IntRect(215, 396, enemyWidth, enemyHeight));
 
 	// Shooting right
 	shootingAnimationRight.setSpriteSheet(texture);
-	shootingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
+	shootingAnimationRight.addFrame(sf::IntRect(0, 396, enemyWidth, enemyHeight));
 
 	// Dying left
 	dyingAnimationLeft.setSpriteSheet(texture);
-	dyingAnimationLeft.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(200, 264, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(150, 264, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(100, 264, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(51, 264, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(0, 264, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(200, 332, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(150, 332, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(100, 332, deathWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(51, 332, deathWidth, enemyHeight));
 
 	// Dying right
 	dyingAnimationRight.setSpriteSheet(texture);
-	dyingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(0, 129, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(51, 129, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(100, 129, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(150, 129, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(200, 129, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(0, 198, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(50, 198, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(100, 198, deathWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(150, 198, deathWidth, enemyHeight));
 
 	// Walking left
 	walkingAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(250, 67, enemyWidth, enemyHeight));
-	walkingAnimationLeft.addFrame(sf::IntRect(200, 67, enemyWidth, enemyHeight));
-	walkingAnimationLeft.addFrame(sf::IntRect(150, 67, enemyWidth, enemyHeight));
-	walkingAnimationLeft.addFrame(sf::IntRect(100, 67, enemyWidth, enemyHeight));
-	walkingAnimationLeft.addFrame(sf::IntRect(50, 67, enemyWidth, enemyHeight));
-	walkingAnimationLeft.addFrame(sf::IntRect(0, 67, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(212, 56, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(170, 56, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(127, 56, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(85, 56, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(42, 56, enemyWidth, enemyHeight));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 56, enemyWidth, enemyHeight));
 
 	// Walking right
 	walkingAnimationRight.setSpriteSheet(texture);
 	walkingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(50, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(100, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(150, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(200, 0, enemyWidth, enemyHeight));
-	walkingAnimationRight.addFrame(sf::IntRect(250, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(42, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(85, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(127, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(170, 0, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(212, 0, enemyWidth, enemyHeight));
 
 	currentAnimation = &idleAnimationLeft;
 
@@ -130,6 +146,13 @@ void Enemy::update(sf::RenderWindow &window, Player &player) {
 				}
 				break;
 			case dying:
+				if (falling == false) {
+					deathAnimationClock.restart();
+					falling = true;
+				}
+
+				velocity.x = 0;
+
 				if (direction == left) {
 					setAnimation(dyingAnimationLeft);
 					// Perform the left death animation for a set amount of time
@@ -137,8 +160,13 @@ void Enemy::update(sf::RenderWindow &window, Player &player) {
 					setAnimation(dyingAnimationRight);
 					// Perform the right death animation for a set amount of time
 				}
-				// Set killed to true once the death animation is done playing
-				killed = true;
+
+				// Check if x seconds have passed
+				deathAnimationTime = deathAnimationClock.getElapsedTime();
+				if (deathAnimationTime.asSeconds() > fallDuration) {
+					// Set killed to true once the death animation is done playing
+					killed = true;
+				}
 				break;
 		}
 
@@ -164,7 +192,6 @@ void Enemy::TakeDamage(Player &player) {
 		invulernabilityClock.restart();
 
 		enemyHealth -= player.getDamage();
-		std::cout << "Recently hit enemy has " << enemyHealth << " health left\n\n";
 		invulnerable = true;
 	} else {
 		// Check how long it has been since being hit
@@ -189,7 +216,7 @@ void Enemy::UpdateState(Player &player) {
 		ScoreCounter::increase(10);
 	} else {
 		// Check if the player is within vertical viewing range of the enemy
-		if (player.getPosition().y > animation.getPosition().y
+		if (player.getPosition().y + 10 > animation.getPosition().y
 			&& player.getPosition().y < (animation.getPosition().y + enemyHeight)) {
 			// Check if the player within shooting range
 			// To the right side of the enemy
@@ -200,19 +227,16 @@ void Enemy::UpdateState(Player &player) {
 
 				ShootWeapon();
 				// To the left side of the enemy
-			}
-			else if (player.getPosition().x > (animation.getPosition().x - bulletRange)
+			} else if (player.getPosition().x > (animation.getPosition().x - bulletRange)
 				&& player.getPosition().x < (animation.getPosition().x)) {
 				state = shooting;
 				direction = left;
 
 				ShootWeapon();
-			}
-			else {
+			} else {
 				state = patrol;
 			}
-		}
-		else {
+		} else {
 			state = patrol;
 		}
 		// If so, perform a shot in the player direction

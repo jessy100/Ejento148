@@ -4,10 +4,12 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "Audio.h"
+#include "GameOverScreen.h"
 
 class Game {
 public:
 	void Start();
+	void ShowGameOverScreen();
 private:
 	bool IsExiting();
 	void GameLoop();
@@ -16,18 +18,18 @@ private:
 	void ExitGame();
 	void PlayLevel();
 	void ShowScoreboard();
-	void ShowGameOverScreen();
+
 
 	enum class GameState {
 		Uninitialized, ShowingSplash, Paused,
-		ShowingMenu, Playing, Exiting,ShowingScoreboard,ShowingGameOverScreen
+		ShowingMenu, Playing, Exiting, ShowingScoreboard, ShowingGameOverScreen
 	};
 
 	GameState gameState = GameState::Uninitialized;
 	sf::RenderWindow window;
 
 	int screenWidth = 896, screenHeight = 640, screenDepth = 32;
-	
+
 };
 
 #endif

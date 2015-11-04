@@ -55,8 +55,7 @@ void Game::ExitGame() { exit(0); }
 bool Game::IsExiting() {
 	if (gameState == GameState::Exiting) {
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
 }
@@ -68,7 +67,7 @@ void Game::PlayLevel() {
 	Audio::StopMusic();
 	Audio::PlayMusic("level-music.wav", 2, 1);
 
-	level.Show(window);
+	level.Show(window, this);
 }
 
 void Game::ShowScoreboard() {
@@ -78,39 +77,38 @@ void Game::ShowScoreboard() {
 }
 
 void Game::ShowGameOverScreen() {
-	GameOverScreen gameover;
-	gameover.draw(window);
+	GameOverScreen::getInstance().draw(window);
 	gameState = GameState::ShowingGameOverScreen;
 }
 
 void Game::GameLoop() {
 	sf::Event currentEvent;
-	while (window.waitEvent(currentEvent)) {
+	while (window.pollEvent(currentEvent)) {
 		switch (gameState) {
-			case GameState::ShowingMenu: {
-				ShowMenu();
-				break;
-			}
-			case GameState::ShowingSplash: {
-				ShowSplashScreen();
-				break;
-			}
-			case GameState::Exiting: {
-				ExitGame();
-				break;
-			}
-			case GameState::Playing: {
-				PlayLevel();
-				break;
-			}						 
-			case GameState::ShowingScoreboard:{
-				ShowScoreboard();
-				break;
-			}
-			case GameState::ShowingGameOverScreen: {
-				ShowGameOverScreen();
-				break;
-			}
+		case GameState::ShowingMenu: {
+			ShowMenu();
+			break;
+		}
+		case GameState::ShowingSplash: {
+			ShowSplashScreen();
+			break;
+		}
+		case GameState::Exiting: {
+			ExitGame();
+			break;
+		}
+		case GameState::Playing: {
+			PlayLevel();
+			break;
+		}
+		case GameState::ShowingScoreboard: {
+			ShowScoreboard();
+			break;
+		}
+		case GameState::ShowingGameOverScreen: {
+			ShowGameOverScreen();
+			break;
+		}
 		}
 	}
 }
