@@ -1,15 +1,8 @@
-﻿Build started 11/2/2015 3:09:05 PM.
+﻿Build started 11/4/2015 3:33:47 PM.
      1>Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp ScoreScreen.cpp score.cpp
-         score.cpp
-         Generating Code...
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\score.cpp(36): warning C4715: 'Score::getScores': not all control paths return a value
-         Compiling...
-         ScoreScreen.cpp
-     1>c:\users\jessy\desktop\ejento148\ejento148\ejento 148\scorescreen.cpp(44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
-         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:/SFML-2.1/lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" "sfml-network-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
@@ -19,20 +12,21 @@
          "Debug\Ejento 148.obj"
          Debug\Enemy.obj
          Debug\Game.obj
+         Debug\GameOverScreen.obj
          Debug\InteractiveTile.obj
          Debug\Item.obj
          Debug\Level.obj
          Debug\MainMenu.obj
          Debug\Player.obj
-         Debug\score.obj
+         Debug\WebScore.obj
          Debug\ScoreCounter.obj
          Debug\ScoreScreen.obj
          Debug\SplashScreen.obj
          Debug\stdafx.obj
-         Debug\TimeCounter.obj
+         Debug\TimerCounter.obj
          Ejento 148.vcxproj -> C:\Users\Jessy\Desktop\ejento148\Ejento148\Debug\Ejento 148.exe
      1>Done Building Project "C:\Users\Jessy\Desktop\ejento148\Ejento148\Ejento 148\Ejento 148.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.14
+Time Elapsed 00:00:02.32
