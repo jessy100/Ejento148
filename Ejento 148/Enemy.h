@@ -44,7 +44,7 @@ private:
 		enemyWidth = 35, 
 		deathWidth = 49,
 		enemyHeight = 56,
-		walkDistance = 100,
+		walkDistance = 400,
 		bulletRange = 200,
 		viewRange = 300, 
 		heightDifference = 20; // Difference in height between the enemy and player

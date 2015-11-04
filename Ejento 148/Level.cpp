@@ -94,10 +94,10 @@ void Level::Show(sf::RenderWindow &window, Game *game) {
 	items.push_back(new Item(sf::Vector2f(300, 500), "health"));
 	items.push_back(new Item(sf::Vector2f(400, 500), "damage"));
 
-	enemies.push_back(new Enemy(sf::Vector2f(100, 570), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(300, 570), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(700, 570), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(900, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(400, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(1100, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(1950, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(2800, 570), 100.0f, 3));
 
 	Camera camera(player,levelWidth);
 
@@ -140,10 +140,10 @@ void Level::Show(sf::RenderWindow &window, Game *game) {
 		timer.draw(window, camera.getPosition());
 		score.draw(window, camera.getPosition());
 
-		if (player.isDead() == true) {
+		if (player.isDead() == true || player.getPosition().x > levelWidth) {
 			GameOver(game, camera, window);
 		}
-
+		std::cout << player.getPosition().x << "\n";
 		window.display();
 	}
 } 
