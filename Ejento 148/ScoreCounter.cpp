@@ -3,9 +3,10 @@
 #include <iostream>
 #include <string>
 
-ScoreCounter::ScoreCounter(sf::Vector2f position, int beginScore) :
-	position{ position }, curScore{ beginScore }
-{
+ScoreCounter::ScoreCounter(sf::Vector2f pos, int bs) {
+	position = pos;
+	curScore = bs;
+
 	font.loadFromFile("resources/fonts/DKFaceYourFears.ttf");
 	text.setFont(font);
 }
@@ -25,3 +26,8 @@ void ScoreCounter::increase(int score) {
 void ScoreCounter::decrease(int score) {
 	curScore = curScore - score;
 }
+
+sf::Vector2f ScoreCounter::position;
+int ScoreCounter::curScore;
+sf::Font ScoreCounter::font;
+sf::Text ScoreCounter::text;

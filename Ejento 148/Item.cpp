@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <string>
 #include <iostream>
+#include "ScoreCounter.h"
 
 Item::Item(sf::Vector2f pos, std::string e) :
 	position(pos), effect(e)
@@ -43,6 +44,7 @@ void Item::CheckCollision(Player &player) {
 		} else if(effect == "health") {
 			player.setHealth(player.getHealth() + 1);
 		}
+		ScoreCounter::increase(5);
 		looted = true;
 	}
 }

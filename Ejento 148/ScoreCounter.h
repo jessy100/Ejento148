@@ -1,11 +1,10 @@
-#pragma once
 #ifndef _SCORECOUNTER_HPP
 #define _SCORECOUNTER_HPP
 
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <string>
-
+#include "ScoreCounter.h"
 
 class ScoreCounter {
 public:
@@ -22,25 +21,25 @@ public:
 	with it's currect values. when the values change you have to draw it again.
 	you give a window to the draw methode to let it know in which window you want to draw.
 	*/
-	void draw(sf::RenderWindow & window, sf::Vector2f position);
+	static void draw(sf::RenderWindow & window, sf::Vector2f position);
 
 	/*
 	the add methode adds the score.
 	you give a score to the methode. which is the value of the increase of the current score.
 	*/
-	void increase(int score);
+	static void increase(int score);
 
 	/*
 	the lower methode lowers the score.
 	you give a score to the methode. which is the value of the decrease of the current score.
 	*/
-	void decrease(int score);
+	static void decrease(int score);
 
 private:
-	sf::Vector2f position;
-	int curScore;
-	sf::Font font;
-	sf::Text text;
+	static sf::Vector2f position;
+	static int curScore;
+	static sf::Font font;
+	static sf::Text text;
 };
 
 #endif 

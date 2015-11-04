@@ -5,6 +5,7 @@
 #include "AnimatedSprite.h"
 #include <string>
 #include <iostream>
+#include "ScoreCounter.h"
 
 Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	position(pos), speed(s), enemyHealth(h)
@@ -185,6 +186,7 @@ void Enemy::UpdateState(Player &player) {
 	// Check if the enemy's health has been reduced to 0
 	if (enemyHealth <= 0) { 
 		state = State::dying; 
+		ScoreCounter::increase(10);
 	} else {
 		// Check if the player is within vertical viewing range of the enemy
 		if (player.getPosition().y > animation.getPosition().y
