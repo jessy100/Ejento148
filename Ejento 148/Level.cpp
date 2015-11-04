@@ -99,7 +99,7 @@ void Level::Show(sf::RenderWindow &window, Game *game) {
 	enemies.push_back(new Enemy(sf::Vector2f(700, 570), 100.0f, 3));
 	enemies.push_back(new Enemy(sf::Vector2f(900, 570), 100.0f, 3));
 
-	Camera camera(player);
+	Camera camera(player,levelWidth);
 
 	while (playingLevel) {
 		window.clear(sf::Color(255, 255, 255)); // White background
@@ -133,25 +133,29 @@ void Level::Show(sf::RenderWindow &window, Game *game) {
 		}
 
 		// Check if the player character is dead
-		if (player.isDead() == true) {
-			GameOver();
-			game->ShowGameOverScreen();
-			playingLevel = false;
-		}
+		
 
 		player.update(window);
 		camera.update(window);
 		timer.draw(window, camera.getPosition());
 		score.draw(window, camera.getPosition());
+
+		if (player.isDead() == true) {
+			GameOver(game, camera, window);
+		}
+
 		window.display();
 	}
-}
+} 
 
-void Level::GameOver() {
+//testcomment
+
+void Level::GameOver(Game *game, Camera &camera, sf::RenderWindow &window) {
 	// The player has died, and the game is over
 	// Call the screen where the player can put in his name for the leaderboards
-	std::cout << "Game Over\n";
-
+	playingLevel = false;
+	game->ShowGameOverScreen();
+	camera.Reset(window);
 }
 
 void Level::SetPlayingLevel(bool p) { playingLevel = p; }
