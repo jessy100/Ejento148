@@ -9,7 +9,7 @@
 Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	position(pos), speed(s), enemyHealth(h)
 {
-	if (!texture.loadFromFile("resources/images/enemy.png")) {
+	if (!texture.loadFromFile("resources/images/temp-enemy.png")) {
 		std::cout << "Failed to load enemy spritesheet!" << std::endl;
 	}
 
@@ -18,7 +18,7 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 	// Set up the animations for all four directions (set spritesheet and push frames)
 	// Idle left
 	idleAnimationLeft.setSpriteSheet(texture);
-	idleAnimationLeft.addFrame(sf::IntRect(530, 105, enemyWidth, enemyHeight));
+	idleAnimationLeft.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	// Idle right
 	idleAnimationRight.setSpriteSheet(texture);
@@ -26,39 +26,25 @@ Enemy::Enemy(sf::Vector2f pos, float s, int h) :
 
 	// Shooting left
 	shootingAnimationLeft.setSpriteSheet(texture);
-	shootingAnimationLeft.addFrame(sf::IntRect(252, 418, enemyWidth, enemyHeight));
-	//shootingAnimationLeft.addFrame(sf::IntRect(188, 418, enemyWidth, enemyHeight));
-	//shootingAnimationLeft.addFrame(sf::IntRect(134, 418, enemyWidth, enemyHeight));
-	//shootingAnimationLeft.addFrame(sf::IntRect(91, 418, enemyWidth, enemyHeight));
+	shootingAnimationLeft.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	// Shooting right
 	shootingAnimationRight.setSpriteSheet(texture);
-	shootingAnimationRight.addFrame(sf::IntRect(10, 0, enemyWidth, enemyHeight));
-	//shootingAnimationRight.addFrame(sf::IntRect(62, 0, enemyWidth, enemyHeight));
-	//shootingAnimationRight.addFrame(sf::IntRect(115, 0, enemyWidth, enemyHeight));
-	//shootingAnimationRight.addFrame(sf::IntRect(171, 0, enemyWidth, enemyHeight));
+	shootingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	// Dying left
 	dyingAnimationLeft.setSpriteSheet(texture);
-	dyingAnimationLeft.addFrame(sf::IntRect(660, 130, enemyWidth, enemyHeight));
+	dyingAnimationLeft.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	// Dying right
 	dyingAnimationRight.setSpriteSheet(texture);
-	dyingAnimationRight.addFrame(sf::IntRect(660, 130, enemyWidth, enemyHeight));
+	dyingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	walkingAnimationLeft.setSpriteSheet(texture);
-	walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	//walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
-	//walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-	//walkingAnimationLeft.addFrame(sf::IntRect(0, 32, 32, 32));
+	walkingAnimationLeft.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	walkingAnimationRight.setSpriteSheet(texture);
-	walkingAnimationRight.addFrame(sf::IntRect(10, 124, enemyWidth, enemyHeight));
-	//walkingAnimationRight.addFrame(sf::IntRect(51, 124, enemyWidth, enemyHeight));
-	//walkingAnimationRight.addFrame(sf::IntRect(101, 124, enemyWidth, enemyHeight));
-	//walkingAnimationRight.addFrame(sf::IntRect(152, 124, enemyWidth, enemyHeight));
-	//walkingAnimationRight.addFrame(sf::IntRect(200, 124, enemyWidth, enemyHeight));
-	//walkingAnimationRight.addFrame(sf::IntRect(253, 124, enemyWidth, enemyHeight));
+	walkingAnimationRight.addFrame(sf::IntRect(0, 0, enemyWidth, enemyHeight));
 
 	currentAnimation = &idleAnimationLeft;
 
@@ -73,12 +59,12 @@ void Enemy::draw(sf::RenderWindow &window) {
 	window.draw(animation);
 }
 
-void Enemy::update(sf::RenderWindow &window) {
+void Enemy::update(sf::RenderWindow &window, Player &player) {
 	if (killed == false) {
 		sf::Time frameTime = frameClock.restart();
 
 		// Update the enemy's current state based off environment
-		updateState();
+		UpdateState(player);
 
 		// Update the collision rectangle
 		enemyRect = sf::IntRect(animation.getPosition().x,
@@ -95,8 +81,10 @@ void Enemy::update(sf::RenderWindow &window) {
 			case idle:
 				if (direction == left) {
 					setAnimation(idleAnimationLeft);
+					velocity.x = 0;
 				} else {
 					setAnimation(idleAnimationRight);
+					velocity.x = 0;
 				}
 				break;
 			case shooting:
@@ -145,11 +133,28 @@ void Enemy::update(sf::RenderWindow &window) {
 	}
 }
 
-void Enemy::updateState() {
+void Enemy::UpdateState(Player &player) {
 	// Check if the enemy's health has been reduced to 0
-	if (enemyHealth == 0) { state = State::dying; }
+	if (enemyHealth <= 0) { state = State::dying; }
 
-	// Check if the player is within shooting range of the enemy
+	// Check if the player is within viewing range of the enemy
+	if (player.getPosition().y > animation.getPosition().y 
+		&& player.getPosition().y < (animation.getPosition().y + enemyHeight)) {
+		// Check if the player within shooting range
+		// To the right side of the enemy
+		if (player.getPosition().x < (animation.getPosition().x + bulletRange)
+			&& player.getPosition().x >(animation.getPosition().x)) {
+			state = idle;
+			direction = right;
+			// To the left side of the enemy
+		} else if (player.getPosition().x > (animation.getPosition().x - bulletRange)
+			&& player.getPosition().x < (animation.getPosition().x)) {
+			state = idle;
+			direction = right;
+		} else {
+			state = patrol;
+		}
+	}
 	// If so, perform a shot in the player direction
 	// If the player is out of range and the enemy is not shooting, move closer
 

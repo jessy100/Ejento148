@@ -50,9 +50,9 @@ private:
 
 	int playerHealth,
 		playerHeight = 60, 
+		playerWidth = 60,
 		playerCollisionHeight = 35,
 		playerCollisionWidth = 50,
-		playerWidth = 60, 
 		playerDamage = 1, 
 		weaponRange = 30, 
 		weaponArc = 40;

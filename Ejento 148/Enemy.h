@@ -21,21 +21,25 @@ public:
 
 	void CheckCollision(Player &player);
 	void draw(sf::RenderWindow &window);
-	void update(sf::RenderWindow &window);
+	void update(sf::RenderWindow &window, Player &);
 	void Enemy::TakeDamage(Player &);
-	void updateState();
+	void UpdateState(Player &);
 private:
 	sf::Texture texture;
 	sf::Vector2f position, velocity = sf::Vector2f(0, 0), spawnPoint;
 	sf::IntRect enemyRect;
 
-	const float gravity = 10.0f;
-	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.8f;
+	const float gravity = 10.0f, 
+		hitTimer = 0.8f;
+	float speed = 1000.0f,
+		jumpSpeed = 600.0f;
+
 	int enemyHealth, 
-		enemyWidth = 50, 
-		enemyHeight = 51,
+		enemyWidth = 60, 
+		enemyHeight = 60,
 		walkDistance = 100,
 		bulletRange = 200;
+
 	bool grounded = false,
 		invulnerable = false, 
 		killed = false;

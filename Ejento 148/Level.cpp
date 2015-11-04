@@ -91,10 +91,10 @@ void Level::Show(sf::RenderWindow &window) {
 	items.push_back(new Item(sf::Vector2f(300, 500), "health"));
 	items.push_back(new Item(sf::Vector2f(400, 500), "damage"));
 
-	enemies.push_back(new Enemy(sf::Vector2f(100, 400), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(300, 400), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(500, 400), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(700, 400), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(100, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(300, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(500, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(700, 570), 100.0f, 3));
 
 	Camera camera(player);
 
@@ -116,7 +116,7 @@ void Level::Show(sf::RenderWindow &window) {
 		// Loop through all items in the items vector and check if they collide with the player
 		for (std::vector<int>::size_type i = 0; i != enemies.size(); i++) {
 			if (!enemies[i]->isKilled()) {
-				enemies[i]->update(window);
+				enemies[i]->update(window, player);
 				enemies[i]->CheckCollision(player);
 			}
 		}
