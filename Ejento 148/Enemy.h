@@ -35,10 +35,11 @@ private:
 		jumpSpeed = 600.0f;
 
 	int enemyHealth, 
-		enemyWidth = 60, 
-		enemyHeight = 60,
+		enemyWidth = 42, 
+		enemyHeight = 64,
 		walkDistance = 100,
-		bulletRange = 200;
+		bulletRange = 200,
+		viewRange = 300;
 
 	bool grounded = false,
 		invulnerable = false, 
