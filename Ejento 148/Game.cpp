@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "Audio.h"
 #include "ScoreScreen.h"
+#include "GameOverScreen.h"
 
 void Game::Start(void) {
 	window.create(
@@ -76,6 +77,12 @@ void Game::ShowScoreboard() {
 	gameState = GameState::ShowingScoreboard;
 }
 
+void Game::ShowGameOverScreen() {
+	GameOverScreen gameover;
+	gameover.draw(window);
+	gameState = GameState::ShowingGameOverScreen;
+}
+
 void Game::GameLoop() {
 	sf::Event currentEvent;
 	while (window.waitEvent(currentEvent)) {
@@ -95,10 +102,13 @@ void Game::GameLoop() {
 			case GameState::Playing: {
 				PlayLevel();
 				break;
-			}
-									 
+			}						 
 			case GameState::ShowingScoreboard:{
 				ShowScoreboard();
+				break;
+			}
+			case GameState::ShowingGameOverScreen: {
+				ShowGameOverScreen();
 				break;
 			}
 		}
