@@ -42,7 +42,13 @@ void GameOverScreen::draw(sf::RenderWindow &window) {
 					score.saveScore(name, "50", "1:30");
 				}
 				else {
-					name += event.text.unicode;
+					if (event.text.unicode < 128 && event.text.unicode != 8) {
+						name += event.text.unicode;
+					}
+					else if (event.text.unicode == 8) {
+						name.pop_back();
+					}
+					
 				}
 			}
 		}
