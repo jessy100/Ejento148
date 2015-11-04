@@ -9,15 +9,18 @@
 class GameOverScreen {
 public:
 
-
-	GameOverScreen();
 	void draw(sf::RenderWindow &window);
+	static GameOverScreen & getInstance();
 private:
 	WebScore score;
 	sf::Font font;
 	sf::Text text;
 	std::string name = "";
 	bool isDone = false;
+
+	GameOverScreen();
+	GameOverScreen(GameOverScreen const&) {};             
+	GameOverScreen& operator=(GameOverScreen const&) {};  
 };
 
 #endif
