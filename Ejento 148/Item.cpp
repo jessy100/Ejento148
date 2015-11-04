@@ -28,8 +28,8 @@ void Item::draw(sf::RenderWindow &window) {
 		itemRect = sf::IntRect(
 			position.x,
 			position.y,
-			itemHeight,
-			itemWidth);
+			itemWidth,
+			itemHeight);
 
 		sprite.setPosition(position);
 		window.draw(sprite);

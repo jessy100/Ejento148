@@ -2,13 +2,16 @@
 #define _ENEMY_HPP
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <string>
 #include "Animation.h"
 #include "AnimatedSprite.h"
 #include "Player.h"
+#include "Bullet.h"
 
 class Enemy {
 public:
-	Enemy() {}
+	enum Direction { left, right };
 	Enemy(sf::Vector2f, float s, int h);
 
 	float Enemy::getSpeed() { return speed; }
@@ -24,13 +27,15 @@ public:
 	void update(sf::RenderWindow &window, Player &);
 	void Enemy::TakeDamage(Player &);
 	void UpdateState(Player &);
+	void ShootWeapon();
 private:
 	sf::Texture texture;
 	sf::Vector2f position, velocity = sf::Vector2f(0, 0), spawnPoint;
 	sf::IntRect enemyRect;
 
 	const float gravity = 10.0f, 
-		hitTimer = 0.8f;
+		hitTimer = 0.8f, 
+		shotDelay = 1.5f;
 	float speed = 1000.0f,
 		jumpSpeed = 600.0f;
 
@@ -43,7 +48,8 @@ private:
 
 	bool grounded = false,
 		invulnerable = false, 
-		killed = false;
+		killed = false, 
+		canShoot = true;
 
 	Animation *currentAnimation,
 		walkingAnimationLeft, 
@@ -56,8 +62,8 @@ private:
 		dyingAnimationRight;
 
 	AnimatedSprite animation;
-	sf::Clock frameClock, invulernabilityClock, actionClock;
-	sf::Time invulnerabilityTime, actionTime;
+	sf::Clock frameClock, invulernabilityClock, actionClock, shootClock;
+	sf::Time invulnerabilityTime, actionTime, shootTime;
 
 	enum State { idle, 
 		shooting, 
@@ -65,9 +71,10 @@ private:
 		dying 
 	};
 	State state = State::patrol;
-
-	enum Direction { left, right };
 	Direction direction = Direction::right;
+
+	// Create a vector
+	std::vector<Bullet *> bullets;
 };
 
 #endif

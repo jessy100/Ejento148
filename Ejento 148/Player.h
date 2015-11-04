@@ -25,7 +25,7 @@ public:
 	
 	void CheckCollision(sf::IntRect);
 	void SwingSword();
-	void TakeDamage();
+	void TakeDamage(int);
 	void CheckPlayerHealth();
 	void HandleKeyboardInput();
 	void draw(sf::RenderWindow &window);

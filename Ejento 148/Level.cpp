@@ -93,8 +93,8 @@ void Level::Show(sf::RenderWindow &window) {
 
 	enemies.push_back(new Enemy(sf::Vector2f(100, 570), 100.0f, 3));
 	enemies.push_back(new Enemy(sf::Vector2f(300, 570), 100.0f, 3));
-	enemies.push_back(new Enemy(sf::Vector2f(500, 570), 100.0f, 3));
 	enemies.push_back(new Enemy(sf::Vector2f(700, 570), 100.0f, 3));
+	enemies.push_back(new Enemy(sf::Vector2f(900, 570), 100.0f, 3));
 
 	Camera camera(player);
 
