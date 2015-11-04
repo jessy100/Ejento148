@@ -146,6 +146,7 @@ void Level::GameOver() {
 	// The player has died, and the game is over
 	// Call the screen where the player can put in his name for the leaderboards
 	std::cout << "Game Over\n";
+	
 }
 
 void Level::SetPlayingLevel(bool p) { playingLevel = p; }
