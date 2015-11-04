@@ -46,7 +46,7 @@ private:
 
 	float speed = 200.0f,
 		jumpSpeed = 600.0f,
-		attackSpeed = 0.5f;
+		attackSpeed = 0.5f; // Time between player attacks
 
 	int playerHealth,
 		playerHeight = 60, 
@@ -92,8 +92,6 @@ private:
 
 	enum Direction {left, right};
 	Direction direction = Direction::left;
-
-	sf::RectangleShape rec;
 };
 
 #endif

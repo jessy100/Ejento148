@@ -30,7 +30,7 @@ private:
 	sf::IntRect enemyRect;
 
 	const float gravity = 10.0f;
-	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.6f;
+	float speed = 1000.0f, jumpSpeed = 600.0f, hitTimer = 0.8f;
 	int enemyHealth, 
 		enemyWidth = 50, 
 		enemyHeight = 51,

@@ -197,7 +197,7 @@ void Player::CheckCollision(sf::IntRect collider) {
 }
 
 void Player::SwingSword() {
-	Audio::PlaySound("sword-attack.wav", 2, 0);
+	Audio::PlaySound("sword-attack.wav", 1, 0);
 	// Player is swinging the weapon
 	swingingWeapon = true;
 
@@ -305,21 +305,11 @@ void Player::HandleKeyboardInput() {
 		velocity.x = speed;
 		noKeyWasPressed = false;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		// Check if the player can swing his weapon
-		if (canSwingWeapon == true) {
-			// Call function to swing weapon
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) { 
+		swingWeaponTime = swingWeaponClock.getElapsedTime();
+		if (swingWeaponTime.asSeconds() > attackSpeed) { // Check if x seconds have passed
+			// If so, set canSwingWeapon to true
 			SwingSword();
-
-			canSwingWeapon = false;
-		}
-		else {
-			// Check if x seconds have passed
-			swingWeaponTime = swingWeaponClock.getElapsedTime();
-			if (swingWeaponTime.asSeconds() > attackSpeed) {
-				// If so, set canSwingWeapon to true
-				canSwingWeapon = true;
-			}
 		}
 		noKeyWasPressed = false;
 	} // End player input
