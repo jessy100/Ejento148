@@ -4,21 +4,30 @@
 #include <string>
 #include <iostream>
 
-void Audio::MusicStart(std::string file, float volume){
-	if (!music.openFromFile("resources/audio/"+file)) {
+void Audio::PlayMusic(std::string file, float volume, bool loop){
+	if (!backgroundMusic.openFromFile("resources/audio/"+file)) {
 		std::cout << "ERROR Music file " << file << " not found\n";
 	}
-	music.setLoop(true);
-	music.setVolume(volume);
+	backgroundMusic.setLoop(loop);
+	backgroundMusic.setVolume(volume);
 
-	music.play();
-	std::cout << music.getStatus() << "\n";
+	backgroundMusic.play();
 }
 
-void Audio::MusicStop(char * file){
-
+void Audio::StopMusic(){
+	backgroundMusic.stop();
 }
 
-void Audio::PlaySound(char * file){
+void Audio::PlaySound(std::string file, float volume, bool loop) {
+	if (!buffer.loadFromFile("resources/audio/"+file)) {
+		std::cout << "ERROR Music file " << file << " not found\n";
+	}
 
+	actionSound.setBuffer(buffer);
+	actionSound.setVolume(volume);
+	actionSound.play();
 }
+
+sf::Music Audio::backgroundMusic;
+sf::Sound Audio::actionSound;
+sf::SoundBuffer Audio::buffer;

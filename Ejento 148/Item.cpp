@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <string>
 #include <iostream>
+#include "ScoreCounter.h"
 
 Item::Item(sf::Vector2f pos, std::string e) :
 	position(pos), effect(e)
@@ -20,32 +21,30 @@ Item::Item(sf::Vector2f pos, std::string e) :
 		}
 	}
 
-	itemRect = sf::IntRect(
-		position.x,
-		position.y,
-		itemHeight,
-		itemWidth);
-
 	sprite.setTexture(texture);
-	sprite.setPosition(position);
 }
 
 void Item::draw(sf::RenderWindow &window) {
-	window.draw(sprite);
+	if (looted == false) {
+		itemRect = sf::IntRect(
+			position.x,
+			position.y,
+			itemWidth,
+			itemHeight);
+
+		sprite.setPosition(position);
+		window.draw(sprite);
+	}
 }
 
-bool Item::CheckCollision(Player &player) {
-	if (player.getRect().intersects(itemRect)) {
+void Item::CheckCollision(Player &player) {
+	if (player.getPlayerRect().intersects(itemRect)) {
 		if (effect == "damage") {
 			player.setDamage(player.getDamage() + 1);
-			std::cout << "Player picked up a weapon\n";
-			std::cout << "Player damage is now " << player.getDamage() << "\n";
 		} else if(effect == "health") {
 			player.setHealth(player.getHealth() + 1);
-			std::cout << "Player picked up health\n";
-			std::cout << "Player health is now " << player.getHealth() << "\n";
 		}
-		return true;
+		ScoreCounter::increase(5);
+		looted = true;
 	}
-	return false;
 }

@@ -10,10 +10,10 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow &window) {
 
 	// Play menu item
 	MenuItem playButton;
-	playButton.rect.top = 145;
+	playButton.rect.top = 0;
 	playButton.rect.left = 200;
 	playButton.rect.width = 800;
-	playButton.rect.height = 235;
+	playButton.rect.height = 215;
 	playButton.action = MenuResult::Play;
 
 	// Exit menu item
@@ -24,8 +24,17 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow &window) {
 	exitButton.rect.height = 235;
 	exitButton.action = MenuResult::Exit;
 
+	MenuItem leaderBoards;
+	leaderBoards.rect.top = 216;
+	leaderBoards.rect.left = 200;
+	leaderBoards.rect.width = 800;
+	leaderBoards.rect.height = 210;
+	leaderBoards.action = MenuResult::ScoreBoard;
+
+
 	menuItems.push_back(playButton);
 	menuItems.push_back(exitButton);
+	menuItems.push_back(leaderBoards);
 
 	window.draw(sprite);
 	window.display();
