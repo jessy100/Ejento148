@@ -1,3 +1,9 @@
+/*!
+*   @author     Kevin Damen
+*   @project    Themaopdracht 5, Ejento 148
+*   @brief     The code to show the score counter.
+*/
+
 #ifndef _SCORECOUNTER_HPP
 #define _SCORECOUNTER_HPP
 
@@ -8,30 +14,30 @@
 
 class ScoreCounter {
 public:
-	/*
-	this is the constructor for the scoreCounter class.
-	you give the position and the beginScore to the constructor.
-	the position is the place where the score will be on the window.
-	the beginScore will be the score that will be showed when the windows is opened.
+	/**
+	*\brief this is the constructor for the scoreCounter class.
+	*\details initialises the scoreCounter class.
+	*\param position the position of the score counter.
+	*\param beginscore the start score.
 	*/
 	ScoreCounter(sf::Vector2f position, int beginScore = 0);
 
-	/*
-	the draw methode draws the score to the window.
-	with it's currect values. when the values change you have to draw it again.
-	you give a window to the draw methode to let it know in which window you want to draw.
+	/** \brief Draws the ScoreCounter
+	* \details Draws the ScoreCounter on the sf::RenderWindow it gets by reference.
+	* \param window the sf::RenderWindow reference.
+	* \param position the position of the scorecounter.
 	*/
 	static void draw(sf::RenderWindow & window, sf::Vector2f position);
 
-	/*
-	the add methode adds the score.
-	you give a score to the methode. which is the value of the increase of the current score.
+	/** \brief increases the score
+	* \details increases the score by its amount in the parameter.
+	* \param score the amount of points you want to add.
 	*/
 	static void increase(int score);
 
-	/*
-	the lower methode lowers the score.
-	you give a score to the methode. which is the value of the decrease of the current score.
+	/** \brief decrease the score
+	* \details decrease the score by its amount in the parameter.
+	* \param score the amount of points you want to deduct.
 	*/
 	static void decrease(int score);
 

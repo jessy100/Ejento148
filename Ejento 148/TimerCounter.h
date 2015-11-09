@@ -1,3 +1,9 @@
+/*!
+*   @author     Kevin Damen
+*   @project    Themaopdracht 5, Ejento 148
+*   @brief     The code to show the time counter.
+*/
+
 #ifndef _TIMERCOUNTER_HPP
 #define _TIMERCOUNTER_HPP
 
@@ -8,23 +14,24 @@
 
 class TimerCounter {
 public:
-	/*
-	constructor for the timerscreen class.
-	you give a position to the constructor.
-	for the place where the timer will be standing on the play window.
+	/**
+	* \brief constructor for the TimerCounter class.
+	* \details initialises the TimerCounter class
+	* \param position for the place where the timer will be standing on the play window.
 	*/
 	TimerCounter(sf::Vector2f position);
 
-	/*
-	the draw methode draws the timer to the window.
-	with it's currect values. when the values change you have to draw it again.
-	you give a window to the draw methode to let it know in which window you want to draw.
+	/**
+	* \brief the draw method draws the timer to the window.
+	* \details draw the timer to the window with it's currect values. when the values change you have to draw it again.
+	* \param RenderWindow the window to draw on.
+	* \param position the position where the timer is drawn.
 	*/
 	void draw(sf::RenderWindow & window, sf::Vector2f position);
 
 	/*
-	in the timer methode will the timer be operated.
-	without this methode the timer won't work.
+	* \brief The actual timer.
+	* \details starts the clock and updates it.
 	*/
 	void timer();
 

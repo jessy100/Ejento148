@@ -64,7 +64,3 @@ void WebScore::saveScore(std::string name, std::string score, std::string tijd) 
 		std::cout << "An error occured while retrieving scores: " << status;
 	}
 }
-
-void WebScore::draw(sf::RenderWindow &window) {
-
-}
